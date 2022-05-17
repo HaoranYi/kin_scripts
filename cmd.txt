@@ -36,4 +36,15 @@ sudo systemctl --no-pager status sol
 // config service
 sudo systemctl | grep sol
 sudo systemctl edit sol
-/
+
+
+// check syslog for crash
+sudo less /var/log/syslog
+
+// gclound snapshot storage
+https://cloud.google.com/storage/docs/gsutil_install#deb
+gsutil cp gs://kin-snapshots/genesis/* .
+gsutil cp gs://kin-snapshots/snapshot/snapshot-152000-4DBJcbqvTk9UaUabwrTECNPTnZc4CK7kB2pTZjT9jgVu.tar.zst .
+gsutil cp gs://kin-snapshots/bin/solana-validator .
+
+
