@@ -1,4 +1,4 @@
-kin simulation
+## kin simulation
 baremetal machine
 https://docs.google.com/spreadsheets/d/1CcRQa9WWnkY_3fmGvXb5_IsR1Ik4nWnchxgVGUCz8AA/edit?usp=sharing
 usr: sol
@@ -47,7 +47,7 @@ gsutil cp gs://kin-snapshots/genesis/* .
 gsutil cp gs://kin-snapshots/snapshot/snapshot-152000-4DBJcbqvTk9UaUabwrTECNPTnZc4CK7kB2pTZjT9jgVu.tar.zst .
 gsutil cp gs://kin-snapshots/bin/solana-validator .
 
-// service config file 
+## service config file 
 sol@dev-server-ny5:~$ cat /etc/systemd/system/sol.service
 [Unit]
 Description=Solana Validator
@@ -66,4 +66,23 @@ ExecStart=/home/sol/bin/validator.sh
 
 [Install]
 WantedBy=multi-user.target
+
+## ledger tool command
+~/solana-ledger-tool --ledger /home/sol/ledger/ create-snapshot 131030 >& 131030.log
+~/solana-ledger-tool --ledger /home/sol/ledger/ verify --allow-dead-slots --accounts-db-skip-shrink --no-os-memory-stats-reporting --halt-at-slot 131040
+
+// pattern to grep
+grep "bank_frozen" 131040.1.10.da11.log
+grep "bank frozen" 131040.1.10.da11.log
+grep "bank frozen\|without_index" 131040.1.10.da11.log
+grep "bank frozen\|without_index: slot" 131040.1.10.da11.log
+grep "bank frozen\|without_index: slot" 131040.kin.log
+grep 131040 solana-validator-AYJDiE3wgw5eanU4qJ4qfkB8vrHVEiBMTqXLbA9hUTaW.log
+grep " bank frozen: 131040 hash:" solana-validator-AYJDiE3wgw5eanU4qJ4qfkB8vrHVEiBMTqXLbA9hUTaW.log
+grep "bank frozen\|without_index: slot" 131040.kin.log
+grep "failed to match" solana-validator-AYJDiE3wgw5eanU4qJ4qfkB8vrHVEiBMTqXLbA9hUTaW.log
+
+
+~/solana-ledger-tool --ledger ~/131039_ledger/ copy --starting-slot 131039 --ending-slot 131040 --target-db ~/ledger
+~/solana-ledger-tool --ledger /home/sol/ledger/ verify --allow-dead-slots --accounts-db-skip-shrink --halt-at-slot 131040 >& 131040.after_copy.log
 
