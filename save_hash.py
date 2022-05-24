@@ -5,7 +5,7 @@ import time
 import re
 
 last = 0
-pattern = '.*slot: (\d+),.*, bank hash: (.*)$'
+pattern = re.compile('.*slot: (\d+),.*, bank hash: (.*)$')
 
 f = open('bank_hash.txt', 'a')
 while True:
