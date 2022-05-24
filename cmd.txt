@@ -8,6 +8,7 @@ plink -batch ssh@myserver /etc/backups/do-backup.sh
 pscp local_file user@thor.cs.wmich.edu:/home/path_to_the_folder/
 
 // gensis commandline argument???
+./multinode-demo/setup.sh solana-genesis
 
  Waiting for 80% of activated stake at slot 1 to be in gossip... 
 
@@ -86,3 +87,9 @@ grep "failed to match" solana-validator-AYJDiE3wgw5eanU4qJ4qfkB8vrHVEiBMTqXLbA9h
 ~/solana-ledger-tool --ledger ~/131039_ledger/ copy --starting-slot 131039 --ending-slot 131040 --target-db ~/ledger
 ~/solana-ledger-tool --ledger /home/sol/ledger/ verify --allow-dead-slots --accounts-db-skip-shrink --halt-at-slot 131040 >& 131040.after_copy.log
 
+restart 2022/5/23:
+Successfully created snapshot for slot 99273, hash 7LqrSQiZQHqaQWAoyWL86zxLCrKG1jh8vBeYwNBp3GzT: /home/sol/ledger/snapshot-99273-9XQgP53GH2bqHLvKGfAePHPAN9a1tNwYRo4s9EzoMfRw.tar.zst
+Shred version: 8321
+
+file://snapshots_backup/no_cap/snapshot-99273-9XQgP53GH2bqHLvKGfAePHPAN9a1tNwYRo4s9EzoMfRw.tar.zst
+gsutil cp gs://kin-snapshots/bank-hash/snapshot-99273-9XQgP53GH2bqHLvKGfAePHPAN9a1tNwYRo4s9EzoMfRw.tar.zst .
