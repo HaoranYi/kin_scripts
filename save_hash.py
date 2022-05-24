@@ -17,7 +17,7 @@ while True:
         slot = int(m.group(1))
         bank_hash = m.group(2)
 
-        if slot >= last:
+        if slot > last:
             print line
             f.write(line)
             f.write('{} {}'.format(slot, bank_hash))
