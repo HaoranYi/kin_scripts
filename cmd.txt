@@ -93,3 +93,28 @@ Shred version: 8321
 
 file://snapshots_backup/no_cap/snapshot-99273-9XQgP53GH2bqHLvKGfAePHPAN9a1tNwYRo4s9EzoMfRw.tar.zst
 gsutil cp gs://kin-snapshots/bank-hash/snapshot-99273-9XQgP53GH2bqHLvKGfAePHPAN9a1tNwYRo4s9EzoMfRw.tar.zst .
+
+restart 2022/5/31
+total lamport mismatch
+~/solana-ledger-tool --ledger /home/sol/ledger/ accounts 
+~/solana-ledger-tool --ledger /home/sol/ledger/ capitalization 
+
+syslog rotate
+sol@testnet-kin-rpc-bm-2:~$ ls -l /var/log/syslog*
+-rw-r----- 1 syslog adm 1680188 May 31 12:48 /var/log/syslog
+-rw-r----- 1 syslog adm 3248702 May 31 00:00 /var/log/syslog.1
+-rw-r----- 1 syslog adm  772941 May 30 00:00 /var/log/syslog.2.gz
+-rw-r----- 1 syslog adm  642416 May 29 00:00 /var/log/syslog.3.gz
+-rw-r----- 1 syslog adm  723526 May 28 00:00 /var/log/syslog.4.gz
+-rw-r----- 1 syslog adm  668958 May 27 00:00 /var/log/syslog.5.gz
+-rw-r----- 1 syslog adm  579668 May 26 00:00 /var/log/syslog.6.gz
+-rw-r----- 1 syslog adm  540877 May 25 00:00 /var/log/syslog.7.gz
+
+bm2 restart 2022/6/3
+snapshot-1708971-5pvJvFbMKwSF3bLmgwqwTLc68AXPTEzR6ZoCRbfeCbaR.tar.zst
+bank_hash: 3o6C44n9vxcb6V9R2u7sntH8KxEy5M2g1CaejZCCNhLh
+
+bm1/bm2 restart 2022/6/5
+sol@kin-validator-am6-1:~$ grep 2010782 bank_hash.txt
+[2022-06-06T00:03:04.239824954Z INFO  solana_runtime::accounts_background_service] Took bank snapshot. snapshot type: Some(IncrementalSnapshot(1994201)), slot: 2010782, accounts hash: 11111111111111111111111111111111, bank hash: FJb267uzBL9G9KejcoGxX7mv2DCWgA2ALQP4HUrecHin
+
