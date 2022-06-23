@@ -7,6 +7,9 @@ putty.exe -ssh sol@145.40.68.91
 plink -batch ssh@myserver /etc/backups/do-backup.sh
 pscp local_file user@thor.cs.wmich.edu:/home/path_to_the_folder/
 
+# use quote for env varibles
+pscp wipe_ledger.sh "sol@%kin2%:/home/sol/"
+
 // gensis commandline argument???
 ./multinode-demo/setup.sh solana-genesis
 
@@ -118,3 +121,19 @@ bm1/bm2 restart 2022/6/5
 sol@kin-validator-am6-1:~$ grep 2010782 bank_hash.txt
 [2022-06-06T00:03:04.239824954Z INFO  solana_runtime::accounts_background_service] Took bank snapshot. snapshot type: Some(IncrementalSnapshot(1994201)), slot: 2010782, accounts hash: 11111111111111111111111111111111, bank hash: FJb267uzBL9G9KejcoGxX7mv2DCWgA2ALQP4HUrecHin
 
+2022/6/14
+kin resart with 6/3 snapshot and kin_jun12_2022
+rm solana-validator && gsutil cp gs://kin-snapshots/bin/solana-validator.2022.6.12 solana-validator && chmod u+x 
+        WAIT_FOR_SUPERMAJORITY=1708971
+        EXPECTED_BANK_HASH=3o6C44n9vxcb6V9R2u7sntH8KxEy5M2g1CaejZCCNhLh
+
+
+2022/6/15
+dev2
+
+26EqJ47BBf6r4fXSfPdmop4yJLuK2YZ5pbGCkM4bvMgE
+
+ledger at epoch boundary
+da11 has a ledger that contains a mnb epoch crossing +/- 200 slots:
+~/src/solana/target/release/solana-ledger-tool verify --ledger /mnt/nvme1n1/ledger_rewards/
+dev1    4CTAFwtdoKd8b3W3HrjV9rhm2eZz4ES2NNfrapaRBZyj    145.40.77.67    dev-server-da11
