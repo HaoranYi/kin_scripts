@@ -40,7 +40,7 @@ sudo systemctl --no-pager status sol
 // config service
 sudo systemctl | grep sol
 sudo systemctl edit sol
-
+sol@dev-server-ny5:~$ less /etc/systemd/system/sol.service
 
 // check syslog for crash
 sudo less /var/log/syslog
