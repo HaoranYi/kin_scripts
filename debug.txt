@@ -1,0 +1,162 @@
+Both kin nodes, rpc nodes, and client nodes are running. But the client node
+report the following error. 
+
+"Transaction simulation failed: Error processing Instruction 4: Account data allocation exceeded the maximum accounts data size limit",
+
+Looks like we hit a limit on the account data allocation in transaction
+processing here. 
+
+https://github.com/solana-labs/solana/blob/master/program-runtime/src/accounts_data_meter.rs#L76-L87
+
+these datatype are 64bit, i.e. U64.max. Not sure why we can hit that limit.
+More likely there is a bug on the integer math, maybe overflow? 
+
+
+solana-validator.log.4:[2022-07-07T20:00:09.282821256Z ERROR solana_metrics::metrics] datapoint: tower_error error="Unable to restore tower: The tower is useless because of new hard fork: 99273"
+solana-validator.log.4:[2022-07-07T20:00:09.282814333Z ERROR solana_core::validator] Rebuilding a new tower from the latest vote account due to failed tower restore: The tower is useless because of new hard fork: 99273
+
+solana-validator.log.2:[2022-07-09T23:58:55.997665153Z ERROR solana_metrics::metrics] datapoint: panic program="validator" thread="main" one=1i message="panicked at 'Snapshot bank for slot 515905 failed to verify', /home/sol/src/solana/runtime/src/snapshot_utils.rs:952:9" location="/home/sol/src/solana/runtime/src/snapshot_utils.rs:952:9" version="\"1.11.2 (src:devbuild; feat:412316566)\""
+solana-validator.log.4:[2022-07-07T19:58:44.856933387Z ERROR solana_runtime::serde_snapshot] historical roots len: 75004
+
+
+debug stall (2022/7/15)
+=================
+
+failure from wed:
+ny5-1
+[2022-07-13T15:07:03.270875078Z INFO  solana_core::replay_stage] new root 262244
+
+da11-1
+[2022-07-13T15:07:03.389900406Z INFO  solana_core::replay_stage] new root 262244
+
+sg1-1
+[2022-07-13T15:07:01.688002935Z INFO  solana_core::replay_stage] new root 262239
+
+sol@kin-validator-ny5-1:~$ grep -A 13 "Latest known votes by vote pubkey: {" ~/logs/solana-validator.log.1 | grep -v "best path"
+[2022-07-13T15:07:34.438028775Z INFO  solana_core::heaviest_subtree_fork_choice] Latest known votes by vote pubkey: {
+        Dou12zNcGLyDeLcxeRGzQ2xBx1orSWg9AKyuWBgfKREp: ( sg1-1
+            262270,
+            JB34q4kABZJzo3gfYTKyzXme26K9pJ85AtdQXGtAMXx7,
+        ),
+        2TLD7hwoUvxS3ufmUNMsBvfaL8Q3XjhYmbvHJCoEuBke: ( am6
+            262356,
+            Ae62i3zWHWB1mAJTn1aCVPMerBnuMAA8i4ae311a1vH7,
+        ),
+        PmXohrohcmtKdeeeYygU4q9wSxujSJLmdVBEbmHhyXa: ( da11-1 (missing ny5-1)
+            262356,
+            Ae62i3zWHWB1mAJTn1aCVPMerBnuMAA8i4ae311a1vH7,
+        ),
+--
+
+sol@kin-validator-da11-1:~$ grep -A 13 "Latest known votes by vote pubkey: {" ~/logs/solana-validator.log.1 | grep -v "best path"
+[2022-07-13T15:07:34.484200871Z INFO  solana_core::heaviest_subtree_fork_choice] Latest known votes by vote pubkey: {
+        Dou12zNcGLyDeLcxeRGzQ2xBx1orSWg9AKyuWBgfKREp: ( sg1-1
+            262270,
+            JB34q4kABZJzo3gfYTKyzXme26K9pJ85AtdQXGtAMXx7,
+        ),
+        2TLD7hwoUvxS3ufmUNMsBvfaL8Q3XjhYmbvHJCoEuBke: ( am6
+            262356,
+            Ae62i3zWHWB1mAJTn1aCVPMerBnuMAA8i4ae311a1vH7,
+        ),
+        PmXohrohcmtKdeeeYygU4q9wSxujSJLmdVBEbmHhyXa: ( da11-1 (missing ny5-1)
+            262356,
+            Ae62i3zWHWB1mAJTn1aCVPMerBnuMAA8i4ae311a1vH7,
+        ),
+--
+
+sol@kin-validator-sg1-1:~$ grep -A 13 "Latest known votes by vote pubkey: {" ~/logs/solana-validator.log.1 | grep -v "best path"
+[2022-07-13T15:07:34.058271065Z INFO  solana_core::heaviest_subtree_fork_choice] Latest known votes by vote pubkey: {
+        2TLD7hwoUvxS3ufmUNMsBvfaL8Q3XjhYmbvHJCoEuBke: ( am6
+            262350,
+            11111111111111111111111111111111,
+        ),
+        PmXohrohcmtKdeeeYygU4q9wSxujSJLmdVBEbmHhyXa: ( da11-1
+            262350,
+            11111111111111111111111111111111,
+        ),
+        Dou12zNcGLyDeLcxeRGzQ2xBx1orSWg9AKyuWBgfKREp: ( sg1-1 (missing ny5-1)
+            262270,
+            11111111111111111111111111111111,
+        ),
+
+
+[2022-07-15T13:14:42.737862462Z INFO  solana_metrics::metrics] datapoint: replay-loop-timing-stats total_elapsed_us=1115000i collect_frozen_banks_elapsed=133i compute_bank_stats_elapsed=1143i select_vote_and_reset_forks_elapsed=18i start_leader_elapsed=479i reset_bank_elapsed=75i voting_elapsed=399i select_forks_elapsed=8i compute_slot_stats_elapsed=13i generate_new_bank_forks_elapsed=8001i replay_active_banks_elapsed=116910i process_gossip_duplicate_confirmed_slots_elapsed=232i process_unfrozen_gossip_verified_vote_hashes_elapsed=10i wait_receive_elapsed=976952i heaviest_fork_failures_elapsed=0i bank_count=2i process_duplicate_slots_elapsed=4i repair_correct_slots_elapsed=0i retransmit_not_propagated_elapsed=17i generate_new_bank_forks_read_lock_us=0i generate_new_bank_forks_get_slots_since_us=7391i generate_new_bank_forks_loop_us=425i generate_new_bank_forks_write_lock_us=9i replay_blockstore_us=110920i
+[2022-07-15T13:14:43.422044092Z INFO  solana_core::replay_stage] voting: 262258 0
+[2022-07-15T13:14:43.422146627Z INFO  solana_core::replay_stage] new root 262227
+[2022-07-15T13:14:43.423124079Z INFO  solana_core::replay_stage] new fork:262259 parent:262258 root:262227        
+
+no more replay-loop-timing-stats
+
+voting debug
+
+machine              / ip             / node_id                                      / vote_id
+kin-validator-am6-1  / 145.40.68.91   / 31fxZovs3gBKVVTtC2VJUuKeVoq6mQkLjWnicWhErQ4f / 2TLD7hwoUvxS3ufmUNMsBvfaL8Q3XjhYmbvHJCoEuBke
+kin-validator-da11-1 / 145.40.76.233  / Edfkf9gpC7KpnkNdKRPmseCtkE1zY8fUVRJMbiLYKKdK / PmXohrohcmtKdeeeYygU4q9wSxujSJLmdVBEbmHhyXa
+kin-validator-ny5-1  / 147.75.74.211  / 2k31vk7hPiu2T9fJzuunc6tmaE57P7wt6tFoGK5A7k47 / DJuHQCQrvPRYhNsqTFyvfEEpzypHdBibeidkL5VqSsCx
+kin-validator-sg1-1  / 145.40.117.153 / 3cVWsRiTXD99BXNhzXs7Gkm3YBhCDrMQWnLern8B7TrD / Dou12zNcGLyDeLcxeRGzQ2xBx1orSWg9AKyuWBgfKREp
+
+After freezing bank 262351:
+
+[2022-07-15T13:15:18.622118199Z INFO  solana_runtime::bank] bank frozen: 262351 hash: 4LtfF8Bf5CPyoBVgdAposn8BL7MD12zmLpAhro1x8yGm accounts_delta: 8XkzWCQAE8iaxNrgbmFm8E1y6BnsTvF4jzJ8vLKNpWhR signature_count: 614 last_blockhash: F23Lq9h6cZFi6qUuu7EtSDvfxRFUgYxpcLbe7rFv1V68 capitalization: 1000252096497665556
+[2022-07-15T13:15:18.622248888Z INFO  solana_core::heaviest_subtree_fork_choice] Latest known votes by vote pubkey: {
+        Dou12zNcGLyDeLcxeRGzQ2xBx1orSWg9AKyuWBgfKREp: (
+            262258,
+            4XftiekugjiFDWZSMXvHMo9kVA1MQErKmRPEE1eamuNp,
+        ),
+        2TLD7hwoUvxS3ufmUNMsBvfaL8Q3XjhYmbvHJCoEuBke: (
+            262349,
+            CyvmyPTegyHDFbo6gaCDrE7cHLHvbot1iH8U9iZ8csrU,
+        ),
+        PmXohrohcmtKdeeeYygU4q9wSxujSJLmdVBEbmHhyXa: (
+            262349,
+            CyvmyPTegyHDFbo6gaCDrE7cHLHvbot1iH8U9iZ8csrU,
+        ),
+
+After freezing bank 275371:
+
+[2022-07-15T15:39:11.386843183Z INFO  solana_runtime::bank] bank frozen: 275371 hash: AEbzfJUGbuQGPvT9pea68aDMp79GLazQ48t7dw7jk83V accounts_delta: a9DcvkJD33dKWXAyqkzcbzM4DbLrFuRLHBCzjt2n5XV signature_count: 1 last_blockhash: 9XwTNM12zBLQZrthgGHjWzbf2uLWbfiWYzGy9rBbchrd capitalization: 1000252096396748056
+[2022-07-15T15:39:11.388585986Z INFO  solana_core::heaviest_subtree_fork_choice] Latest known votes by vote pubkey: {
+        Dou12zNcGLyDeLcxeRGzQ2xBx1orSWg9AKyuWBgfKREp: (
+            262258,
+            4XftiekugjiFDWZSMXvHMo9kVA1MQErKmRPEE1eamuNp,
+        ),
+        2TLD7hwoUvxS3ufmUNMsBvfaL8Q3XjhYmbvHJCoEuBke: (
+            272939,
+            4sSxM6xTqXxVrnm1Ti61VCDBq4j1GbBE5zyVFqjvdYrg,
+        ),
+        PmXohrohcmtKdeeeYygU4q9wSxujSJLmdVBEbmHhyXa: (
+            275362,
+            Cc5rL5gi47yNGwp8sYvmvzaSFDUGzZ37ZTJ1oeDCo4Av,
+        ),
+(edited)
+
+
+2022-07-15T13:14:46.975544152Z INFO  solana_core::replay_stage] voting: 262268 0 <<<<< Decided to vote here>>>>
+[2022-07-15T13:14:46.975559852Z INFO  solana_metrics::metrics] datapoint: tower-vote latest=262268i root=262231i
+[2022-07-15T13:14:46.975695940Z INFO  solana_metrics::metrics] datapoint: bank-forks_set_root elapsed_ms=0i slot=262231i total_parent_banks=2i total_banks=38i total_squash_cache_ms=0i total_squash_accounts_ms=0i total_squash_accounts_index_ms=0i total_squash_accounts_cache_ms=0i total_squash_accounts_store_ms=0i total_snapshot_ms=0i tx_count=210i prune_non_rooted_ms=0i drop_parent_banks_ms=0i prune_slots_ms=0i prune_remove_ms=0i dropped_banks_len=0i accounts_data_len=46187793466i
+[2022-07-15T13:14:46.975710818Z INFO  solana_core::replay_stage] new root 262231
+[2022-07-15T13:14:46.975721869Z INFO  solana_core::replay_stage] vote bank: Some((262268, SameFork)) reset bank: 262268
+[2022-07-15T13:14:46.975733331Z INFO  solana_metrics::metrics] datapoint: blocks_produced num_blocks_on_fork=162990i num_dropped_blocks_on_fork=5i
+[2022-07-15T13:14:46.975740865Z INFO  solana_poh::poh_recorder] reset poh from: F2nFa3NQspfcvhVfugquv6dvHUViDbJTL25RWcNsozbr,16785216,262268 to: F2nFa3NQspfcvhVfugquv6dvHUViDbJTL25RWcNsozbr,262268
+[2022-07-15T13:14:46.975757056Z INFO  solana_core::replay_stage] 2k31vk7hPiu2T9fJzuunc6tmaE57P7wt6tFoGK5A7k47 reset PoH to tick 16785216 (within slot 262268). My next leader slot is 262269 <<<Proof this is from ny5, validator id is 2k31vk7hPiu2T9fJzuunc6tmaE57P7wt6tFoGK5A7k47>>>
+
+[issue] one validator is configured to be no-voting. 3/4 are voting. fault
+tolerance is 1. And one validator stuck. then the cluster stalled.
+- look at "latest know votes" to check for missing vote
+- look at replay-loop-timing-stats to check for progress of replay
+- look at command line args --no-vote
+
+
+- build release with debug info
+    >> RUSTFLAGS=-g cargo build --release
+
+sol@kin-validator-am6-1:~/src/solana$ ls -l target/release/solana-validator
+-rwxrwxr-x 2 sol sol 828757696 Jul 18 17:55 target/release/solana-validator
+
+# strip debug symbol from binary
+    >> strip target/release/solana-validator
+
+# check for debug symbol
+    >> file target/release/solana-validator
+    >> objdump --sym target/release/solana-validator
+

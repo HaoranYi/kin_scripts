@@ -137,3 +137,13 @@ ledger at epoch boundary
 da11 has a ledger that contains a mnb epoch crossing +/- 200 slots:
 ~/src/solana/target/release/solana-ledger-tool verify --ledger /mnt/nvme1n1/ledger_rewards/
 dev1    4CTAFwtdoKd8b3W3HrjV9rhm2eZz4ES2NNfrapaRBZyj    145.40.77.67    dev-server-da11
+
+2022/7/13
+- select log between 15:03 - 15:05
+    // next: skip abc
+    awk '/abc/{flag=1;next}/mno/{flag=0}flag' file
+    // skip the end
+    awk '/2022-07-13T15:03/{flag=1}/2022-07-13T15:05/{flag=0}flag' log
+- print inclusive
+    awk '/abc/{a=1}/mno/{print;a=0}a' file
+    awk '/abc/{a=1} a; /mno/{a=0}' file
