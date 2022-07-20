@@ -160,3 +160,154 @@ sol@kin-validator-am6-1:~/src/solana$ ls -l target/release/solana-validator
     >> file target/release/solana-validator
     >> objdump --sym target/release/solana-validator
 
+
+
+thread 157   pubkey=0x7f5105502f20
+292         fn merge_slot_lists(in_mem: &AccountMapEntryInner<T>, disk: Arc<AccountMapEntryInner<T>>) {
+293             let mut slot_list = in_mem.slot_list.write().unwrap();  <--- stop
+
+#0  futex_abstimed_wait (private=<optimized out>, abstime=0x0, clockid=0, expected=3, futex_word=0x7f6e902173ec) at ../sysdeps/nptl/futex-internal.h:284
+#1  __pthread_rwlock_wrlock_full (abstime=0x0, clockid=0, rwlock=0x7f6e902173e0) at pthread_rwlock_common.c:731
+#2  __GI___pthread_rwlock_wrlock (rwlock=0x7f6e902173e0) at pthread_rwlock_wrlock.c:27
+#3  0x000055e3d5674305 in std::sys::unix::rwlock::RWLock::write (self=0x7f6e902173e0) at /rustc/9d1b2106e23b1abd32fce1f17267604a5102f57a/library/std/src/sys/unix/rwlock.rs:75
+#4  std::sys_common::rwlock::MovableRWLock::write (self=<optimized out>) at /rustc/9d1b2106e23b1abd32fce1f17267604a5102f57a/library/std/src/sys_common/rwlock.rs:100
+#5  std::sync::rwlock::RwLock<T>::write (self=<optimized out>) at /rustc/9d1b2106e23b1abd32fce1f17267604a5102f57a/library/std/src/sync/rwlock.rs:294
+#6  solana_runtime::in_mem_accounts_index::InMemAccountsIndex<T>::merge_slot_lists (in_mem=0x7f6e90217440, disk=...) at runtime/src/in_mem_accounts_index.rs:293
+#7  0x000055e3d5664b70 in solana_runtime::in_mem_accounts_index::InMemAccountsIndex<T>::get_internal::{{closure}} (entry=...) at runtime/src/in_mem_accounts_index.rs:246
+#8  solana_runtime::in_mem_accounts_index::InMemAccountsIndex<T>::get_only_in_mem (self=0x7f6e3a337310, pubkey=<optimized out>, callback=...) at runtime/src/in_mem_accounts_index.rs:201
+#9  solana_runtime::in_mem_accounts_index::InMemAccountsIndex<T>::get_internal (self=0x7f6e3a337310, pubkey=<optimized out>, callback=...) at runtime/src/in_mem_accounts_index.rs:236
+#10 solana_runtime::accounts_index::AccountsIndex<T>::scan::{{closure}} (pubkey=0x7f5105502f20) at runtime/src/accounts_index.rs:1380
+#11 <core::slice::iter::Iter<T> as core::iter::traits::iterator::Iterator>::for_each (self=..., f=...) at /rustc/9d1b2106e23b1abd32fce1f17267604a5102f57a/library/core/src/slice/iter/macros.rs:211
+#12 solana_runtime::accounts_index::AccountsIndex<T>::scan (self=<optimized out>, pubkeys=..., callback=...) at runtime/src/accounts_index.rs:1373
+#13 0x000055e3d56daaf3 in solana_runtime::accounts_db::AccountsDb::clean_accounts::{{closure}}::{{closure}} (pubkeys=...) at runtime/src/accounts_db.rs:2551
+#14 core::ops::function::impls::<impl core::ops::function::FnMut<A> for &F>::call_mut (self=<optimized out>, args=...) at /rustc/9d1b2106e23b1abd32fce1f17267604a5102f57a/library/core/src/ops/function.rs:247
+#15 0x000055e3d55c0ede in core::iter::adapters::map::map_fold::{{closure}} (elt=..., acc=...) at /rustc/9d1b2106e23b1abd32fce1f17267604a5102f57a/library/core/src/iter/adapters/map.rs:84
+
+
+294             let slot_list2 = disk.slot_list.write().unwrap();
+295
+
+thread 130
+(gdb) thread 130
+[Switching to thread 130 (Thread 0x7f6e339ff700 (LWP 828550))]
+#0  futex_abstimed_wait (private=0, abstime=0x0, clockid=0, expected=2, futex_word=<optimized out>) at ../sysdeps/nptl/futex-internal.h:284
+284     in ../sysdeps/nptl/futex-internal.h
+(gdb) where
+#0  futex_abstimed_wait (private=0, abstime=0x0, clockid=0, expected=2, futex_word=<optimized out>) at ../sysdeps/nptl/futex-internal.h:284
+#1  __pthread_rwlock_wrlock_full (abstime=0x0, clockid=0, rwlock=0x7f6e902173e0) at pthread_rwlock_common.c:830
+#2  __GI___pthread_rwlock_wrlock (rwlock=0x7f6e902173e0) at pthread_rwlock_wrlock.c:27
+#3  0x000055e3d5674305 in std::sys::unix::rwlock::RWLock::write (self=0x7f6e902173e0) at /rustc/9d1b2106e23b1abd32fce1f17267604a5102f57a/library/std/src/sys/unix/rwlock.rs:75
+#4  std::sys_common::rwlock::MovableRWLock::write (self=<optimized out>) at /rustc/9d1b2106e23b1abd32fce1f17267604a5102f57a/library/std/src/sys_common/rwlock.rs:100
+#5  std::sync::rwlock::RwLock<T>::write (self=<optimized out>) at /rustc/9d1b2106e23b1abd32fce1f17267604a5102f57a/library/std/src/sync/rwlock.rs:294
+#6  solana_runtime::in_mem_accounts_index::InMemAccountsIndex<T>::merge_slot_lists (in_mem=0x7f6e90217440, disk=...) at runtime/src/in_mem_accounts_index.rs:293
+#7  0x000055e3d56788cd in solana_runtime::in_mem_accounts_index::InMemAccountsIndex<T>::flush_internal (self=0x7f6e3a337310, can_advance_age=<optimized out>, flush_guard=<optimized out>) at runtime/src/in_mem_accounts_index.rs:1195
+#8  solana_runtime::in_mem_accounts_index::InMemAccountsIndex<T>::flush (self=<optimized out>, can_advance_age=false) at runtime/src/in_mem_accounts_index.rs:962
+#9  0x000055e3d555a8fe in solana_runtime::bucket_map_holder::BucketMapHolder<T>::background (self=0x7f6ea42b5010, exit=..., in_mem=..., can_advance_age=false) at runtime/src/bucket_map_holder.rs:355
+#10 0x000055e3d55dce5b in solana_runtime::accounts_index_storage::BgThreads::new::{{closure}}::{{closure}} () at runtime/src/accounts_index_storage.rs:77
+#11 std::sys_common::backtrace::__rust_begin_short_backtrace (f=...) at /rustc/9d1b2106e23b1abd32fce1f17267604a5102f57a/library/std/src/sys_common/backtrace.rs:123
+#12 0x000055e3d553cb18 in std::thread::Builder::spawn_unchecked::{{closure}}::{{closure}} () at /rustc/9d1b2106e23b1abd32fce1f17267604a5102f57a/library/std/src/thread/mod.rs:477
+#13 <core::panic::unwind_safe::AssertUnwindSafe<F> as core::ops::function::FnOnce<()>>::call_once (self=..., _args=<optimized out>) at /rustc/9d1b2106e23b1abd32fce1f17267604a5102f57a/library/core/src/panic/unwind_safe.rs:271
+#14 std::panicking::try::do_call (data=<optimized out>) at /rustc/9d1b2106e23b1abd32fce1f17267604a5102f57a/library/std/src/panicking.rs:406
+#15 std::panicking::try (f=...) at /rustc/9d1b2106e23b1abd32fce1f17267604a5102f57a/library/std/src/panicking.rs:370
+#16 std::panic::catch_unwind (f=...) at /rustc/9d1b2106e23b1abd32fce1f17267604a5102f57a/library/std/src/panic.rs:133
+#17 std::thread::Builder::spawn_unchecked::{{closure}} () at /rustc/9d1b2106e23b1abd32fce1f17267604a5102f57a/library/std/src/thread/mod.rs:476
+#18 core::ops::function::FnOnce::call_once{{vtable-shim}} () at /rustc/9d1b2106e23b1abd32fce1f17267604a5102f57a/library/core/src/ops/function.rs:227
+#19 0x000055e3d6016743 in <alloc::boxed::Box<F,A> as core::ops::function::FnOnce<Args>>::call_once () at /rustc/9d1b2106e23b1abd32fce1f17267604a5102f57a/library/alloc/src/boxed.rs:1854
+#20 <alloc::boxed::Box<F,A> as core::ops::function::FnOnce<Args>>::call_once () at /rustc/9d1b2106e23b1abd32fce1f17267604a5102f57a/library/alloc/src/boxed.rs:1854
+#21 std::sys::unix::thread::Thread::new::thread_start () at library/std/src/sys/unix/thread.rs:108
+#22 0x00007f6ea4b08609 in start_thread (arg=<optimized out>) at pthread_create.c:477
+
+
+
+292         fn merge_slot_lists(in_mem: &AccountMapEntryInner<T>, disk: Arc<AccountMapEntryInner<T>>) {
+293             let mut slot_list = in_mem.slot_list.write().unwrap();  <--- stop
+294             let slot_list2 = disk.slot_list.write().unwrap();
+295
+296             for (slot, new_entry) in slot_list2.iter().copied() {
+297                 if !slot_list.iter().map(|x| x.0.to_owned()).any(|x| x == slot) {
+
+
+
+
+thread 32
+(gdb) where
+#0  futex_wait_cancelable (private=<optimized out>, expected=0, futex_word=0x7f6ea42522cc) at ../sysdeps/nptl/futex-internal.h:183
+#1  __pthread_cond_wait_common (abstime=0x0, clockid=0, mutex=0x7f6ea4252278, cond=0x7f6ea42522a0) at pthread_cond_wait.c:508
+#2  __pthread_cond_wait (cond=0x7f6ea42522a0, mutex=0x7f6ea4252278) at pthread_cond_wait.c:647
+#3  0x00007f6ea4c20e30 in std::condition_variable::wait(std::unique_lock<std::mutex>&) () from /lib/x86_64-linux-gnu/libstdc++.so.6
+#4  0x000055e3d526a79b in rocksdb::ThreadPoolImpl::Impl::BGThread (this=0x7f6ea4252200, thread_id=24) at rocksdb/util/threadpool_imp.cc:194
+#5  0x000055e3d526ab68 in rocksdb::ThreadPoolImpl::Impl::BGThreadWrapper (arg=0x7f6ea423ea10) at rocksdb/util/threadpool_imp.cc:307
+#6  0x00007f6ea4c26de4 in ?? () from /lib/x86_64-linux-gnu/libstdc++.so.6
+#7  0x00007f6ea4b08609 in start_thread (arg=<optimized out>) at pthread_create.c:477
+#8  0x00007f6ea48b7163 in umount2 () at ../sysdeps/unix/sysv/linux/umount2.S:8
+#9  0x0000000000000000 in ?? ()
+
+
+
+
+gsutil cp gs://kin-snapshots/snapshot2/snapshot-149303-5gWBBbxL96HjAVPpbsaYZJWAz6GPgAGKLZ2pXuX1vMM2.tar.zst . && cp snapshot-149303-5gWBBbxL96HjAVPpbsaYZJWAz6GPgAGKLZ2pXuX1vMM2.tar.zst ledger/
+
+149203 5sAGpNWhvBSGKnGjzTHvRQkg7qYqgBDVG3d7RKx1NMoJ[2022-06-21T21:07:43.150804921Z INFO  solana_runtime::accounts_background_service] Took bank snapshot. snapshot type: Some(FullSnapshot), slot: 149303, accounts hash: 11111111111111111111111111111111, bank hash: CPxySecVVTSk3vXkqmGmTn8fh5J1VNK9b1y8PsqXjwwK
+
+        WAIT_FOR_SUPERMAJORITY=149303
+        EXPECTED_BANK_HASH=CPxySecVVTSk3vXkqmGmTn8fh5J1VNK9b1y8PsqXjwwK 
+
+With new binary: deadlock in 10 mins
+
+[2022-07-20T17:18:29.394991963Z INFO  solana_core::replay_stage] new root 100716
+
+sol@kin-validator-am6-1:~$ grep deadlocked logs/solana-validator.log
+[2022-07-20T17:09:57.267787828Z ERROR solana_runtime::in_mem_accounts_index] deadlocked on 9suiYYTr563EZ7pLza8kBkNk3BXq4BvEFtSYYjwgr68w
+[2022-07-20T17:09:57.267787387Z ERROR solana_runtime::in_mem_accounts_index] deadlocked on 9svCP9Cr7ckxHc7KQ6ymWXYb7ov3mbjmbHpUyjHXygUq
+[2022-07-20T17:09:57.268092877Z ERROR solana_runtime::in_mem_accounts_index] deadlocked on 9svHTFC7ES6RckShhDAZjW3U2Trk1wBuDYBXuwpxGWCu
+[2022-07-20T17:09:57.268091855Z ERROR solana_runtime::in_mem_accounts_index] deadlocked on 9sudmvPv4qLh8mq5otNHnc7qw66pkMwrYbvx4Agrmb78
+[2022-07-20T17:09:57.268194580Z ERROR solana_runtime::in_mem_accounts_index] deadlocked on 9suiYYTr563EZ7pLza8kBkNk3BXq4BvEFtSYYjwgr68w
+[2022-07-20T17:09:57.268205471Z ERROR solana_runtime::in_mem_accounts_index] deadlocked on 9svCP9Cr7ckxHc7KQ6ymWXYb7ov3mbjmbHpUyjHXygUq
+[2022-07-20T17:09:57.268416752Z ERROR solana_runtime::in_mem_accounts_index] deadlocked on 9svPMrYxw8iN7ganqjgPjXstMFLdW6MudNNhbyhbGKoo
+[2022-07-20T17:09:57.268569893Z ERROR solana_runtime::in_mem_accounts_index] deadlocked on 9sv1naEBg2NBMMqBE4woKB7Ccg68Yn3cRmA7KxPhmKgb
+[2022-07-20T17:09:57.269025988Z ERROR solana_runtime::in_mem_accounts_index] deadlocked on 9suchQA5TDbDdmmJw7LYweZncfPLPez7Me5kiLaKyxtC
+[2022-07-20T17:09:57.269026259Z ERROR solana_runtime::in_mem_accounts_index] deadlocked on 9svDoTYXF5YgnNPu5tAqrWGd5JpF3kQeKTHJJxLVopad
+[2022-07-20T17:09:57.283094075Z ERROR solana_runtime::in_mem_accounts_index] deadlocked on 9sszFLz6JvAA2CPPRz4hcRbjNvxw86cGPsjCvZE7mHJE
+[2022-07-20T17:09:57.283122318Z ERROR solana_runtime::in_mem_accounts_index] deadlocked on 9ssvf1d1KQGShtwSiuLud2tjNGrzhsNMJTqP2wXS9eax
+[2022-07-20T17:09:57.283713541Z ERROR solana_runtime::in_mem_accounts_index] deadlocked on 9ssvhvyd4gyKGqVMtFVhWXR2JayW7Yui6YbjBrk6r6Fv
+[2022-07-20T17:09:57.283720193Z ERROR solana_runtime::in_mem_accounts_index] deadlocked on 9ssptGduSikUrsmFFJPQgK788UTDuqhiz2FT3VBuwHig
+[2022-07-20T17:09:57.284803039Z ERROR solana_runtime::in_mem_accounts_index] deadlocked on 9stFU45Jyt2CswGoN1J5KxniFdxY8TDt9aa2WLhAGX5P
+[2022-07-20T17:09:57.284832986Z ERROR solana_runtime::in_mem_accounts_index] deadlocked on 9sssYEyuQUhAd4Y8TWf46VoakiQTcMTTCKr9kgmwPSzr
+[2022-07-20T17:09:57.286081726Z ERROR solana_runtime::in_mem_accounts_index] deadlocked on 9srco8ieKZPwctPkNovcdFL2NyYVmypKiosZoWAp1vJY
+[2022-07-20T17:09:57.286456297Z ERROR solana_runtime::in_mem_accounts_index] deadlocked on 9srrGiQ63TWt9BVw1gCmLDSmbYN8GB159pGCeQ8FsT72
+[2022-07-20T17:10:35.623167449Z ERROR solana_runtime::in_mem_accounts_index] deadlocked on 9swF4DLqdiic6NWkdKQNrKNeb6avDCLUKfDtKF8wfsPk
+[2022-07-20T17:10:35.623164503Z ERROR solana_runtime::in_mem_accounts_index] deadlocked on 9svbMd49U1ciez1JYkCg8jcMsVEbLWF2oExDPUfRoxg5
+[2022-07-20T17:10:35.623164503Z ERROR solana_runtime::in_mem_accounts_index] deadlocked on 9sw8YRyw9Q9Lr9H6uYYN883eoUTY25MDVagpW9aPTd82
+[2022-07-20T17:10:35.623420038Z ERROR solana_runtime::in_mem_accounts_index] deadlocked on 9svmviLTThVTbSRqEH2bmZcvBi8LsniPn8YykZ1JC8kz
+[2022-07-20T17:10:35.623462018Z ERROR solana_runtime::in_mem_accounts_index] deadlocked on 9swF4DLqdiic6NWkdKQNrKNeb6avDCLUKfDtKF8wfsPk
+[2022-07-20T17:10:35.623473730Z ERROR solana_runtime::in_mem_accounts_index] deadlocked on 9svbMd49U1ciez1JYkCg8jcMsVEbLWF2oExDPUfRoxg5
+[2022-07-20T17:10:35.623485082Z ERROR solana_runtime::in_mem_accounts_index] deadlocked on 9sw8YRyw9Q9Lr9H6uYYN883eoUTY25MDVagpW9aPTd82
+
+Thread 557 (Thread 0x7fd543d9a700 (LWP 1745791)):
+#0  0x00005640621fd7ad in solana_runtime::in_mem_accounts_index::InMemAccountsIndex<T>::merge_slot_lists::{{closure}} (x=<optimized out>) at runtime/src/in_mem_accounts_index.rs:312
+        slot = <optimized out>
+#1  core::iter::traits::iterator::Iterator::any::check::{{closure}} (x=<optimized out>) at /rustc/7737e0b5c4103216d6fd8cf941b7ab9bdbaace7c/library/core/src/iter/traits/iterator.rs:2513
+        f = <optimized out>
+#2  core::iter::adapters::map::map_try_fold::{{closure}} (elt=0x7fd3818a0c00, acc=<optimized out>) at /rustc/7737e0b5c4103216d6fd8cf941b7ab9bdbaace7c/library/core/src/iter/adapters/map.rs:91
+        g = <optimized out>
+        f = <optimized out>
+#3  core::iter::traits::iterator::Iterator::try_fold (self=<optimized out>, init=<optimized out>, f=...) at /rustc/7737e0b5c4103216d6fd8cf941b7ab9bdbaace7c/library/core/src/iter/traits/iterator.rs:2109
+        accum = <optimized out>
+        x = <optimized out>
+        residual = <optimized out>
+        val = <optimized out>
+#4  <core::iter::adapters::map::Map<I,F> as core::iter::traits::iterator::Iterator>::try_fold (self=<optimized out>, init=<optimized out>, g=...) at /rustc/7737e0b5c4103216d6fd8cf941b7ab9bdbaace7c/library/core/src/iter/adapters/map.rs:117
+No locals.
+#5  core::iter::traits::iterator::Iterator::any (self=<optimized out>, f=...) at /rustc/7737e0b5c4103216d6fd8cf941b7ab9bdbaace7c/library/core/src/iter/traits/iterator.rs:2517
+No locals.
+#6  solana_runtime::in_mem_accounts_index::InMemAccountsIndex<T>::merge_slot_lists (in_mem=0x7fd388a0a2b0, disk=...) at runtime/src/in_mem_accounts_index.rs:312
+        slot = 100943
+        new_entry = <optimized out>
+        iter = core::iter::adapters::copied::Copied<core::slice::iter::Iter<(u64, solana_runtime::account_info::AccountInfo)>> {it: core::slice::iter::Iter<(u64, solana_runtime::account_info::AccountInfo)> {ptr: core::ptr::non_null::NonNull<(u64, solana_runtime::account_info::AccountInfo)> {pointer: 0x7fdb14441e30}, end: 0x7fdb14441fb0, _marker: core::marker::PhantomData<&(u64, solana_runtime::account_info::AccountInfo)>}}
+        slot_list2 = std::sync::rwlock::RwLockWriteGuard<alloc::vec::Vec<(u64, solana_runtime::account_info::AccountInfo), alloc::alloc::Global>> {lock: 0x7fd76f0cacb8, poison: std::sync::poison::Guard {panicking: false}}
+        slot_list = std::sync::rwlock::RwLockWriteGuard<alloc::vec::Vec<(u64, solana_runtime::account_info::AccountInfo), alloc::alloc::Global>> {lock: 0x7fd388a0a2b8, poison: std::sync::poison::Guard {panicking: false}}
+        lock = core::result::Result<std::sync::rwlock::RwLockWriteGuard<alloc::vec::Vec<(u64, solana_runtime::account_info::AccountInfo), alloc::alloc::Global>>, std::sync::poison::TryLockError<std::sync::rwlock::RwLockWriteGuard<alloc::vec::Vec<(u64, solana_runtime::account_info::AccountInfo), alloc::alloc::Global>>>>::Ok(std::sync::rwlock::RwLockWriteGuard<alloc::vec::Vec<(u64, solana_runtime::account_info::AccountInfo), alloc::alloc::Global>> {lock: 0x7fd388a0a2b8, poison: std::sync::poison::Guard {panicking: false}})
+        i = <optimized out>
+#7  0x00005640621fb503 in solana_runtime::in_mem_accounts_index::InMemAccountsIndex<T>::get_internal::{{closure}} (entry=...) at runtime/src/in_mem_accounts_index.rs:246
+
+

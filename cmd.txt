@@ -147,3 +147,26 @@ dev1    4CTAFwtdoKd8b3W3HrjV9rhm2eZz4ES2NNfrapaRBZyj    145.40.77.67    dev-serv
 - print inclusive
     awk '/abc/{a=1}/mno/{print;a=0}a' file
     awk '/abc/{a=1} a; /mno/{a=0}' file
+
+
+2022/7/18
+==========
+attach to running process
+>> gdb -p PID
+
+
+
+ gsutil cp /home/sol/stage/bin/solana-validator gs://kin-snapshots/bin/solana-validator 
+
+ gsutil cp gs://kin-snapshots/bin/solana-validator.2022.7.14 solana-validator && chmod u+x solana-validator
+
+
+ plink -batch sol@%kin1% "gsutil cp /home/sol/stage/bin/solana-validator gs://kin-snapshots/bin/solana-validator"
+ 
+ plink -batch sol@%kin1% "cd /home/sol/.local/share/solana/install/active_release/bin/ && gsutil cp gs://kin-snapshots/bin/solana-validator solana-validator && chmod u+x solana-validator"
+ plink -batch sol@%kin2% "cd /home/sol/.local/share/solana/install/active_release/bin/ && gsutil cp gs://kin-snapshots/bin/solana-validator solana-validator && chmod u+x solana-validator"
+ plink -batch sol@%kin3% "cd /home/sol/.local/share/solana/install/active_release/bin/ && gsutil cp gs://kin-snapshots/bin/solana-validator solana-validator && chmod u+x solana-validator"
+ plink -batch sol@%kin4% "cd /home/sol/.local/share/solana/install/active_release/bin/ && gsutil cp gs://kin-snapshots/bin/solana-validator solana-validator && chmod u+x solana-validator"
+ plink -batch sol@%rpc1% "cd /home/sol/ && gsutil cp gs://kin-snapshots/bin/solana-validator solana-validator && chmod u+x solana-validator"
+ plink -batch sol@%rpc2% "cd /home/sol/ && gsutil cp gs://kin-snapshots/bin/solana-validator solana-validator && chmod u+x solana-validator"
+
