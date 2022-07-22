@@ -252,3 +252,47 @@ gsutil cp gs://kin-snapshots/snapshot2/snapshot-149303-5gWBBbxL96HjAVPpbsaYZJWAz
         WAIT_FOR_SUPERMAJORITY=149303
         EXPECTED_BANK_HASH=CPxySecVVTSk3vXkqmGmTn8fh5J1VNK9b1y8PsqXjwwK 
 
+
+
+249172 8L6VTqVwNbA6HXtUDAt2XuV1mJbgs1gqhQYh2TB3ELG1[2022-07-21T13:09:46.873881904Z INFO  solana_runtime::accounts_background_service] Took bank snapshot. snapshot type: Some(FullSnapshot), slot: 249272, accounts hash: 11111111111111111111111111111111, bank hash: CXAgn48UD1voqsa39APV97Ckxwt27pTyJHLWagZJeMkU
+
+249272 CXAgn48UD1voqsa39APV97Ckxwt27pTyJHLWagZJeMkU[2022-07-21T13:10:24.802820608Z INFO  solana_runtime::accounts_background_service] Took bank snapshot. snapshot type: Some(IncrementalSnapshot(249272)), slot: 249372, accounts hash: 11111111111111111111111111111111, bank hash: 4fRjDL8hyiV3K73xpbeTjhwbAqFPP3VZYYWMXA3ozHc3
+
+new snapshot
+249272 CXAgn48UD1voqsa39APV97Ckxwt27pTyJHLWagZJeMkU
+snapshot-249272-GriCB8vEP45aCvWoaUqgKu3Hh9CrTRhHAqzE3tHXQEi1.tar.zst
+
+
+
+deadlocks:
+thread 163  <-- clean_accounts 0x7ff4e258ff70,
+    solana_runtime::in_mem_accounts_index::InMemAccountsIndex<T>::merge_slot_lists (in_mem=0x7ff4e258ff70, disk=Arc(strong=1, weak=0) = {...}) at runtime/src/in_mem_accounts_index.rs:300
+    0x000055ef01d1eeef in solana_runtime::accounts_db::AccountsDb::clean_accounts::{{closure}}::{{closure}} (pubkeys=...) at runtime/src/accounts_db.rs:2551
+        - get_internal
+        - merge_slot_lists
+
+thread 156 <-- clean_accounts 0x7ff4e2ce2ab0
+    ["runtime/src/in_mem_accounts_index.rs:1023"] = 0}
+    ["runtime/src/in_mem_accounts_index.rs:549"] = 1, ["runtime/src/in_mem_accounts_index.rs:296"] = 3}
+
+thread 128 <-- flush 0x7ff4e2ce2ab0
+    ["runtime/src/in_mem_accounts_index.rs:1023"] = 0}
+    ["runtime/src/in_mem_accounts_index.rs:549"] = 1, ["runtime/src/in_mem_accounts_index.rs:296"] = 3}
+     
+thread 126 <-- flush 0x7ff4e258ff70
+    ["runtime/src/in_mem_accounts_index.rs:1023"] = 0}
+    ["runtime/src/in_mem_accounts_index.rs:549"] = 1, ["runtime/src/in_mem_accounts_index.rs:296"] = 3}
+
+thread 73 <-- upsert
+
+two on same bins
+sol@kin-validator-sg1-1:~$ grep merge_slot gdb.txt
+#4  solana_runtime::in_mem_accounts_index::InMemAccountsIndex<T>::merge_slot_lists (in_mem=0x7ff4e258ff70, disk=...) at runtime/src/in_mem_accounts_index.rs:300
+#1  solana_runtime::in_mem_accounts_index::InMemAccountsIndex<T>::merge_slot_lists (in_mem=0x7ff4e2ce2ab0, disk=...) at runtime/src/in_mem_accounts_index.rs:300
+#0  0x000055ef01bcafc2 in solana_runtime::in_mem_accounts_index::InMemAccountsIndex<T>::merge_slot_lists (in_mem=0x7ff4e2ce2ab0, disk=...) at runtime/src/in_mem_accounts_index.rs:304
+#4  solana_runtime::in_mem_accounts_index::InMemAccountsIndex<T>::merge_slot_lists (in_mem=0x7ff4e258ff70, disk=...) at runtime/src/in_mem_accounts_index.rs:300
+
+
+holding the outermap then holding the inner list
+
+

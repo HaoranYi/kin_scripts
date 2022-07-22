@@ -1,7 +1,7 @@
 @echo on
 
 plink -batch sol@%kin1% "~/restart"
-plink -batch sol@%kin1% "tail -f logs/solana-validator.log | grep -m 1 \"Waiting new root\""
+plink -batch sol@%kin1% "tail -f logs/solana-validator.log | grep -m 1 \"Waiting for\""
 
 
 plink -batch sol@%kin2% "~/restart"

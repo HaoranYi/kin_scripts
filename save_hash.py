@@ -20,7 +20,7 @@ while True:
         if slot > last:
             print line
             f.write(line)
-            f.write('{} {}'.format(slot, bank_hash))
+            f.write('{} {}\n'.format(slot, bank_hash))
             f.flush()
             last = slot
     time.sleep(60)
