@@ -258,10 +258,17 @@ gsutil cp gs://kin-snapshots/snapshot2/snapshot-149303-5gWBBbxL96HjAVPpbsaYZJWAz
 
 249272 CXAgn48UD1voqsa39APV97Ckxwt27pTyJHLWagZJeMkU[2022-07-21T13:10:24.802820608Z INFO  solana_runtime::accounts_background_service] Took bank snapshot. snapshot type: Some(IncrementalSnapshot(249272)), slot: 249372, accounts hash: 11111111111111111111111111111111, bank hash: 4fRjDL8hyiV3K73xpbeTjhwbAqFPP3VZYYWMXA3ozHc3
 
-new snapshot
+- new snapshot 7/21 run
 249272 CXAgn48UD1voqsa39APV97Ckxwt27pTyJHLWagZJeMkU
 snapshot-249272-GriCB8vEP45aCvWoaUqgKu3Hh9CrTRhHAqzE3tHXQEi1.tar.zst
 
+- new snapshot from 7/22  run
+bank hash: BMGyksrcodMAqbsS5riDtTfnaZeHjFnswXeYbW2ZJzY3
+snapshot-199289-5Mt9gBX7ZV9AxsD6VXu2x6myfBhJuiWN1LzSbWKrYRAx.tar.zst
+
+- new snapshot from 7/22 run
+bank hash: GfwR2WAiLhMSCn3cvaj5xo5XVZkQquHZT9dK3e1Zpv6z
+snapshot-249289-FxH3fQKYTRdoxoCvxMsMvjyr7GQRveaNftPTKmyTdMhf.tar.zst
 
 
 deadlocks:

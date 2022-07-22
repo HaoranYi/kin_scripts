@@ -14,6 +14,6 @@ export client2=34.148.56.23    # testnet-kin-accounts-client-bm-2
 
 export dev1=145.40.77.67       # dev-server-da11
 export dev2=147.75.38.57       # dev-server-ny5
-export dev3=139.178.94.233     #  dev-server-sv15
+export dev3=139.178.94.233     # dev-server-sv15
 export dev4=147.75.84.251      # dev-server-am6
 export dev5=145.40.71.95       # dev-server-sg1
