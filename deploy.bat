@@ -17,9 +17,13 @@ plink -batch sol@%kin4% "~/wipe_ledger.sh"
 plink -batch sol@%rpc1% "~/wipe_ledger.sh"
 plink -batch sol@%rpc2% "~/wipe_ledger.sh"
 
-plink -batch sol@%kin1% "cp ~/snapshot-99273-9XQgP53GH2bqHLvKGfAePHPAN9a1tNwYRo4s9EzoMfRw.tar.zst ~/ledger"
-plink -batch sol@%kin2% "cp ~/snapshot-99273-9XQgP53GH2bqHLvKGfAePHPAN9a1tNwYRo4s9EzoMfRw.tar.zst ~/ledger"
-plink -batch sol@%kin3% "cp ~/snapshot-99273-9XQgP53GH2bqHLvKGfAePHPAN9a1tNwYRo4s9EzoMfRw.tar.zst ~/ledger"
-plink -batch sol@%kin4% "cp ~/snapshot-99273-9XQgP53GH2bqHLvKGfAePHPAN9a1tNwYRo4s9EzoMfRw.tar.zst ~/ledger"
-plink -batch sol@%rpc1% "cp ~/snapshot-99273-9XQgP53GH2bqHLvKGfAePHPAN9a1tNwYRo4s9EzoMfRw.tar.zst ~/ledger"
-plink -batch sol@%rpc2% "cp ~/snapshot-99273-9XQgP53GH2bqHLvKGfAePHPAN9a1tNwYRo4s9EzoMfRw.tar.zst ~/ledger"
+#set SNAP=snapshot-99273-9XQgP53GH2bqHLvKGfAePHPAN9a1tNwYRo4s9EzoMfRw.tar.zst
+set SNAP=snapshot-249289-FxH3fQKYTRdoxoCvxMsMvjyr7GQRveaNftPTKmyTdMhf.tar.zst
+
+
+plink -batch sol@%kin1% "cp ~/%SNAP% ~/ledger"
+plink -batch sol@%kin2% "cp ~/%SNAP% ~/ledger"
+plink -batch sol@%kin3% "cp ~/%SNAP% ~/ledger"
+plink -batch sol@%kin4% "cp ~/%SNAP% ~/ledger"
+plink -batch sol@%rpc1% "cp ~/%SNAP% ~/ledger"
+plink -batch sol@%rpc2% "cp ~/%SNAP% ~/ledger"

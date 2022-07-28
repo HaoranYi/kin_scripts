@@ -13,6 +13,7 @@ pscp wipe_ledger.sh "sol@%kin2%:/home/sol/"
 // gensis commandline argument???
 ./multinode-demo/setup.sh solana-genesis
 
+ "Starting validator with: ArgsOs"
  Waiting for 80% of activated stake at slot 1 to be in gossip... 
 
 // build all solana
