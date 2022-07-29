@@ -22,9 +22,7 @@ plink -batch sol@%rpc2% "~/boot-scripts.sh"
 plink -batch sol@%rpc1% "tail -f solana-validator-7JcmM6TFZMkcDkZe6RKVkGaWwN5dXciGC4fa3RxvqQc9.log | grep -m 1 \"new root\""
 plink -batch sol@%rpc2% "tail -f solana-validator-AYJDiE3wgw5eanU4qJ4qfkB8vrHVEiBMTqXLbA9hUTaW.log | grep -m 1 \"new root\""
 
-:: sleep for 10s
-ping -n 11 127.0.0.1 > nul
 
+timeout 30
 plink -batch sol@%client1% "~/run-client.sh"
 plink -batch sol@%client2% "~/run-client.sh"
-

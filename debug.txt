@@ -303,3 +303,23 @@ sol@kin-validator-sg1-1:~$ grep merge_slot gdb.txt
 holding the outermap then holding the inner list
 
 
+[2022-07-28T22:26:04.576407774Z
+
+upsert
+[2022-07-28T22:24:47.827057177Z ERROR solana_runtime::in_mem_accounts_index] deadlocked on 68jFFPPLzSjem34DhmRjT4LTag9AUdmV1MjKBRKVKDev, thread_id: ThreadId(647)
+
+
+[2022-07-28T23:36:50.746384861Z ERROR solana_runtime::in_mem_accounts_index] haoran deadlocked, merge_slot_list: writer: runtime/src/in_mem_accounts_index.rs:296:ThreadId(144)=1,runtime/src/in_mem_accounts_index.rs:296:ThreadId(179)=1,; reader: , read lock ok: true, pubkey: 7jbYYZHc4wG4pf8E4r3VXEeJFHxAKSb7aJwrNa7mA2zK, thread_id: ThreadId(179)
+
+[2022-07-28T23:37:43.384695884Z ERROR solana_runtime::in_mem_accounts_index] deadlocked on 7jbZyCx433XsdBkANJz82RDjACtp9Boj3xVxGxTEFEH1, thread_id: ThreadId(648)
+
+
+[2022-07-28T23:36:50.669584720Z ERROR solana_runtime::in_mem_accounts_index] haoran deadlocked, merge_slot_list: writer: runtime/src/in_mem_accounts_index.rs:296:ThreadId(149)=1,runtime/src/in_mem_accounts_index.rs:296:ThreadId(180)=1,; reader: , read lock ok: true, pubkey: E1i8wSP4oxup6vXMYNkfZk8tuFYmRYYKNQZFu1gzseEp, thread_id: ThreadId(180)
+
+
+[2022-07-28T23:36:37.932353386Z ERROR solana_runtime::in_mem_accounts_index] haoran lock_and_update_slot_list: writer: runtime/src/in_mem_accounts_index.rs:549:ThreadId(90)=1,; reader: , pubkey: E1i8wSP4oxup6vXMYNkfZk8tuFYmRYYKNQZFu1gzseEp, ThreadId(90)
+[2022-07-28T23:36:37.932361581Z ERROR solana_runtime::in_mem_accounts_index] haoran lock_and_update_slot_list success: writer: runtime/src/in_mem_accounts_index.rs:549:ThreadId(90)=1,; reader: , pubkey: E1i8wSP4oxup6vXMYNkfZk8tuFYmRYYKNQZFu1gzseEp, ThreadId(90)
+[2022-07-28T23:36:39.739880823Z ERROR solana_runtime::in_mem_accounts_index] haoran deadlocked, merge_slot_list: writer: runtime/src/in_mem_accounts_index.rs:296:ThreadId(149)=1,; reader: , read lock ok: true, pubkey: E1i8wSP4oxup6vXMYNkfZk8tuFYmRYYKNQZFu1gzseEp, thread_id: ThreadId(149)
+[2022-07-28T23:36:39.749961664Z ERROR solana_runtime::in_mem_accounts_index] haoran deadlocked, merge_slot_list: writer: runtime/src/in_mem_accounts_index.rs:296:ThreadId(149)=1,; reader: , read lock ok: true, pubkey: E1i8wSP4oxup6vXMYNkfZk8tuFYmRYYKNQZFu1gzseEp, thread_id: ThreadId(149)
+[2022-07-28T23:36:39.754932447Z ERROR solana_runtime::in_mem_accounts_index] haoran deadlocked, merge_slot_list: writer: runtime/src/in_mem_accounts_index.rs:296:ThreadId(149)=1,runtime/src/in_mem_accounts_index.rs:296:ThreadId(180)=1,; reader: , read lock ok: true, pubkey: E1i8wSP4oxup6vXMYNkfZk8tuFYmRYYKNQZFu1gzseEp, thread_id: ThreadId(180)
+
