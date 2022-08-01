@@ -155,3 +155,16 @@ dev1    4CTAFwtdoKd8b3W3HrjV9rhm2eZz4ES2NNfrapaRBZyj    145.40.77.67    dev-serv
 attach to running process
 >> gdb -p PID
 
+
+2022/7/29
+=========
+Debug and fixed a deadlock issue. What I learned:
+1. use map to trace lock/unlock with file:line:thread_id
+2. look for new code and walk up the stack, find that if there is any self
+   locking which happens  on the call stack. This often happens on the same
+   thread. It is easy and most likely to be ignored. In fact, this is actually
+   where the bug is. Especially when the bug is very reproducible.
+3. use PubKey for logging and grep pubkey for contentsion.
+4. use try_lock/try_read/try_write when in deadlock to figure out what we are
+   blocking on.
+
