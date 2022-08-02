@@ -76,6 +76,9 @@ WantedBy=multi-user.target
 ~/solana-ledger-tool --ledger /home/sol/ledger/ create-snapshot 131030 >& 131030.log
 ~/solana-ledger-tool --ledger /home/sol/ledger/ verify --allow-dead-slots --accounts-db-skip-shrink --no-os-memory-stats-reporting --halt-at-slot 131040
 
+## remove account by deactivate a feature
+./src/solana/target/release/solana-ledger-tool --ledger /home/sol/ledger/ create-snapshot 574346 --remove-account capRxUrBjNkkCpjrJxPGfPaWijB7q3JoDfsWXAnt46r --hard-fork 574346
+
 // pattern to grep
 grep "bank_frozen" 131040.1.10.da11.log
 grep "bank frozen" 131040.1.10.da11.log
