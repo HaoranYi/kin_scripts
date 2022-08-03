@@ -171,3 +171,9 @@ Debug and fixed a deadlock issue. What I learned:
 4. use try_lock/try_read/try_write when in deadlock to figure out what we are
    blocking on.
 
+2022/8/3
+=========
+solana-validator, when passing `--wait-for-supermajority`,
+`--expected-bank-hash`, even without `--no-snapshot-fetch`, it woun't download
+remote snapshot.  To start rpc node, use `boot-scripts-fetch-snapshot.sh`.
+
