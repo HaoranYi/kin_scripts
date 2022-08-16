@@ -4,6 +4,7 @@ set kin1=145.40.68.91        & :: kin-validator-am6-1 / 31fxZovs3gBKVVTtC2VJUuKe
 set kin2=145.40.76.233       & :: kin-validator-da11-1 / Edfkf9gpC7KpnkNdKRPmseCtkE1zY8fUVRJMbiLYKKdK
 set kin3=147.75.74.211       & :: kin-validator-ny5-1 / 2k31vk7hPiu2T9fJzuunc6tmaE57P7wt6tFoGK5A7k47
 set kin4=145.40.117.153      & :: kin-validator-sg1-1 / 3cVWsRiTXD99BXNhzXs7Gkm3YBhCDrMQWnLern8B7TrD
+set kin5=145.40.117.157      & :: kin-spare-sg1-1 / kin52jAhScxJHbs3j9YdBFupe24MMbZJeHFDrTh49Pg
 
 set rpc1=34.148.201.98       & :: testnet-kin-rpc-bm-1 / 7JcmM6TFZMkcDkZe6RKVkGaWwN5dXciGC4fa3RxvqQc9
 set rpc2=34.139.158.147      & :: testnet-kin-rpc-bm-2 / AYJDiE3wgw5eanU4qJ4qfkB8vrHVEiBMTqXLbA9hUTaW
