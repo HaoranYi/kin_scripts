@@ -177,3 +177,31 @@ solana-validator, when passing `--wait-for-supermajority`,
 `--expected-bank-hash`, even without `--no-snapshot-fetch`, it woun't download
 remote snapshot.  To start rpc node, use `boot-scripts-fetch-snapshot.sh`.
 
+
+
+mainnet keys
+"host_id"='26EqJ47BBf6r4fXSfPdmop4yJLuK2YZ5pbGCkM4bvMgE'  #dev2
+"host_id"='26EqJ47BBf6r4fXSfPdmop4yJLuK2YZ5pbGCkM4bvMgE'  #dev1
+"host_id"='26EqJ47BBf6r4fXSfPdmop4yJLuK2YZ5pbGCkM4bvMgE'  #dev4
+"host_id"='26EqJ47BBf6r4fXSfPdmop4yJLuK2YZ5pbGCkM4bvMgE'
+
+
+
+from(bucket: "mainnet-beta")
+  |> range(start: 2022-08-14T23:55:00Z, stop: 2022-08-15T00:01:00Z)
+  |> filter(fn: (r) => r["_measurement"] == "accounts_db_store_timings")
+  |> filter(fn: (r) => r["_field"] == "read_only_accounts_cache_misses" or r["_field"] == "read_only_accounts_cache_hits" or r["_field"] == "read_only_accounts_cache_evicts")
+  |> filter(fn: (r) => r["host_id"] == "26EqJ47BBf6r4fXSfPdmop4yJLuK2YZ5pbGCkM4bvMgE")
+  |> aggregateWindow(every: 1s, fn: max, createEmpty: false)
+  |> yield(name: "mean")
+
+// cache entry size
+from(bucket: "mainnet-beta")
+  |> range(start: 2022-08-14T23:55:00Z, stop: 2022-08-15T00:01:00Z)
+  |> filter(fn: (r) => r["_measurement"] == "accounts_db_store_timings")
+  |> filter(fn: (r) => r["_field"] == "read_only_accounts_cache_entries")
+  |> filter(fn: (r) => r["host_id"] == "26EqJ47BBf6r4fXSfPdmop4yJLuK2YZ5pbGCkM4bvMgE")
+  |> aggregateWindow(every: 1s, fn: max, createEmpty: false)
+  |> yield(name: "max")
+
+cache entry flattern around 650K, 550K
