@@ -17,8 +17,8 @@ ssh sol@$kin4 "~/wipe_ledger.sh"
 ssh sol@$rpc1 "~/wipe_ledger.sh"
 ssh sol@$rpc2 "~/wipe_ledger.sh"
 
-#SNAP=snapshot-99273-9XQgP53GH2bqHLvKGfAePHPAN9a1tNwYRo4s9EzoMfRw.tar.zst
-SNAP=snapshot-249289-FxH3fQKYTRdoxoCvxMsMvjyr7GQRveaNftPTKmyTdMhf.tar.zst
+SNAP=snapshot-99273-9XQgP53GH2bqHLvKGfAePHPAN9a1tNwYRo4s9EzoMfRw.tar.zst
+#SNAP=snapshot-249289-FxH3fQKYTRdoxoCvxMsMvjyr7GQRveaNftPTKmyTdMhf.tar.zst
 
 ssh sol@$kin1 "cp ~/$SNAP ~/ledger"
 ssh sol@$kin2 "cp ~/$SNAP ~/ledger"
