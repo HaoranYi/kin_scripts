@@ -2,7 +2,7 @@
 //    influx query --file epoch.flux
 //    influx query --file epoch.flux --raw   # output csv
 //
-
+//
 // query epoch timing
 from(bucket: "mainnet-beta")
   |> range(start: 2022-08-14T23:55:00Z, stop: 2022-08-15T00:01:00Z)
