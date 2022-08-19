@@ -205,3 +205,6 @@ from(bucket: "mainnet-beta")
   |> yield(name: "max")
 
 cache entry flattern around 650K, 550K
+
+// influx exmaples
+https://www.sqlpac.com/en/documents/influxdb-flux-language-advanced-features.html
