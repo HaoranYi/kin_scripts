@@ -25,3 +25,6 @@ set dev9=139.178.84.77      & ::dev-server-us-da11-5
 set dev10=145.40.125.95     & ::dev-server-asia-hk2	
 set dev11=145.40.73.123     & ::dev-server-asia-sg1-2	
 set dev12=147.75.92.181     & ::dev-server-asia-ty11	
+
+set mydev=216.202.208.198  &  ::dev-lumen-Atlanta-2-3
+

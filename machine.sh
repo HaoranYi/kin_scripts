@@ -19,3 +19,12 @@ export dev2=147.75.38.57       # dev-server-ny5
 export dev3=139.178.94.233     # dev-server-sv15
 export dev4=147.75.84.251      # dev-server-am6
 export dev5=145.40.71.95       # dev-server-sg1
+export dev6=139.178.86.41      # dev-server-us-da11-2	
+export dev7=139.178.86.43      # dev-server-us-da11-3	 
+export dev8=139.178.86.47      # dev-server-us-da11-4	
+export dev9=139.178.84.77      # dev-server-us-da11-5	
+export dev10=145.40.125.95     # dev-server-asia-hk2	
+export dev11=145.40.73.123     # dev-server-asia-sg1-2	
+export dev12=147.75.92.181     # dev-server-asia-ty11	
+
+export mydev=216.202.208.198   # dev-lumen-Atlanta-2-3

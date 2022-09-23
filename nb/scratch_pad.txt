@@ -1,0 +1,50 @@
+2022/09/22
+-----------
+
+This is going to be my writing and work journal. Each day I learn something new, I will write it down. 
+VScode is going to be my main coding environment. I will spend more time on reading code and writing code 
+in this environment. This environment has a very good code completion and code browsing function.
+I will need to get used to it and be familiar with the key board shortcuts in it.
+
+The important ones are how to move around efficiently. 
+cmd+enter         open a new line   
+cmd+shift+enter   open a new line above 
+cmd+shift+K       delete a line 
+C+K               delete a line to the left
+Opt+arrow         to move by words
+
+Efficiently moving around and editing the code is the key. learn to move around with arrow and fn + Opt keys. 
+cmd + up/down     go to beginning and end of the document
+cmd + \           split editor
+cmd + 1,2         focus on split window
+cmd + p           select file
+
+ctrl -            navigate back 
+ctrl shift -      navigate forward
+
+selection
+Shift+Alt+arrow   selection by word
+Shift+cmd+arrow   selection by line
+cmd+L             selection by line
+Ctrl+shift+left/right   smart selection by line
+
+Learn to use vscode shortcuts and vscode commands when working in vscode. Don't be afraid 
+to code in vscode. And most of the coding exercise is to move around, copying and editing 
+code. learn to do it and learn to master it. take time to practice. For the benefit, I can 
+also use vim to edit the code. if that's more efficient and use vscode to browse and debug 
+code. Be versatile. Don't be too rigid. Use what best suitable to work on the task at hand.
+Take time to slow down and pause when coding.
+
+Remember to read the code and read the docs for the code. 
+
+Move by line, move by word, move by search.
+Move to the beginning/end of line
+Move to the beginning/end of the document.
+
+Select lines and continue to select regions.
+
+The office is really nice. First time, in the office, that I can picked a seat that facing the windows, and have a good view to outside. 
+The clear blue sky and the high buildings. The whole environment is very good. Not many people are around in the building.
+Standing up desk. Big space and large window. Be positive and keep looking out for good things. Keep trying and keep exploring. 
+Life is an experience. Learn to live at the present moment, appreciate the things now.
+
