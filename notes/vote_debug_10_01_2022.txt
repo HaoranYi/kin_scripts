@@ -1,0 +1,93 @@
+duplicate block
+duplicate confirm
+
+block fork switch
+
+Validator AA, BB, CC
+AA stake: switch_threshold
+BB stake: 1 - switch_threshold
+CC stake: 0
+
+
+BB produce block B 
+CC produce block B' (duplicates)
+AA vote on B'
+AA mark B' duplicate
+
+B' is duplicate confirmed
+
+A - B
+ \  
+  - B' <--- some nodes vote 
+
+bug is that B' is marked duplicate then mark duplicate confirmed. But A will
+never select B' again. So some stays on B', others start fork on A.
+
+We exclude any "duplicated" nodes from candidates. However, if the duplicates
+is actually turned into duplicate confirmed, then it should be added back to
+candidate again. 
+
+220 - 221 (vote/duplicate) - 222 -223 -224
+ \
+  - 225 (new leader)
+
+
+- in gossip
+how to detect duplicate?
+    - shred (slot, index, type)
+    - duplicated shreds for the same slot
+    - window service 
+        - when insert shreds to block store shred_data(slot, index, type) are
+          the same? if not, then duplicate, the leader creates two blocks for
+          one slot. 
+how to detect duplicate confirm?
+    - listening on gossip for vote confirmation.
+    
+vote is transmitted in gossip as well as as transactions at specific tick,
+gossip comes in first. left-over vote transactions for current block are
+forward to the leader of the next block. once the block rooted, the vote
+transaction will get the rewards. leader execute the votes and broadcast the
+vote to the cluster. it is possible that gossip can lie to transactions. leader
+execute transaction serves as confirmation of vote.
+
+slot leader is expected to produce 1 slot data. duplicate slot will be slashed.
+currently, if we detect duplicates we won't vote.
+
+The bug here is that the block is duplicated but confirmed. someone stick to
+the one version of duplicates, some choose to ignore. This created forks. and
+break consensus. 
+The fix is to allow reset to duplicate confirmed.
+
+
+The following example is showing that 80% vote transaction is not landed on the blocks
+and hence not confirmed. Then those validator won't be able to vote to break consensus.  
+
+// If we can't switch and our last vote was on a non-duplicate/confirmed slot, then
+// reset to the the next votable bank on the same fork as our last vote,
+// but don't vote.
+
+// We don't just reset to the heaviest fork when switch threshold fails because
+// a situation like this can occur:
+
+/* Figure 1:
+              slot 0
+                |
+              slot 1
+            /        \
+slot 2 (last vote)     |
+            |      slot 8 (10%)
+    slot 4 (9%)
+*/
+
+// Imagine 90% of validators voted on slot 4, but only 9% landed. If everybody that fails
+// the switch threshold abandons slot 4 to build on slot 8 (because it's *currently* heavier),
+// then there will be no blocks to include the votes for slot 4, and the network halts
+// because 90% of validators can't vote
+
+
+
+interesting logs for bank forks
+  info!("bank frozen: {}")
+  info!("Waiting to switch vote to {}, resetting to slot {:?} for now", heaviest_bank.slot(), reset_bank.as_ref().map(|b| b.slot()),);
+
+The idea for fork switch is to balance staying on the current fork and the cluster wide heaviest fork. 
