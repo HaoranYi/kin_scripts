@@ -16,12 +16,12 @@ plink -batch sol@%kin2% "tail -f logs/solana-validator.log | grep -m 1 \"new roo
 plink -batch sol@%kin3% "tail -f logs/solana-validator.log | grep -m 1 \"new root\""
 plink -batch sol@%kin4% "tail -f logs/solana-validator.log | grep -m 1 \"new root\""
 
-
 echo "starting rpc nodes ..."
+timeout 10
 plink -batch sol@%rpc1% "~/boot-scripts.sh"
 plink -batch sol@%rpc2% "~/boot-scripts.sh"
 
-
+timeout 10
 plink -batch sol@%rpc1% "tail -f solana-validator-7JcmM6TFZMkcDkZe6RKVkGaWwN5dXciGC4fa3RxvqQc9.log | grep -m 1 \"new root\""
 plink -batch sol@%rpc2% "tail -f solana-validator-AYJDiE3wgw5eanU4qJ4qfkB8vrHVEiBMTqXLbA9hUTaW.log | grep -m 1 \"new root\""
 
