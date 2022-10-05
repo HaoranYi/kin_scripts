@@ -1,0 +1,36 @@
+// example for turbine block propagation
+digraph {
+    n0_0 [label = "leader (n00)";];
+    
+    n0_0 -> {n1_0 n1_1 n1_2 n1_3};
+    n1_0 -> {n2_0 n2_4 n2_8 n2_c};
+    n1_1 -> {n2_1 n2_5 n2_9 n2_d};
+    n1_2 -> {n2_2 n2_6 n2_a n2_e};
+    n1_3 -> {n2_3 n2_7 n2_b n2_f};
+    
+    subgraph cluster1 {
+        label = L1;
+        n1_0 -> n1_1 -> n1_2 -> n1_3 -> n1_0;
+    }
+    
+    subgraph cluster2 {
+        label = L2;
+        n2_0 -> n2_1 -> n2_2 -> n2_3 -> n2_0;
+    }
+    
+    subgraph cluster3 {
+        label = L2;
+        n2_4 -> n2_5 -> n2_6 -> n2_7 -> n2_4;
+    }
+    
+    
+    subgraph cluster4 {
+        label = L2;
+        n2_8 -> n2_9 -> n2_a -> n2_b -> n2_8;
+    }
+    
+    subgraph cluster5 {
+        label = L2;
+        n2_c -> n2_d -> n2_e -> n2_f -> n2_c;
+    }
+}
