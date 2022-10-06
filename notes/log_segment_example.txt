@@ -1,0 +1,79 @@
+[2022-10-06T15:58:34.934814203Z INFO  solana_core::cluster_slot_state_verifier] check_slot_agrees_with_cluster() slot: 569306, root: 569275, slot_state_update: DuplicateConfirmed(DuplicateConfirmedState { duplicate_confirmed_hash: HAnb7pzygHGAeATEYmkTLW6SoQ3LGGvpkqM3YFFG4jRS, bank_status: Frozen(HAnb7pzygHGAeATEYmkTLW6SoQ3LGGvpkqM3YFFG4jRS) })
+[2022-10-06T15:58:34.934836585Z INFO  solana_core::heaviest_subtree_fork_choice] marking fork starting at: (569306, HAnb7pzygHGAeATEYmkTLW6SoQ3LGGvpkqM3YFFG4jRS) valid candidate
+[2022-10-06T15:58:35.137544013Z INFO  solana_core::replay_stage] bank frozen: 569307
+[2022-10-06T15:58:35.138682023Z INFO  solana_runtime::bank] bank frozen: 569307 hash: 7HfvFuAEPzc6Zu8cgc7yoXdVFf64UzcgDLayewQ96ZhB accounts_delta: 83YgJpJ17dws9TGAzPAmVaXDCBVVWR2yUxmQj6pxd964 signature_count: 4 last_blockhash: DeNLZ9hfXfFGFkLmMqGfKP1ghjC3osmZCzptSE37hCku capitalization: 1000504655320585853
+[2022-10-06T15:58:35.138696070Z INFO  solana_runtime::bank] accounts hash slot: 569307 stats: BankHashStats { num_updated_accounts: 243, num_removed_accounts: 0, num_lamports_stored: 507390653208961, total_data_len: 210507, num_executable_accounts: 0 }
+[2022-10-06T15:58:35.138753609Z INFO  solana_core::cluster_slot_state_verifier] check_slot_agrees_with_cluster() slot: 569307, root: 569275, slot_state_update: BankFrozen(BankFrozenState { frozen_hash: 7HfvFuAEPzc6Zu8cgc7yoXdVFf64UzcgDLayewQ96ZhB, cluster_confirmed_hash: None, is_slot_duplicate: false })
+[2022-10-06T15:58:35.138887864Z INFO  solana_core::replay_stage] 2TLD7hwoUvxS3ufmUNMsBvfaL8Q3XjhYmbvHJCoEuBke slot_weight: 569307 0 0 569306
+[2022-10-06T15:58:35.138901009Z INFO  solana_core::replay_stage] validator fork confirmed 569306 614ms
+[2022-10-06T15:58:35.138907421Z INFO  solana_core::cluster_slot_state_verifier] check_slot_agrees_with_cluster() slot: 569306, root: 569275, slot_state_update: DuplicateConfirmed(DuplicateConfirmedState { duplicate_confirmed_hash: HAnb7pzygHGAeATEYmkTLW6SoQ3LGGvpkqM3YFFG4jRS, bank_status: Frozen(HAnb7pzygHGAeATEYmkTLW6SoQ3LGGvpkqM3YFFG4jRS) })
+[2022-10-06T15:58:35.138918702Z INFO  solana_core::replay_stage] voting: 569307 0
+[2022-10-06T15:58:35.138990569Z INFO  solana_core::replay_stage] new root 569276
+[2022-10-06T15:58:35.139120365Z INFO  solana_core::replay_stage] vote bank: Some((569307, SameFork)) reset bank: 569307
+[2022-10-06T15:58:35.139135995Z INFO  solana_poh::poh_recorder] reset poh from: DeNLZ9hfXfFGFkLmMqGfKP1ghjC3osmZCzptSE37hCku,36435704,569306 to: DeNLZ9hfXfFGFkLmMqGfKP1ghjC3osmZCzptSE37hCku,569307
+[2022-10-06T15:58:35.139148078Z INFO  solana_core::replay_stage] 31fxZovs3gBKVVTtC2VJUuKeVoq6mQkLjWnicWhErQ4f reset PoH to tick 36435712 (within slot 569307). My next leader slot is 569324
+[2022-10-06T15:58:35.239498172Z INFO  solana_core::replay_stage] new fork:569308 parent:569307 root:569276
+[2022-10-06T15:58:35.297514448Z INFO  solana_core::repair_service] repair_stats: [(569300, 3), (569303, 3), (569306, 3), (569304, 3), (569302, 3), (569305, 3), (569307, 3), (569301, 3), (569308, 2)]
+[2022-10-06T15:58:35.342301202Z INFO  solana_core::cluster_slot_state_verifier] check_slot_agrees_with_cluster() slot: 569307, root: 569276, slot_state_update: DuplicateConfirmed(DuplicateConfirmedState { duplicate_confirmed_hash: 7HfvFuAEPzc6Zu8cgc7yoXdVFf64UzcgDLayewQ96ZhB, bank_status: Frozen(7HfvFuAEPzc6Zu8cgc7yoXdVFf64UzcgDLayewQ96ZhB) })
+[2022-10-06T15:58:35.342323164Z INFO  solana_core::heaviest_subtree_fork_choice] marking fork starting at: (569307, 7HfvFuAEPzc6Zu8cgc7yoXdVFf64UzcgDLayewQ96ZhB) valid candidate
+[2022-10-06T15:58:35.545471900Z INFO  solana_core::replay_stage] bank frozen: 569308
+[2022-10-06T15:58:35.546575574Z INFO  solana_runtime::bank] bank frozen: 569308 hash: AGQFgSkn64qQW8LPHisH5d6MbFLTeXDQxMTEwA8jXj2J accounts_delta: EcFHuAE9FAtHDzcnZej4isw5voo4Hk8DTbn5rzvjasoH signature_count: 8 last_blockhash: D8dhZEReeZbgbhAPEu9Ac2i8sQyGXhgvtDH2ZxSyWu1f capitalization: 1000504655320565853
+[2022-10-06T15:58:35.546590863Z INFO  solana_runtime::bank] accounts hash slot: 569308 stats: BankHashStats { num_updated_accounts: 209, num_removed_accounts: 0, num_lamports_stored: 2498589470775641, total_data_len: 204567, num_executable_accounts: 0 }
+[2022-10-06T15:58:35.546650437Z INFO  solana_core::cluster_slot_state_verifier] check_slot_agrees_with_cluster() slot: 569308, root: 569276, slot_state_update: BankFrozen(BankFrozenState { frozen_hash: AGQFgSkn64qQW8LPHisH5d6MbFLTeXDQxMTEwA8jXj2J, cluster_confirmed_hash: None, is_slot_duplicate: false })
+[2022-10-06T15:58:35.546786174Z INFO  solana_core::replay_stage] 2TLD7hwoUvxS3ufmUNMsBvfaL8Q3XjhYmbvHJCoEuBke slot_weight: 569308 0 0 569307
+[2022-10-06T15:58:35.546799379Z INFO  solana_core::replay_stage] validator fork confirmed 569307 714ms
+[2022-10-06T15:58:35.546815370Z INFO  solana_core::cluster_slot_state_verifier] check_slot_agrees_with_cluster() slot: 569307, root: 569276, slot_state_update: DuplicateConfirmed(DuplicateConfirmedState { duplicate_confirmed_hash: 7HfvFuAEPzc6Zu8cgc7yoXdVFf64UzcgDLayewQ96ZhB, bank_status: Frozen(7HfvFuAEPzc6Zu8cgc7yoXdVFf64UzcgDLayewQ96ZhB) })
+[2022-10-06T15:58:35.546834877Z INFO  solana_core::replay_stage] voting: 569308 0
+[2022-10-06T15:58:35.546901012Z INFO  solana_core::replay_stage] new root 569277
+[2022-10-06T15:58:35.547022773Z INFO  solana_core::replay_stage] vote bank: Some((569308, SameFork)) reset bank: 569308
+[2022-10-06T15:58:35.547049684Z INFO  solana_poh::poh_recorder] reset poh from: D8dhZEReeZbgbhAPEu9Ac2i8sQyGXhgvtDH2ZxSyWu1f,36435786,569307 to: D8dhZEReeZbgbhAPEu9Ac2i8sQyGXhgvtDH2ZxSyWu1f,569308
+[2022-10-06T15:58:35.547063791Z INFO  solana_core::replay_stage] 31fxZovs3gBKVVTtC2VJUuKeVoq6mQkLjWnicWhErQ4f reset PoH to tick 36435776 (within slot 569308). My next leader slot is 569324
+[2022-10-06T15:58:35.547129766Z INFO  solana_core::replay_stage] new fork:569309 parent:569308 root:569277
+[2022-10-06T15:58:35.649739500Z INFO  solana_core::cluster_slot_state_verifier] check_slot_agrees_with_cluster() slot: 569308, root: 569277, slot_state_update: DuplicateConfirmed(DuplicateConfirmedState { duplicate_confirmed_hash: AGQFgSkn64qQW8LPHisH5d6MbFLTeXDQxMTEwA8jXj2J, bank_status: Frozen(AGQFgSkn64qQW8LPHisH5d6MbFLTeXDQxMTEwA8jXj2J) })
+[2022-10-06T15:58:35.649765800Z INFO  solana_core::heaviest_subtree_fork_choice] marking fork starting at: (569308, AGQFgSkn64qQW8LPHisH5d6MbFLTeXDQxMTEwA8jXj2J) valid candidate
+[2022-10-06T15:58:35.852226560Z INFO  solana_core::replay_stage] bank frozen: 569309
+[2022-10-06T15:58:35.853522650Z INFO  solana_runtime::bank] bank frozen: 569309 hash: sk9ptnCPTNW9oTfgroaRTQaz8iMwuYXdmeK3HFfSVdS accounts_delta: 36eZL9SDqWaMdzWzNAyXrGzudQtneW9AL1LVs9nrBjRB signature_count: 4 last_blockhash: AJes5tvqARV3UaihscX9eH6JSRdKJWmhB1fD1GUUwWr capitalization: 1000504655320555853
+[2022-10-06T15:58:35.853548699Z INFO  solana_runtime::bank] accounts hash slot: 569309 stats: BankHashStats { num_updated_accounts: 188, num_removed_accounts: 0, num_lamports_stored: 507390541058561, total_data_len: 201432, num_executable_accounts: 0 }
+[2022-10-06T15:58:35.853590138Z INFO  solana_core::cluster_slot_state_verifier] check_slot_agrees_with_cluster() slot: 569309, root: 569277, slot_state_update: BankFrozen(BankFrozenState { frozen_hash: sk9ptnCPTNW9oTfgroaRTQaz8iMwuYXdmeK3HFfSVdS, cluster_confirmed_hash: None, is_slot_duplicate: false })
+[2022-10-06T15:58:35.853720355Z INFO  solana_core::replay_stage] 2TLD7hwoUvxS3ufmUNMsBvfaL8Q3XjhYmbvHJCoEuBke slot_weight: 569309 0 0 569308
+[2022-10-06T15:58:35.853732769Z INFO  solana_core::replay_stage] validator fork confirmed 569308 613ms
+[2022-10-06T15:58:35.853746996Z INFO  solana_core::cluster_slot_state_verifier] check_slot_agrees_with_cluster() slot: 569308, root: 569277, slot_state_update: DuplicateConfirmed(DuplicateConfirmedState { duplicate_confirmed_hash: AGQFgSkn64qQW8LPHisH5d6MbFLTeXDQxMTEwA8jXj2J, bank_status: Frozen(AGQFgSkn64qQW8LPHisH5d6MbFLTeXDQxMTEwA8jXj2J) })
+[2022-10-06T15:58:35.853758117Z INFO  solana_core::replay_stage] voting: 569309 0
+[2022-10-06T15:58:35.853819433Z INFO  solana_core::replay_stage] new root 569278
+[2022-10-06T15:58:35.853938740Z INFO  solana_core::replay_stage] vote bank: Some((569309, SameFork)) reset bank: 569309
+[2022-10-06T15:58:35.853953247Z INFO  solana_poh::poh_recorder] reset poh from: AJes5tvqARV3UaihscX9eH6JSRdKJWmhB1fD1GUUwWr,36435832,569308 to: AJes5tvqARV3UaihscX9eH6JSRdKJWmhB1fD1GUUwWr,569309
+[2022-10-06T15:58:35.853965500Z INFO  solana_core::replay_stage] 31fxZovs3gBKVVTtC2VJUuKeVoq6mQkLjWnicWhErQ4f reset PoH to tick 36435840 (within slot 569309). My next leader slot is 569324
+[2022-10-06T15:58:35.954330242Z INFO  solana_core::replay_stage] new fork:569310 parent:569309 root:569278
+[2022-10-06T15:58:36.057379008Z INFO  solana_core::cluster_slot_state_verifier] check_slot_agrees_with_cluster() slot: 569309, root: 569278, slot_state_update: DuplicateConfirmed(DuplicateConfirmedState { duplicate_confirmed_hash: sk9ptnCPTNW9oTfgroaRTQaz8iMwuYXdmeK3HFfSVdS, bank_status: Frozen(sk9ptnCPTNW9oTfgroaRTQaz8iMwuYXdmeK3HFfSVdS) })
+[2022-10-06T15:58:36.057412742Z INFO  solana_core::heaviest_subtree_fork_choice] marking fork starting at: (569309, sk9ptnCPTNW9oTfgroaRTQaz8iMwuYXdmeK3HFfSVdS) valid candidate
+[2022-10-06T15:58:36.259681127Z INFO  solana_core::replay_stage] bank frozen: 569310
+[2022-10-06T15:58:36.260852290Z INFO  solana_runtime::bank] bank frozen: 569310 hash: 9tfvHh2wJfLM8vcwXtFfaHCK6MbK59uoy1zcay5DEd8R accounts_delta: 8bZU797iKUcfWXFhATggPuqxRCQFnx4BB8c3jPwJWoa2 signature_count: 4 last_blockhash: 8f9R9y8PEZuNxgx7UgwJswf5e7y1sNG6PTMgStKooFm9 capitalization: 1000504655320545853
+[2022-10-06T15:58:36.260876426Z INFO  solana_runtime::bank] accounts hash slot: 569310 stats: BankHashStats { num_updated_accounts: 221, num_removed_accounts: 0, num_lamports_stored: 507390608349801, total_data_len: 206877, num_executable_accounts: 0 }
+[2022-10-06T15:58:36.260947160Z INFO  solana_core::cluster_slot_state_verifier] check_slot_agrees_with_cluster() slot: 569310, root: 569278, slot_state_update: BankFrozen(BankFrozenState { frozen_hash: 9tfvHh2wJfLM8vcwXtFfaHCK6MbK59uoy1zcay5DEd8R, cluster_confirmed_hash: None, is_slot_duplicate: false })
+[2022-10-06T15:58:36.261098728Z INFO  solana_core::replay_stage] 2TLD7hwoUvxS3ufmUNMsBvfaL8Q3XjhYmbvHJCoEuBke slot_weight: 569310 0 0 569309
+[2022-10-06T15:58:36.261111923Z INFO  solana_core::replay_stage] validator fork confirmed 569309 713ms
+[2022-10-06T15:58:36.261116973Z INFO  solana_core::cluster_slot_state_verifier] check_slot_agrees_with_cluster() slot: 569309, root: 569278, slot_state_update: DuplicateConfirmed(DuplicateConfirmedState { duplicate_confirmed_hash: sk9ptnCPTNW9oTfgroaRTQaz8iMwuYXdmeK3HFfSVdS, bank_status: Frozen(sk9ptnCPTNW9oTfgroaRTQaz8iMwuYXdmeK3HFfSVdS) })
+[2022-10-06T15:58:36.261133845Z INFO  solana_core::replay_stage] voting: 569310 0
+[2022-10-06T15:58:36.261206493Z INFO  solana_core::replay_stage] new root 569279
+[2022-10-06T15:58:36.261337692Z INFO  solana_core::replay_stage] vote bank: Some((569310, SameFork)) reset bank: 569310
+[2022-10-06T15:58:36.261356207Z INFO  solana_poh::poh_recorder] reset poh from: 8f9R9y8PEZuNxgx7UgwJswf5e7y1sNG6PTMgStKooFm9,36435914,569309 to: 8f9R9y8PEZuNxgx7UgwJswf5e7y1sNG6PTMgStKooFm9,569310
+[2022-10-06T15:58:36.261369562Z INFO  solana_core::replay_stage] 31fxZovs3gBKVVTtC2VJUuKeVoq6mQkLjWnicWhErQ4f reset PoH to tick 36435904 (within slot 569310). My next leader slot is 569324
+[2022-10-06T15:58:36.261435267Z INFO  solana_core::replay_stage] new fork:569311 parent:569310 root:569279
+[2022-10-06T15:58:36.364475748Z INFO  solana_core::cluster_slot_state_verifier] check_slot_agrees_with_cluster() slot: 569310, root: 569279, slot_state_update: DuplicateConfirmed(DuplicateConfirmedState { duplicate_confirmed_hash: 9tfvHh2wJfLM8vcwXtFfaHCK6MbK59uoy1zcay5DEd8R, bank_status: Frozen(9tfvHh2wJfLM8vcwXtFfaHCK6MbK59uoy1zcay5DEd8R) })
+[2022-10-06T15:58:36.364509742Z INFO  solana_core::heaviest_subtree_fork_choice] marking fork starting at: (569310, 9tfvHh2wJfLM8vcwXtFfaHCK6MbK59uoy1zcay5DEd8R) valid candidate
+[2022-10-06T15:58:36.567693134Z INFO  solana_core::replay_stage] bank frozen: 569311
+[2022-10-06T15:58:36.568854148Z INFO  solana_runtime::bank] bank frozen: 569311 hash: DJtqqpEALNrBxixAZmbRbWvmHTzvrgNQR81jVRgPq41o accounts_delta: FwPiWb54VWhgR2UuHKwmbp4g3C4orFj5T59jgjuRy9ii signature_count: 5 last_blockhash: 14Q2iRhTb5JTNEPfaQLbeRbrKrgPMx6isjtZEmQ5fatL capitalization: 1000504655320533353
+[2022-10-06T15:58:36.568868976Z INFO  solana_runtime::bank] accounts hash slot: 569311 stats: BankHashStats { num_updated_accounts: 205, num_removed_accounts: 0, num_lamports_stored: 1369582960462479, total_data_len: 200671, num_executable_accounts: 0 }
+[2022-10-06T15:58:36.568937406Z INFO  solana_core::cluster_slot_state_verifier] check_slot_agrees_with_cluster() slot: 569311, root: 569279, slot_state_update: BankFrozen(BankFrozenState { frozen_hash: DJtqqpEALNrBxixAZmbRbWvmHTzvrgNQR81jVRgPq41o, cluster_confirmed_hash: None, is_slot_duplicate: false })
+[2022-10-06T15:58:36.569098031Z INFO  solana_core::replay_stage] 2TLD7hwoUvxS3ufmUNMsBvfaL8Q3XjhYmbvHJCoEuBke slot_weight: 569311 0 0 569310
+[2022-10-06T15:58:36.569118069Z INFO  solana_core::replay_stage] validator fork confirmed 569310 614ms
+[2022-10-06T15:58:36.569125423Z INFO  solana_core::cluster_slot_state_verifier] check_slot_agrees_with_cluster() slot: 569310, root: 569279, slot_state_update: DuplicateConfirmed(DuplicateConfirmedState { duplicate_confirmed_hash: 9tfvHh2wJfLM8vcwXtFfaHCK6MbK59uoy1zcay5DEd8R, bank_status: Frozen(9tfvHh2wJfLM8vcwXtFfaHCK6MbK59uoy1zcay5DEd8R) })
+[2022-10-06T15:58:36.569144659Z INFO  solana_core::replay_stage] voting: 569311 0
+[2022-10-06T15:58:36.569225112Z INFO  solana_core::replay_stage] new root 569280
+[2022-10-06T15:58:36.569356100Z INFO  solana_core::replay_stage] vote bank: Some((569311, SameFork)) reset bank: 569311
+[2022-10-06T15:58:36.569374886Z INFO  solana_poh::poh_recorder] reset poh from: 14Q2iRhTb5JTNEPfaQLbeRbrKrgPMx6isjtZEmQ5fatL,36435960,569310 to: 14Q2iRhTb5JTNEPfaQLbeRbrKrgPMx6isjtZEmQ5fatL,569311
+[2022-10-06T15:58:36.569388292Z INFO  solana_core::replay_stage] 31fxZovs3gBKVVTtC2VJUuKeVoq6mQkLjWnicWhErQ4f reset PoH to tick 36435968 (within slot 569311). My next leader slot is 569324
+[2022-10-06T15:58:36.769931462Z INFO  solana_core::replay_stage] new fork:569312 parent:569311 root:569280
+[2022-10-06T15:58:36.771185682Z INFO  solana_core::cluster_slot_state_verifier] check_slot_agrees_with_cluster() slot: 569311, root: 569280, slot_state_update: DuplicateConfirmed(DuplicateConfirmedState { duplicate_confirmed_hash: DJtqqpEALNrBxixAZmbRbWvmHTzvrgNQR81jVRgPq41o, bank_status: Frozen(DJtqqpEALNrBxixAZmbRbWvmHTzvrgNQR81jVRgPq41o) })
+[2022-10-06T15:58:36.771207344Z INFO  solana_core::heaviest_subtree_fork_choice] marking fork starting at: (569311, DJtqqpEALNrBxixAZmbRbWvmHTzvrgNQR81jVRgPq41o) valid candidate
+
