@@ -28,3 +28,5 @@ set dev12=147.75.92.181     & ::dev-server-asia-ty11
 
 set mydev=216.202.208.198  &  ::dev-lumen-Atlanta-2-3
 
+set hy1=147.28.146.231      & ::dev-equinix-washington-5 
+set hy2=86.109.7.117        & ::dev-equinix-washington-23
