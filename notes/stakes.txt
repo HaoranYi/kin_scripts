@@ -1,6 +1,6 @@
 @startmindmap
 * cluster
-** node1
+** node
 *** vote_account
 **** stake_account_delegation
 **** stake_account_delegation
@@ -9,10 +9,10 @@
 *** vote_account
 **** ...
 *** ...
-** node2
+** node
 *** vote_account
 **** ...
-** node3
+** node
 *** ...
 ** ...
 @endmindmap
