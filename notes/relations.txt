@@ -1,0 +1,47 @@
+@startuml
+
+together {
+    class account
+    class instruction
+}
+
+together {
+    class vote_account
+    class stake_account
+}
+
+together {
+    class vote_state
+    class stake_state
+}
+
+together {
+    class vote_instruction
+    class stake_instruction
+}
+
+together {
+    class account_db
+    class runtime
+}
+
+vote_state <-- vote_account
+stake_state <-- stake_account
+
+vote_account <-- account
+stake_account <-- account
+
+class vote_instruction
+vote_instruction <-- instruction
+stake_instruction <-- instruction
+
+vote_account <.. vote_instruction
+stake_account <.. stake_instruction
+
+account <-- account_db
+instruction <-- runtime
+
+class bank
+bank --> account_db
+bank --> runtime
+@enduml

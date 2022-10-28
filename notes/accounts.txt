@@ -1,0 +1,17 @@
+@startjson
+{
+
+    "vote_account" : {
+        "account": "AccountSharedData",
+        "state": "VoteState"
+    },
+
+
+
+    "stake_account" : {
+        "account": "AccountSharedData",
+        "state": "StakeState"
+    }
+
+}
+@endjson
