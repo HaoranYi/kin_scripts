@@ -35,8 +35,11 @@ class vote_instruction
 vote_instruction <-- instruction
 stake_instruction <-- instruction
 
-vote_account <.. vote_instruction
-stake_account <.. stake_instruction
+vote_account <-- vote_instruction
+stake_account <-- stake_instruction
+
+vote_state <.. vote_instruction
+stake_state <.. stake_instruction
 
 account <-- account_db
 instruction <-- runtime
