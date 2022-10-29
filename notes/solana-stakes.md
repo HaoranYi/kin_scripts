@@ -1,6 +1,6 @@
 # Solana Stake
 
-In solana cluster, nodes earn rewards through 1. block reward for being the leader; 2. stake/vote rewards at the end of epoch. Normal users can stake sol with stake account. And stake account delegate the sol to vote account. Vote accounts are associated with the validator nodes.
+In solana cluster, nodes earn rewards through 1. block reward for being the leader; 2. stake/vote rewards at the end of epoch. Normal users can stake sol with stake account. And stake account delegate the sol to vote account. Vote accounts are associated with the validator nodes. vote account earn rewards from the commission. stake account earn rewards from inflation.
 
 ## Stake overview diagram
 ![Alt text](./out/stakes/stakes.svg)
