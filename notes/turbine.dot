@@ -1,3 +1,9 @@
+// solana turbine block propagation. Leader send blocks to L1 neighbors. From
+// L1 neighbors, blocks then are sent to L2 neighbors. And so on...
+// Each group forms a ring. And upper level pick one member in each ring to
+// send blocks. This way, we achieve better reachability while with the minimal
+// amount of blocks to send.
+
 // example for turbine block propagation
 digraph {
     n0_0 [label = "leader (n00)";];
