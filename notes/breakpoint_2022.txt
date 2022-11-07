@@ -1,0 +1,78 @@
+solana breakpoint 2022 11/5- 11/7
+lisbon, portugal
+
+solana dev tools
+    - cli
+    - metaboss
+    - playground
+    
+NFT mint fee (cheap)
+    - 1M NFTs = 5sol
+    - NFT is becoming as cheap a transaction
+    - scale to 1 billion
+    - compressed NFT (stored into the ledger)
+    - parsed and cached in the indexer (dApps and client interacts with indexer to get the data)
+    - data is stored off-chain. only store merkle tree hash on chain.
+        - create new leaf data
+        - log new data
+        - update data 
+    - metaplex: serve the merkle proof
+        - merkle tree: binary hash tree
+        root -- n -- n -- n 
+             \        \
+              \        n
+                n -- n
+                 \
+                  n
+        on chain only store the root. transaction only takes the root hash.
+        given the root hash, serve the data. verify the data using merkle tree for the root hash
+        
+token
+    - a set of rules encoded in the smart contract
+    - an example of token is to have a pool of sols and give out token for representing the shares of the pool
+    - token can be redeem to sol in the pool
+    - NFT is a token. unique identifier for art. content is the hash. then you can mint to get id for the art (token).
+        - this token can be transferred in exchange for sol
+        
+hxro
+    - crypto options   
+        - exotic options: touch price bet, end price bet, pool bat 
+        - clearing and settlement
+        - record the transactions as smart contract on chain
+        
+texture finance (sol strategy)
+    - borrow token and stake them to ear rewards
+    - use leverage
+        - let's say normal stake rewards is 7%
+        - leverage ratio is 3x borrow is 5%
+        - then your return is 21% - 10% = 11%
+        - add options in the portfolio to balance the risk 
+        - automatically collect rewards and delegate them 
+    - manage risk and select validator with best rewards (i.e. jito)
+
+legal consideration for token company
+    - bottom line: focus on technology, not on selling the tokens
+    
+vc in bear market
+    - due intelligence
+    - background check for the founder
+
+fire-dancer
+    - fpga for network packet processing at line rate
+    - locality optimization
+    - price == consensus discovery
+    - modelling and speed
+
+wallet
+  - identity (pk, prk), used to sign and authroize transactions
+  - phantom/solflare are the solana wallets
+token account
+  - accounts that holding different tokens (associated with the main wallet
+    account)
+  - have the owner as the wallet account (derived accounts)
+  - people can create their own tokens and give tokens to others (in their
+    token account)
+  - people with token accounts and sell tokens and get sol if they want
+nft
+  - yet another kind of token
+  - can transfered, and converted to sol
