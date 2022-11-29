@@ -17,6 +17,11 @@ def execute(cmd, cmd2):
 
 # Example
 # '-F' in tail for retry, this will handle file move, i.e. log rotation
+# The following example of tail -f | grep doesn't work because grep is waiting
+# for the complete of tail -f to execute. But tail -f never finishes. So it
+# stuck. In python the piped commands are not running in paralle. They run
+# sequential. This is different from true bash shell pipe.
+
 for path in execute(["tail", "test.txt"], ["grep", "aa"]):
     print(path, end="")
 
