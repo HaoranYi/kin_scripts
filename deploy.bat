@@ -17,9 +17,8 @@ plink -batch sol@%kin4% "~/wipe_ledger.sh"
 plink -batch sol@%rpc1% "~/wipe_ledger.sh"
 plink -batch sol@%rpc2% "~/wipe_ledger.sh"
 
-set SNAP=snapshot-99273-9XQgP53GH2bqHLvKGfAePHPAN9a1tNwYRo4s9EzoMfRw.tar.zst
-::set SNAP=snapshot-249289-FxH3fQKYTRdoxoCvxMsMvjyr7GQRveaNftPTKmyTdMhf.tar.zst
-
+::set SNAP=snapshot-99273-9XQgP53GH2bqHLvKGfAePHPAN9a1tNwYRo4s9EzoMfRw.tar.zst
+set SNAP=snapshot-974272-CbnFsVq3tjidfKdg4tt6apoYCL5aAi3vNbA3YufMWtTH.tar.zst
 
 plink -batch sol@%kin1% "cp ~/%SNAP% ~/ledger"
 plink -batch sol@%kin2% "cp ~/%SNAP% ~/ledger"
