@@ -2,27 +2,26 @@
 
 plink -batch sol@%kin1% "gsutil cp /home/sol/stage/bin/solana-validator gs://kin-snapshots/bin/solana-validator"
 
-plink -batch sol@%kin1% "cd /home/sol/.local/share/solana/install/active_release/bin/ && gsutil cp gs://kin-snapshots/bin/solana-validator solana-validator && chmod u+x solana-validator"
-plink -batch sol@%kin2% "cd /home/sol/.local/share/solana/install/active_release/bin/ && gsutil cp gs://kin-snapshots/bin/solana-validator solana-validator && chmod u+x solana-validator"
-plink -batch sol@%kin3% "cd /home/sol/.local/share/solana/install/active_release/bin/ && gsutil cp gs://kin-snapshots/bin/solana-validator solana-validator && chmod u+x solana-validator"
-plink -batch sol@%kin4% "cd /home/sol/.local/share/solana/install/active_release/bin/ && gsutil cp gs://kin-snapshots/bin/solana-validator solana-validator && chmod u+x solana-validator"
-plink -batch sol@%rpc1% "cd /home/sol/ && gsutil cp gs://kin-snapshots/bin/solana-validator solana-validator && chmod u+x solana-validator"
-plink -batch sol@%rpc2% "cd /home/sol/ && gsutil cp gs://kin-snapshots/bin/solana-validator solana-validator && chmod u+x solana-validator"
+set allnodes=%kin1% %kin2% %kin3% %kin4% %rpc1% %rpc2%
+set nodes=%kin1% %kin2% %kin3% %kin4%
+set rpcs=%rpc1% %rpc2%
+
+for %%a in (%nodes%) do (
+    plink -batch sol@%%a "cd /home/sol/.local/share/solana/install/active_release/bin/ && gsutil cp gs://kin-snapshots/bin/solana-validator solana-validator && chmod u+x solana-validator"
+)
+
+for %%a in (%rpcs%) do (
+    plink -batch sol@%%a "cd /home/sol/ && gsutil cp gs://kin-snapshots/bin/solana-validator solana-validator && chmod u+x solana-validator"
+)
 
 
-plink -batch sol@%kin1% "~/wipe_ledger.sh"
-plink -batch sol@%kin2% "~/wipe_ledger.sh"
-plink -batch sol@%kin3% "~/wipe_ledger.sh"
-plink -batch sol@%kin4% "~/wipe_ledger.sh"
-plink -batch sol@%rpc1% "~/wipe_ledger.sh"
-plink -batch sol@%rpc2% "~/wipe_ledger.sh"
+for %%a in (%allnodes%) do (
+    plink -batch sol@%%a "~/wipe_ledger.sh"
+)
 
 ::set SNAP=snapshot-99273-9XQgP53GH2bqHLvKGfAePHPAN9a1tNwYRo4s9EzoMfRw.tar.zst
 set SNAP=snapshot-974272-CbnFsVq3tjidfKdg4tt6apoYCL5aAi3vNbA3YufMWtTH.tar.zst
 
-plink -batch sol@%kin1% "cp ~/%SNAP% ~/ledger"
-plink -batch sol@%kin2% "cp ~/%SNAP% ~/ledger"
-plink -batch sol@%kin3% "cp ~/%SNAP% ~/ledger"
-plink -batch sol@%kin4% "cp ~/%SNAP% ~/ledger"
-plink -batch sol@%rpc1% "cp ~/%SNAP% ~/ledger"
-plink -batch sol@%rpc2% "cp ~/%SNAP% ~/ledger"
+for %%a in (%allnodes%) do (
+    plink -batch sol@%%a "cp ~/%SNAP% ~/ledger"
+)
