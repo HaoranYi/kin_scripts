@@ -1,6 +1,6 @@
 @echo off
 
-:: example to execute a command and save the result into variables
+:: example to run a command and save the result into variables
 
 
 FOR /F "tokens=* USEBACKQ" %%F IN (`echo abc`) DO (
