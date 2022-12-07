@@ -21,6 +21,7 @@ for %%a in (%allnodes%) do (
 
 ::set SNAP=snapshot-99273-9XQgP53GH2bqHLvKGfAePHPAN9a1tNwYRo4s9EzoMfRw.tar.zst
 set SNAP=snapshot-974272-CbnFsVq3tjidfKdg4tt6apoYCL5aAi3vNbA3YufMWtTH.tar.zst
+::set SNAP=snapshot-1624473-9XzcZKrihArxJyEY3DvP86dH1wfYvnYk1V9N9QPQpvtm.tar.zst
 
 for %%a in (%allnodes%) do (
     plink -batch sol@%%a "cp ~/%SNAP% ~/ledger"
