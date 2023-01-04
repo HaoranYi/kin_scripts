@@ -208,3 +208,31 @@ cache entry flattern around 650K, 550K
 
 // influx exmaples
 https://www.sqlpac.com/en/documents/influxdb-flux-language-advanced-features.html
+
+
+2023/1/4
+----------
+Setup systemd service
+
+sol@testnet-kin-accounts-client-bm-2:~$ sudo systemctl cat kin.client
+# /etc/systemd/system/kin.client.service
+[Unit]
+Description=Kin Account Bench Client
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=1
+User=sol
+WorkingDirectory=/home/sol
+ExecStart=/home/sol/run-client.sh
+
+[Install]
+WantedBy=multi-user.target
+
+401  sudo systemctl daemon-reload
+408  sudo systemctl start kin.client.service
+402  sudo systemctl status kin.client
+411  sudo journalctl -xe
+
+
