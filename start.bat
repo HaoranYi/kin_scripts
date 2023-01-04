@@ -28,7 +28,9 @@ plink -batch sol@%rpc2% "tail -f solana-validator-AYJDiE3wgw5eanU4qJ4qfkB8vrHVEi
 
 echo "starting clients ..."
 timeout 30
-plink -batch sol@%client1% "~/run-client.sh"
-plink -batch sol@%client2% "~/run-client.sh"
+:: plink -batch sol@%client1% "~/run-client.sh"
+:: plink -batch sol@%client2% "~/run-client.sh"
+plink -batch sol@%client1% "~/restart"
+plink -batch sol@%client2% "~/restart"
 
 echo "done"
