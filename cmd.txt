@@ -235,4 +235,27 @@ WantedBy=multi-user.target
 402  sudo systemctl status kin.client
 411  sudo journalctl -xe
 
-
+2023/1/17
+----------
+Increase disk space for gcloud machines
+1. edit the attached disk to increase its size
+2. resize the file system and partitions
+    - gather info
+        $ sudo du -Th # find size and usage for your disks
+        $ sudo lsblk  # find the device names for your disks
+        For example, /dev/sda is mounted to /, type is ext4 
+    - resize partition
+        $ sudo parted /dev/sda
+        (parted) resizepart
+        (Partition number) 1
+        (Warning ...) Yes
+        (End) 100%
+        (parted) quit
+    - read the new partition table
+        $ sudo partprobe /dev/sda
+    - extend the file system
+        $ sudo resize2fs /dev/sda1
+        $ sudo xfs_growfs -d /
+3. verify the disk has been extended
+    $ df -Th 
+https://cloud.google.com/compute/docs/disks/resize-persistent-disk?hl=en-au&_ga=2.257649867.-1961129437.1646147137
