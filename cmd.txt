@@ -239,7 +239,7 @@ WantedBy=multi-user.target
 ----------
 Increase disk space for gcloud machines
 1. edit the attached disk to increase its size
-2. resize the file system and partitions
+2. resize the file system and partitions with the new large disk
     - gather info
         $ sudo du -Th # find size and usage for your disks
         $ sudo lsblk  # find the device names for your disks
@@ -259,3 +259,24 @@ Increase disk space for gcloud machines
 3. verify the disk has been extended
     $ df -Th 
 https://cloud.google.com/compute/docs/disks/resize-persistent-disk?hl=en-au&_ga=2.257649867.-1961129437.1646147137
+
+2023/1/19
+----------
+Starting a new network
+
+# create genesis
+target/release/solana-genesis --max-genesis-archive-unpacked-size 1073741824 --enable-warmup-epochs --bootstrap-validator /home/sol/identity/validator-identity-am6-1.json /home/sol/identity/validator-vote-account-am6-1.json /home/sol/identity/validator-stake-account-am6-1.json --bpf-program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA BPFLoader2111111111111111111111111111111111 spl_token-3.5.0.so --bpf-program Memo1UhkJRfHyvLMcVucJwxXeuD728EqVDDwQDxFMNo BPFLoader1111111111111111111111111111111111 spl_memo-1.0.0.so --bpf-program MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr BPFLoader2111111111111111111111111111111111 spl_memo-3.0.0.so --bpf-program ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL BPFLoader2111111111111111111111111111111111 spl_associated-token-account-1.1.2.so --bpf-program Feat1YXHhH6t1juaWF74WLcfv4XoNocjXA6sPWHNgAse BPFLoader2111111111111111111111111111111111 spl_feature-proposal-1.0.0.so --ledger /home/sol/ledger --faucet-pubkey /home/sol/identity/faucet.json --faucet-lamports 500000000000000000 --hashes-per-tick auto --cluster-type development
+
+# start faucet
+~/src/solana/target/release/solana-faucet --keypair identity/faucet.json
+
+# bootstrap validator
+
+# startup other validator
+
+# start client
+
+comments:
+1. it may take a while for the non-leader nodes to download
+    gensis/snapshot from bootstrap nodes.
+2. incorrect program id error in client program?
