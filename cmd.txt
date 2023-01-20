@@ -276,6 +276,10 @@ target/release/solana-genesis --max-genesis-archive-unpacked-size 1073741824 --e
 
 # start client
 
+# use `solana` cli to monitor the network
+$ watch solana -u m block  # mainnet block
+
+
 comments:
 1. it may take a while for the non-leader nodes to download
     gensis/snapshot from bootstrap nodes.
