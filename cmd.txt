@@ -262,13 +262,13 @@ https://cloud.google.com/compute/docs/disks/resize-persistent-disk?hl=en-au&_ga=
 
 2023/1/19
 ----------
-Starting a new network fresh from genesis
+Starting a new network fresh from genesis (kin-sim)
 
 # create genesis
-target/release/solana-genesis --max-genesis-archive-unpacked-size 1073741824 --enable-warmup-epochs --bootstrap-validator /home/sol/identity/validator-identity-am6-1.json /home/sol/identity/validator-vote-account-am6-1.json /home/sol/identity/validator-stake-account-am6-1.json --bpf-program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA BPFLoader2111111111111111111111111111111111 spl_token-3.5.0.so --bpf-program Memo1UhkJRfHyvLMcVucJwxXeuD728EqVDDwQDxFMNo BPFLoader1111111111111111111111111111111111 spl_memo-1.0.0.so --bpf-program MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr BPFLoader2111111111111111111111111111111111 spl_memo-3.0.0.so --bpf-program ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL BPFLoader2111111111111111111111111111111111 spl_associated-token-account-1.1.2.so --bpf-program Feat1YXHhH6t1juaWF74WLcfv4XoNocjXA6sPWHNgAse BPFLoader2111111111111111111111111111111111 spl_feature-proposal-1.0.0.so --ledger /home/sol/ledger --faucet-pubkey /home/sol/identity/faucet.json --faucet-lamports 500000000000000000 --hashes-per-tick auto --cluster-type development
+    $ target/release/solana-genesis --max-genesis-archive-unpacked-size 1073741824 --enable-warmup-epochs --bootstrap-validator /home/sol/identity/validator-identity-am6-1.json /home/sol/identity/validator-vote-account-am6-1.json /home/sol/identity/validator-stake-account-am6-1.json --bpf-program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA BPFLoader2111111111111111111111111111111111 spl_token-3.5.0.so --bpf-program Memo1UhkJRfHyvLMcVucJwxXeuD728EqVDDwQDxFMNo BPFLoader1111111111111111111111111111111111 spl_memo-1.0.0.so --bpf-program MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr BPFLoader2111111111111111111111111111111111 spl_memo-3.0.0.so --bpf-program ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL BPFLoader2111111111111111111111111111111111 spl_associated-token-account-1.1.2.so --bpf-program Feat1YXHhH6t1juaWF74WLcfv4XoNocjXA6sPWHNgAse BPFLoader2111111111111111111111111111111111 spl_feature-proposal-1.0.0.so --ledger /home/sol/ledger --faucet-pubkey /home/sol/identity/faucet.json --faucet-lamports 500000000000000000 --hashes-per-tick auto --cluster-type development
 
 # start faucet
-~/src/solana/target/release/solana-faucet --keypair identity/faucet.json
+    $ ~/src/solana/target/release/solana-faucet --keypair identity/faucet.json
 
 # bootstrap validator
 
@@ -277,7 +277,25 @@ target/release/solana-genesis --max-genesis-archive-unpacked-size 1073741824 --e
 # start client
 
 # use `solana` cli to monitor the network
-$ watch solana -u m block  # mainnet block
+    $ watch solana -u m block  # mainnet block
+    $ solana-watchtower --validator-identity <YOUR VALIDATOR IDENTITY>
+
+# how to interact with the network 
+    1. with `solana` cli to create account, airdrop/transfer tokens 
+        https://docs.solana.com/cli/transfer-tokens
+    2. or with json rpc
+        https://docs.solana.com/integrations/exchange
+curl localhost:8899 -X POST -H "Content-Type: application/json" -d '{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "method": "getMinimumBalanceForRentExemption",
+  "params":[0]
+}'
+
+# Result
+{"jsonrpc":"2.0","result":890880,"id":1}
+    3. use spl-token to manage user defined token
+        https://spl.solana.com/token
 
 
 comments:
@@ -290,9 +308,9 @@ comments:
 1. option 1: create genesis from google cluster (not working)
 // from /net dir of solana repo/commit
 
-./gce.sh create -n 3 -c 0 -p testnet-dev-kin-haoran -P --dedicated  --validator-boot-disk-size-gb 3600 --self-destruct-hours 0 -z us-east1-b --custom-machine-type "--custom-cpu 64 --min-cpu-platform Intel%20Skylake --custom-vm-type n1 --custom-memory 256GB"
+    ./gce.sh create -n 3 -c 0 -p testnet-dev-kin-haoran -P --dedicated  --validator-boot-disk-size-gb 3600 --self-destruct-hours 0 -z us-east1-b --custom-machine-type "--custom-cpu 64 --min-cpu-platform Intel%20Skylake --custom-vm-type n1 --custom-memory 256GB"
 
-./net.sh start --internal-nodes-stake-lamports 1000000000000 --extra-primordial-stakes 3 --faucet-lamports 500000000000000000 --slots-per-epoch 432000
+    ./net.sh start --internal-nodes-stake-lamports 1000000000000 --extra-primordial-stakes 3 --faucet-lamports 500000000000000000 --slots-per-epoch 432000
 
 It seems that ./net.sh is broken?
 After create ledger on the bootstrap node, ledger-tool fails to extract the bank hash from snap of slot1. And can't start the cluster? Is that expected?
@@ -312,38 +330,70 @@ Unable to load bank forks at slot 0 due to disconnected blocks.
 
 
 2. use the solana-genesis command directly
-target/release/solana-genesis --max-genesis-archive-unpacked-size 1073741824 --enable-warmup-epochs --bootstrap-validator /home/sol/identity/validator-identity-am6-1.json /home/sol/identity/validator-vote-account-am6-1.json /home/sol/identity/validator-stake-account-am6-1.json --bpf-program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA BPFLoader2111111111111111111111111111111111 spl_token-3.5.0.so --bpf-program Memo1UhkJRfHyvLMcVucJwxXeuD728EqVDDwQDxFMNo BPFLoader1111111111111111111111111111111111 spl_memo-1.0.0.so --bpf-program MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr BPFLoader2111111111111111111111111111111111 spl_memo-3.0.0.so --bpf-program ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL BPFLoader2111111111111111111111111111111111 spl_associated-token-account-1.1.2.so --bpf-program Feat1YXHhH6t1juaWF74WLcfv4XoNocjXA6sPWHNgAse BPFLoader2111111111111111111111111111111111 spl_feature-proposal-1.0.0.so --ledger /home/sol/ledger --faucet-pubkey /home/sol/identity/faucet.json --faucet-lamports 500000000000000000 --hashes-per-tick auto --cluster-type development
+    $ target/release/solana-genesis --max-genesis-archive-unpacked-size 1073741824 --enable-warmup-epochs --bootstrap-validator /home/sol/identity/validator-identity-am6-1.json /home/sol/identity/validator-vote-account-am6-1.json /home/sol/identity/validator-stake-account-am6-1.json --bpf-program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA BPFLoader2111111111111111111111111111111111 spl_token-3.5.0.so --bpf-program Memo1UhkJRfHyvLMcVucJwxXeuD728EqVDDwQDxFMNo BPFLoader1111111111111111111111111111111111 spl_memo-1.0.0.so --bpf-program MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr BPFLoader2111111111111111111111111111111111 spl_memo-3.0.0.so --bpf-program ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL BPFLoader2111111111111111111111111111111111 spl_associated-token-account-1.1.2.so --bpf-program Feat1YXHhH6t1juaWF74WLcfv4XoNocjXA6sPWHNgAse BPFLoader2111111111111111111111111111111111 spl_feature-proposal-1.0.0.so --ledger /home/sol/ledger --faucet-pubkey /home/sol/identity/faucet.json --faucet-lamports 500000000000000000 --hashes-per-tick auto --cluster-type development
 
 
 3. add the mint token
 I added spl-* program. I think the missing part is the token is not added.
-sol@testnet-kin-rpc-bm-1:~$ spl-token accounts -u l
-None
+    $sol@testnet-kin-rpc-bm-1:~$ spl-token accounts -u l
+    None
 So I try to use spl-token create-token to create token to mint. (edited) 
 but I get the insufficent fund error.
-sol@testnet-kin-rpc-bm-1:~$ spl-token create-token -u l
-Creating token DbMmTMoucui4Hw1a3C7T9SQm6skaw3kYyFzdxEEpdCV
-Fee payer, 7JcmM6TFZMkcDkZe6RKVkGaWwN5dXciGC4fa3RxvqQc9, has insufficient balance: 0.0014716 required, 0 available
+    sol@testnet-kin-rpc-bm-1:~$ spl-token create-token -u l
+    Creating token DbMmTMoucui4Hw1a3C7T9SQm6skaw3kYyFzdxEEpdCV
+    Fee payer, 7JcmM6TFZMkcDkZe6RKVkGaWwN5dXciGC4fa3RxvqQc9, has insufficient balance: 0.0014716 required, 0 available
 
 When I try to do an air drop, it fails too.
 
-sol@testnet-kin-rpc-bm-1:~$ solana airdrop 1 -u l
-Requesting airdrop of 1 SOL
-Error: airdrop request failed. This can happen when the rate limit is reached.
+    sol@testnet-kin-rpc-bm-1:~$ solana airdrop 1 -u l
+    Requesting airdrop of 1 SOL
+    Error: airdrop request failed. This can happen when the rate limit is reached.
 
 
 4. after spinning up the faucet process, then it works
+    $ nohup ~/src/solana/target/release/solana-faucet --keypair identity/faucet.json &>faucet.log &
 
-nohup ~/src/solana/target/release/solana-faucet --keypair identity/faucet.json &>faucet.log &
+    $ sol@testnet-kin-rpc-bm-1:~$ solana airdrop 1 -u l
+    Requesting airdrop of 1 SOL
 
-sol@testnet-kin-rpc-bm-1:~$ solana airdrop 1 -u l
-Requesting airdrop of 1 SOL
+    Signature: bqhWhRUXr5hUfYGUeHwZAbPKzeNnPoyifz8He9UJervJD6TgTK4bZ2AA995tmdgiuQFiKw6E8wWxgPDVLUgShVH
 
-Signature: bqhWhRUXr5hUfYGUeHwZAbPKzeNnPoyifz8He9UJervJD6TgTK4bZ2AA995tmdgiuQFiKw6E8wWxgPDVLUgShVH
+    1 SOL
+    $ sol@testnet-kin-rpc-bm-1:~$ spl-token create-token -u l
+    Creating token Dx2KVx97kD95Av66EUuuiaTSrXG78zwk8zXNanzEpkPt
 
-1 SOL
-sol@testnet-kin-rpc-bm-1:~$ spl-token create-token -u l
-Creating token Dx2KVx97kD95Av66EUuuiaTSrXG78zwk8zXNanzEpkPt
-
-Signature: 64B1S4BbmcVyxRPMs6NzvGZvKy5P6TRpL9gRqu6YAuKrNZDhVxJpxDttq4BzqKC2K2XJXqHmnXEWafeBDWKXTrMj
+    Signature: 64B1S4BbmcVyxRPMs6NzvGZvKy5P6TRpL9gRqu6YAuKrNZDhVxJpxDttq4BzqKC2K2XJXqHmnXEWafeBDWKXTrMj
 yeah. I created the token. Now kin-sim start working.
+
+5. After create about 4M accounts, the clients starts failing again. Do airdrop 1M sol for all clients
+    $ for x in accounts-cluster-id*; do ./solana-keygen pubkey $x; done > client_pubkey.txt
+    $ cat client_pubkey.txt | while read line; do solana airdrop -u l 1000000 $line; done
+
+6. more spl-token commands
+
+sol@testnet-kin-rpc-bm-1:~$ spl-token balance Dx2KVx97kD95Av66EUuuiaTSrXG78zwk8zXNanzEpkPt -u l
+    Could not find token account 75hJoh8vtuXSzeKmqHLZPsdGErV66ESYwPn6pRGg8Wxt
+    sol@testnet-kin-rpc-bm-1:~$ spl-token create-account Dx2KVx97kD95Av66EUuuiaTSrXG78zwk8zXNanzEpkPt -u l
+    Creating account 75hJoh8vtuXSzeKmqHLZPsdGErV66ESYwPn6pRGg8Wxt
+
+    Signature: 2TtUrSgnj6sbtaSD2adqd4a9aDRA3McDbPyVsTaGrJ3574Fv5N64eFRs6B7qnnDZKcbBjFhLcjp4x5cH6qo6yDzQ
+
+sol@testnet-kin-rpc-bm-1:~$ spl-token balance Dx2KVx97kD95Av66EUuuiaTSrXG78zwk8zXNanzEpkPt -u l
+    0
+
+sol@testnet-kin-rpc-bm-1:~$ spl-token supply Dx2KVx97kD95Av66EUuuiaTSrXG78zwk8zXNanzEpkPt -u l
+    0
+
+sol@testnet-kin-rpc-bm-1:~$ spl-token mint Dx2KVx97kD95Av66EUuuiaTSrXG78zwk8zXNanzEpkPt 100 -u l
+    Minting 100 tokens
+      Token: Dx2KVx97kD95Av66EUuuiaTSrXG78zwk8zXNanzEpkPt
+      Recipient: 75hJoh8vtuXSzeKmqHLZPsdGErV66ESYwPn6pRGg8Wxt
+
+    Signature: pfWoSKGQmfYmCjKtwqQiPVf1V6cNj23hv1Vq59MErytZQSU9hVEs3j8xzsAatSeHRe5uZaA8wC5TmzmNHcUAzsz
+
+sol@testnet-kin-rpc-bm-1:~$ spl-token balance Dx2KVx97kD95Av66EUuuiaTSrXG78zwk8zXNanzEpkPt -u l
+100
+
+sol@testnet-kin-rpc-bm-1:~$ spl-token supply Dx2KVx97kD95Av66EUuuiaTSrXG78zwk8zXNanzEpkPt -u l
+100
+
