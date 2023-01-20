@@ -262,7 +262,7 @@ https://cloud.google.com/compute/docs/disks/resize-persistent-disk?hl=en-au&_ga=
 
 2023/1/19
 ----------
-Starting a new network
+Starting a new network fresh from genesis
 
 # create genesis
 target/release/solana-genesis --max-genesis-archive-unpacked-size 1073741824 --enable-warmup-epochs --bootstrap-validator /home/sol/identity/validator-identity-am6-1.json /home/sol/identity/validator-vote-account-am6-1.json /home/sol/identity/validator-stake-account-am6-1.json --bpf-program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA BPFLoader2111111111111111111111111111111111 spl_token-3.5.0.so --bpf-program Memo1UhkJRfHyvLMcVucJwxXeuD728EqVDDwQDxFMNo BPFLoader1111111111111111111111111111111111 spl_memo-1.0.0.so --bpf-program MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr BPFLoader2111111111111111111111111111111111 spl_memo-3.0.0.so --bpf-program ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL BPFLoader2111111111111111111111111111111111 spl_associated-token-account-1.1.2.so --bpf-program Feat1YXHhH6t1juaWF74WLcfv4XoNocjXA6sPWHNgAse BPFLoader2111111111111111111111111111111111 spl_feature-proposal-1.0.0.so --ledger /home/sol/ledger --faucet-pubkey /home/sol/identity/faucet.json --faucet-lamports 500000000000000000 --hashes-per-tick auto --cluster-type development
@@ -280,3 +280,66 @@ comments:
 1. it may take a while for the non-leader nodes to download
     gensis/snapshot from bootstrap nodes.
 2. incorrect program id error in client program?
+
+# genesis and mint token
+
+1. option 1: create genesis from google cluster (not working)
+// from /net dir of solana repo/commit
+
+./gce.sh create -n 3 -c 0 -p testnet-dev-kin-haoran -P --dedicated  --validator-boot-disk-size-gb 3600 --self-destruct-hours 0 -z us-east1-b --custom-machine-type "--custom-cpu 64 --min-cpu-platform Intel%20Skylake --custom-vm-type n1 --custom-memory 256GB"
+
+./net.sh start --internal-nodes-stake-lamports 1000000000000 --extra-primordial-stakes 3 --faucet-lamports 500000000000000000 --slots-per-epoch 432000
+
+It seems that ./net.sh is broken?
+After create ledger on the bootstrap node, ledger-tool fails to extract the bank hash from snap of slot1. And can't start the cluster? Is that expected?
+haoran_yi_solana_com@testnet-dev-kin-haoran-bootstrap-validator:~$  ls /home/solana/solana/config/bootstrap-validator/
+accounts.ledger-tool  genesis.bin  genesis.tar.bz2  identity.json  rocksdb  snapshot-1-WiowSLurQoZrBXfmwyBb84k1mbFh3sHBLq41Anrx5t4.tar.zst  snapshot.ledger-tool  stake-account.json  vote-account.json
+++ solana-ledger-tool -l config/bootstrap-validator bank-hash
+[2023-01-20T02:34:52.423038671Z INFO  solana_ledger_tool] solana-ledger-tool 1.15.0 (src:devbuild; feat:2221197578)
+[2023-01-20T02:34:52.423884939Z INFO  solana_ledger::blockstore] Maximum open file descriptors: 1000000
+[2023-01-20T02:34:52.423901857Z INFO  solana_ledger::blockstore] Opening database at "/home/solana/solana/config/bootstrap-validator/rocksdb"
+[2023-01-20T02:34:52.423913781Z INFO  solana_ledger::blockstore_db] Disabling rocksdb's automatic compactions...
+[2023-01-20T02:34:52.429892189Z INFO  solana_ledger::blockstore_db] Opening Rocks with secondary (read only) access at: "/home/solana/solana/config/bootstrap-validator/rocksdb/solana-secondary"
+[2023-01-20T02:34:52.429906849Z INFO  solana_ledger::blockstore_db] This secondary access could temporarily degrade other accesses, such as by solana-validator
+[2023-01-20T02:34:52.446842048Z INFO  solana_ledger::blockstore] "/home/solana/solana/config/bootstrap-validator/rocksdb" open took 22ms
+Unable to load bank forks at slot 0 due to disconnected blocks.
++ bankHash=
+(edited)
+
+
+2. use the solana-genesis command directly
+target/release/solana-genesis --max-genesis-archive-unpacked-size 1073741824 --enable-warmup-epochs --bootstrap-validator /home/sol/identity/validator-identity-am6-1.json /home/sol/identity/validator-vote-account-am6-1.json /home/sol/identity/validator-stake-account-am6-1.json --bpf-program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA BPFLoader2111111111111111111111111111111111 spl_token-3.5.0.so --bpf-program Memo1UhkJRfHyvLMcVucJwxXeuD728EqVDDwQDxFMNo BPFLoader1111111111111111111111111111111111 spl_memo-1.0.0.so --bpf-program MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr BPFLoader2111111111111111111111111111111111 spl_memo-3.0.0.so --bpf-program ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL BPFLoader2111111111111111111111111111111111 spl_associated-token-account-1.1.2.so --bpf-program Feat1YXHhH6t1juaWF74WLcfv4XoNocjXA6sPWHNgAse BPFLoader2111111111111111111111111111111111 spl_feature-proposal-1.0.0.so --ledger /home/sol/ledger --faucet-pubkey /home/sol/identity/faucet.json --faucet-lamports 500000000000000000 --hashes-per-tick auto --cluster-type development
+
+
+3. add the mint token
+I added spl-* program. I think the missing part is the token is not added.
+sol@testnet-kin-rpc-bm-1:~$ spl-token accounts -u l
+None
+So I try to use spl-token create-token to create token to mint. (edited) 
+but I get the insufficent fund error.
+sol@testnet-kin-rpc-bm-1:~$ spl-token create-token -u l
+Creating token DbMmTMoucui4Hw1a3C7T9SQm6skaw3kYyFzdxEEpdCV
+Fee payer, 7JcmM6TFZMkcDkZe6RKVkGaWwN5dXciGC4fa3RxvqQc9, has insufficient balance: 0.0014716 required, 0 available
+
+When I try to do an air drop, it fails too.
+
+sol@testnet-kin-rpc-bm-1:~$ solana airdrop 1 -u l
+Requesting airdrop of 1 SOL
+Error: airdrop request failed. This can happen when the rate limit is reached.
+
+
+4. after spinning up the faucet process, then it works
+
+nohup ~/src/solana/target/release/solana-faucet --keypair identity/faucet.json &>faucet.log &
+
+sol@testnet-kin-rpc-bm-1:~$ solana airdrop 1 -u l
+Requesting airdrop of 1 SOL
+
+Signature: bqhWhRUXr5hUfYGUeHwZAbPKzeNnPoyifz8He9UJervJD6TgTK4bZ2AA995tmdgiuQFiKw6E8wWxgPDVLUgShVH
+
+1 SOL
+sol@testnet-kin-rpc-bm-1:~$ spl-token create-token -u l
+Creating token Dx2KVx97kD95Av66EUuuiaTSrXG78zwk8zXNanzEpkPt
+
+Signature: 64B1S4BbmcVyxRPMs6NzvGZvKy5P6TRpL9gRqu6YAuKrNZDhVxJpxDttq4BzqKC2K2XJXqHmnXEWafeBDWKXTrMj
+yeah. I created the token. Now kin-sim start working.
