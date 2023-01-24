@@ -312,7 +312,27 @@ comments:
 
     ./net.sh start --internal-nodes-stake-lamports 1000000000000 --extra-primordial-stakes 3 --faucet-lamports 500000000000000000 --slots-per-epoch 432000
 
-It seems that ./net.sh is broken?
+# this commands works with 4 equal stakes (copied from gce cluster, don't use.  see kin_genesis_gen_with_4_staked_nodes.sh for genesis)
+solana-genesis 
+    --bootstrap-validator-stake-lamports 1000000000000 
+    --faucet-lamports 500000000000000000 
+    --slots-per-epoch 432000 
+    --bootstrap-validator BStdMoTsjSzT1Qhgf52ciKMVDUwh6dnYgwYKMUat3H4s H9uTwVX2WdgauG8HoSfEC6Vh6MfUoR3Vu2FQrfXuxiDH 87ZCi24nE 6V73reyT9Uu1vniLX58FAhHBgN55pXt3aZU 
+    --bootstrap-validator 9kKh4CrVSRLNijzk9KVUHg6QSsAHPKzX5aXdJ9NkWatq 5W5KkhwJp2rkJ8n8qNbs3RZFxDaDB7pKHRHGfebFDQDk E1cjeMpKengWzsQ2kDtVYECxkJHsSe51pCMzsuQxUsZt 
+    --bootstrap-validator 6uzGKe3AgJgiiGqd23GVzoseyT9ovkDi4gnBchbghcUD FfMUFKEG4zM6S2rxHWbt8AHBpEZZsxQbUMSzL5BJCzQ7 Gso1FJXogYg7qEUsYQZAHLtha7g7ba6wANpmJWUU5tzB 
+    --max-genesis-archive-unpacked-size 1073741824 
+    --enable-warmup-epochs 
+    --bootstrap-validator /home/solana/solana/net/../config/bootstrap-validator/identity.json /home/solana/solana/net/../config/bootstrap-validator/vote-account.json /home/solana/solana/net/../config/bootstrap-validator/stake-account.json 
+    --bpf-program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA BPFLoader2111111111111111111111111111111111 spl_token-3.5.0.so 
+    --bpf-program Memo1UhkJRfHyvLMcVucJwxXeuD728EqVDDwQDxFMNo BPFLoader1111111111111111111111111111111111 spl_memo-1.0.0.so 
+    --bpf-program MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr BPFLoader2111111111111111111111111111111111 spl_memo-3.0.0.so 
+    --bpf-program ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL BPFLoader2111111111111111111111111111111111 spl_associated-token-account-1.1.2.so 
+    --bpf-program Feat1YXHhH6t1juaWF74WLcfv4XoNocjXA6sPWHNgAse BPFLoader2111111111111111111111111111111111 spl_feature-proposal-1.0.0.so 
+    --ledger /home/solana/solana/net/../config/bootstrap-validator 
+    --faucet-pubkey /home/solana/solana/net/../config/faucet.json 
+    --hashes-per-tick auto --cluster-type development
+
+It seems that genesis from ./net.sh is broken?
 After create ledger on the bootstrap node, ledger-tool fails to extract the bank hash from snap of slot1. And can't start the cluster? Is that expected?
 haoran_yi_solana_com@testnet-dev-kin-haoran-bootstrap-validator:~$  ls /home/solana/solana/config/bootstrap-validator/
 accounts.ledger-tool  genesis.bin  genesis.tar.bz2  identity.json  rocksdb  snapshot-1-WiowSLurQoZrBXfmwyBb84k1mbFh3sHBLq41Anrx5t4.tar.zst  snapshot.ledger-tool  stake-account.json  vote-account.json
@@ -329,7 +349,7 @@ Unable to load bank forks at slot 0 due to disconnected blocks.
 (edited)
 
 
-2. use the solana-genesis command directly
+2. use the solana-genesis command directly (this commands only have stake on one node, and that bootstrap node is always the leader so it only have tpu)
     $ target/release/solana-genesis --max-genesis-archive-unpacked-size 1073741824 --enable-warmup-epochs --bootstrap-validator /home/sol/identity/validator-identity-am6-1.json /home/sol/identity/validator-vote-account-am6-1.json /home/sol/identity/validator-stake-account-am6-1.json --bpf-program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA BPFLoader2111111111111111111111111111111111 spl_token-3.5.0.so --bpf-program Memo1UhkJRfHyvLMcVucJwxXeuD728EqVDDwQDxFMNo BPFLoader1111111111111111111111111111111111 spl_memo-1.0.0.so --bpf-program MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr BPFLoader2111111111111111111111111111111111 spl_memo-3.0.0.so --bpf-program ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL BPFLoader2111111111111111111111111111111111 spl_associated-token-account-1.1.2.so --bpf-program Feat1YXHhH6t1juaWF74WLcfv4XoNocjXA6sPWHNgAse BPFLoader2111111111111111111111111111111111 spl_feature-proposal-1.0.0.so --ledger /home/sol/ledger --faucet-pubkey /home/sol/identity/faucet.json --faucet-lamports 500000000000000000 --hashes-per-tick auto --cluster-type development
 
 
