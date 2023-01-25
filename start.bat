@@ -10,6 +10,8 @@ plink -batch sol@%kin2% "~/restart"
 plink -batch sol@%kin3% "~/restart"
 plink -batch sol@%kin4% "~/restart"
 
+echo "waiting for starting"
+timeout 650
 
 plink -batch sol@%kin1% "tail -F logs/solana-validator.log | grep -m 1 \"new root\""
 plink -batch sol@%kin2% "tail -F logs/solana-validator.log | grep -m 1 \"new root\""

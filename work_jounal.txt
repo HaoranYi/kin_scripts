@@ -98,6 +98,7 @@ restart 2022/5/23:
 Successfully created snapshot for slot 99273, hash 7LqrSQiZQHqaQWAoyWL86zxLCrKG1jh8vBeYwNBp3GzT: /home/sol/ledger/snapshot-99273-9XQgP53GH2bqHLvKGfAePHPAN9a1tNwYRo4s9EzoMfRw.tar.zst
 Shred version: 8321
 
+when kin-sim account capped for about 750M?
 `cap_accounts_data_len` will cap the total size of accounts data to 50G. The
 following patch will remove that cap.
 diff --git a/runtime/src/bank.rs b/runtime/src/bank.rs
@@ -431,4 +432,14 @@ sol@testnet-kin-rpc-bm-1:~$ spl-token balance Dx2KVx97kD95Av66EUuuiaTSrXG78zwk8z
 
 sol@testnet-kin-rpc-bm-1:~$ spl-token supply Dx2KVx97kD95Av66EUuuiaTSrXG78zwk8zXNanzEpkPt -u l
 100
+
+2023/1/25
+----------
+It many take a while for the rpc node to catch up, i.e. to pass healthy check.
+During the catch up, the client will not be able to add transactions.
+
+rpc_health.rs::RpcHealth::startup_verification_complete, this is set when
+load_bankforks completed.
+
+$ solana-validator --ledger ~ledger/ monitor
 
