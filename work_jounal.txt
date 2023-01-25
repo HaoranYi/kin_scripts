@@ -98,6 +98,21 @@ restart 2022/5/23:
 Successfully created snapshot for slot 99273, hash 7LqrSQiZQHqaQWAoyWL86zxLCrKG1jh8vBeYwNBp3GzT: /home/sol/ledger/snapshot-99273-9XQgP53GH2bqHLvKGfAePHPAN9a1tNwYRo4s9EzoMfRw.tar.zst
 Shred version: 8321
 
+`cap_accounts_data_len` will cap the total size of accounts data to 50G. The
+following patch will remove that cap.
+diff --git a/runtime/src/bank.rs b/runtime/src/bank.rs
+index 20585ca1dd..4ee9e4cc82 100644
+--- a/runtime/src/bank.rs
++++ b/runtime/src/bank.rs
+@@ -7465,7 +7465,7 @@ impl Bank {
+         }
+
+         if new_feature_activations.contains(&feature_set::cap_accounts_data_len::id()) {
+-            const ACCOUNTS_DATA_LEN: u64 = 50_000_000_000;
++            const ACCOUNTS_DATA_LEN: u64 = u64::MAX;
+             self.accounts_data_size_initial = ACCOUNTS_DATA_LEN;
+         }
+
 file://snapshots_backup/no_cap/snapshot-99273-9XQgP53GH2bqHLvKGfAePHPAN9a1tNwYRo4s9EzoMfRw.tar.zst
 gsutil cp gs://kin-snapshots/bank-hash/snapshot-99273-9XQgP53GH2bqHLvKGfAePHPAN9a1tNwYRo4s9EzoMfRw.tar.zst .
 
