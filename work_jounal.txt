@@ -443,3 +443,6 @@ load_bankforks completed.
 
 $ solana-validator --ledger ~ledger/ monitor
 
+2023/1/26
+----------
+/tmp folder filled up when running ledger-tool create-snapshot
