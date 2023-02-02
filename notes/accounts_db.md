@@ -20,7 +20,7 @@ the write cache, all the writes for a slot are first cached and only dumped to
 AppendVec after block is rooted. So there will be one appendVec for a slot.
 
 ### AncientAppendVec
-To reduce the number of AppendVec files. Old AppendVec files that are 1-epoch
+To reduce the number of AppendVec files, old AppendVec files that are 1-epoch
 ago are squashed into AncientAppendVec, which contains all the AppendVec for
 `slot < curr-slots_in_epoch`.
 
