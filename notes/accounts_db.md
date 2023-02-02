@@ -13,12 +13,13 @@ All accounts data are stored on AppendVec. AppendVec is a append-only memory
 mapped files. One AppendVec stores all the accounts update for a slot. Each
 entry in the AppendVec is a key-value pair: (pubkey, account_data).
 
-AppendVec storage file name `<Slot>.<id>`. id is unique increasing number.
+AppendVec storage file name `<Slot>.<id>`. `id` is unique increasing number.
 Historically, a slot can have multiple AppendVec storages. Each replay of a
 block will create a new AppendVec file for that slot. However, after introducing
 the write cache, all the writes for a slot are first cached and only dumped to
 AppendVec after block is rooted. So there will be one appendVec for a slot.
 
+### AncientAppendVec
 To reduce the number of AppendVec files. Old AppendVec files that are 1-epoch
 ago are squashed into AncientAppendVec, which contains all the AppendVec for
 `slot < curr-slots_in_epoch`.
@@ -39,7 +40,7 @@ The index is also stored on the disk by memory mapped files.
 
 ## Accounts-DB read cache
 
-A read-only cache, which get populated when reading. When writing, updated entry are removed from the cache.
+A read-only cache, which get populated when reading. When writing, updated entries are removed from the cache.
 Format:
 - (pubkey, slot)-> data
 
