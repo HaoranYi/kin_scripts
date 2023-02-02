@@ -1,6 +1,6 @@
-# Accounts DB
+# Solana Accounts DB
 
-AccountsDB manages account's data. Account data, state of the newwork, a special
+AccountsDB manages account's data. Account data, state of the network, a special
 implementation of the log-like database - Append-only database. The underlying
 storage is `AppendVec`. And the accounts_DB maintains a index with (pubkey, slot)
 for lookup of accounts data, and caches.
