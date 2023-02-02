@@ -31,6 +31,6 @@ Both account_db and runtime are owned by the bank at the highest level.
 ![Alt text](./out/relations/relations.svg)
 
 TODO
-[stake pool](https://spl.solana.com/stake-pool)
-[stake howto](https://solana.com/staking#rewards/how-do-i-estimate-and-view-my-staking-rewards)
-[spl-token](https://spl.solana.com/token]
+- [stake pool](https://spl.solana.com/stake-pool)
+- [stake howto](https://solana.com/staking#rewards/- how-do-i-estimate-and-view-my-staking-rewards)
+- [spl-token](https://spl.solana.com/token]
