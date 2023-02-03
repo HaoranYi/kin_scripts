@@ -1,0 +1,30 @@
+@startuml
+
+
+map ReadCache {
+    pubkey => slot => account_data
+}
+
+map AccountIndex {
+    pubkey => [(slot, offset_in_appendvec)]
+}
+
+map WriteCache {
+    Slot => CacheEntry
+}
+
+object AccountBackGroundService
+
+map AppendVecs {
+    1 => mmap_1.1
+    2 => mmap_2.2
+    ... => ...
+}
+
+AccountIndex --> AppendVecs
+ReadCache --> AccountIndex
+WriteCache --> AppendVecs
+AccountBackGroundService --> WriteCache
+AccountBackGroundService --> AppendVecs
+
+@enduml
