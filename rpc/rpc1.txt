@@ -1,0 +1,48 @@
+4FdZkX5KaqcZNuTZZKVRqw5zWtjth7A6dpvrQk5aTiVGfy3G7Csi2WdojixdVtF3vmDmN4g3t8qB95VdPUQMY3a7  
+
+curl https://api.mainnet-beta.solana.com -X POST -H "Content-Type: application/json" -d '
+  {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "getBalance",
+    "params": [
+      "Ghfh52pL9m3Q6KsiS7nWBLStqSHox2AKPs5pWC7ex6k2"
+    ]
+  }
+'
+
+
+Ghfh52pL9m3Q6KsiS7nWBLStqSHox2AKPs5pWC7ex6k2
+curl https://api.mainnet-beta.solana.com -X POST -H "Content-Type: application/json" -d '
+  {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "getInflationReward",
+    "params": [
+      [
+        "Ghfh52pL9m3Q6KsiS7nWBLStqSHox2AKPs5pWC7ex6k2"
+      ],
+      {"epoch": 407}
+    ]
+  }
+'
+
+174131248
+
+175824000
+175392000
+174960000
+174528004
+174096000
+
+$ solana block 175824000 > 175824000.txt
+
+174,131,248  withdraw Ghfh52pL9m3Q6KsiS7nWBLStqSHox2AKPs5pWC7ex6k2 balance 0
+https://explorer.solana.com/tx/4FdZkX5KaqcZNuTZZKVRqw5zWtjth7A6dpvrQk5aTiVGfy3G7Csi2WdojixdVtF3vmDmN4g3t8qB95VdPUQMY3a7
+174,528,004  epoch boundary
+sol@dev-equinix-washington-5:~/src/kin_scripts/rpc$ grep DaNexGpPeQChZTPZAn1BGmd4ASQpHE4hLDv7V4iAe2oA 174528004
+  DaNexGpPeQChZTPZAn1BGmd4ASQpHE4hLDv7V4iAe2oA      voting       ◎0.000000000     ◎0.026858640            0.000000000%         10%
+174,921,677
+sol@dev-equinix-washington-5:~/src/kin_scripts/rpc$ grep Ghfh52pL9m3Q6KsiS7nWBLStqSHox2AKPs5pWC7ex6k2 174921677
+  Ghfh52pL9m3Q6KsiS7nWBLStqSHox2AKPs5pWC7ex6k2       rent        -◎0.000000001               -                 -      -
+
