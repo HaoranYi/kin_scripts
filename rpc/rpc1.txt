@@ -27,13 +27,16 @@ curl https://api.mainnet-beta.solana.com -X POST -H "Content-Type: application/j
   }
 '
 
-174131248
+432,000
+
+174,096,000 epoch  (reward)    403
+174,131,248  0
+174,528,004 epoch  (reward=0)  404
+174,921,677  rent
+174,960,000 epoch  (reward=0)  405
 
 175824000
 175392000
-174960000
-174528004
-174096000
 
 $ solana block 175824000 > 175824000.txt
 
@@ -45,4 +48,59 @@ sol@dev-equinix-washington-5:~/src/kin_scripts/rpc$ grep DaNexGpPeQChZTPZAn1BGmd
 174,921,677
 sol@dev-equinix-washington-5:~/src/kin_scripts/rpc$ grep Ghfh52pL9m3Q6KsiS7nWBLStqSHox2AKPs5pWC7ex6k2 174921677
   Ghfh52pL9m3Q6KsiS7nWBLStqSHox2AKPs5pWC7ex6k2       rent        -◎0.000000001               -                 -      -
+
+
+173232000
+
+$ grep Ghfh schedule.txt
+  173250520       Ghfh52pL9m3Q6KsiS7nWBLStqSHox2AKPs5pWC7ex6k2
+  173250521       Ghfh52pL9m3Q6KsiS7nWBLStqSHox2AKPs5pWC7ex6k2
+  173250522       Ghfh52pL9m3Q6KsiS7nWBLStqSHox2AKPs5pWC7ex6k2
+  173250523       Ghfh52pL9m3Q6KsiS7nWBLStqSHox2AKPs5pWC7ex6k2
+  173306740       Ghfh52pL9m3Q6KsiS7nWBLStqSHox2AKPs5pWC7ex6k2
+  173306741       Ghfh52pL9m3Q6KsiS7nWBLStqSHox2AKPs5pWC7ex6k2
+  173306742       Ghfh52pL9m3Q6KsiS7nWBLStqSHox2AKPs5pWC7ex6k2
+  173306743       Ghfh52pL9m3Q6KsiS7nWBLStqSHox2AKPs5pWC7ex6k2
+  173398708       Ghfh52pL9m3Q6KsiS7nWBLStqSHox2AKPs5pWC7ex6k2
+  173398709       Ghfh52pL9m3Q6KsiS7nWBLStqSHox2AKPs5pWC7ex6k2
+  173398710       Ghfh52pL9m3Q6KsiS7nWBLStqSHox2AKPs5pWC7ex6k2
+  173398711       Ghfh52pL9m3Q6KsiS7nWBLStqSHox2AKPs5pWC7ex6k2
+  173399280       Ghfh52pL9m3Q6KsiS7nWBLStqSHox2AKPs5pWC7ex6k2
+  173399281       Ghfh52pL9m3Q6KsiS7nWBLStqSHox2AKPs5pWC7ex6k2
+  173399282       Ghfh52pL9m3Q6KsiS7nWBLStqSHox2AKPs5pWC7ex6k2
+  173399283       Ghfh52pL9m3Q6KsiS7nWBLStqSHox2AKPs5pWC7ex6k2
+  173488800       Ghfh52pL9m3Q6KsiS7nWBLStqSHox2AKPs5pWC7ex6k2
+  173488801       Ghfh52pL9m3Q6KsiS7nWBLStqSHox2AKPs5pWC7ex6k2
+  173488802       Ghfh52pL9m3Q6KsiS7nWBLStqSHox2AKPs5pWC7ex6k2
+  173488803       Ghfh52pL9m3Q6KsiS7nWBLStqSHox2AKPs5pWC7ex6k2
+  173532904       Ghfh52pL9m3Q6KsiS7nWBLStqSHox2AKPs5pWC7ex6k2
+  173532905       Ghfh52pL9m3Q6KsiS7nWBLStqSHox2AKPs5pWC7ex6k2
+  173532906       Ghfh52pL9m3Q6KsiS7nWBLStqSHox2AKPs5pWC7ex6k2
+  173532907       Ghfh52pL9m3Q6KsiS7nWBLStqSHox2AKPs5pWC7ex6k2
+  173535180       Ghfh52pL9m3Q6KsiS7nWBLStqSHox2AKPs5pWC7ex6k2
+  173535181       Ghfh52pL9m3Q6KsiS7nWBLStqSHox2AKPs5pWC7ex6k2
+  173535182       Ghfh52pL9m3Q6KsiS7nWBLStqSHox2AKPs5pWC7ex6k2
+  173535183       Ghfh52pL9m3Q6KsiS7nWBLStqSHox2AKPs5pWC7ex6k2
+  173554828       Ghfh52pL9m3Q6KsiS7nWBLStqSHox2AKPs5pWC7ex6k2
+  173554829       Ghfh52pL9m3Q6KsiS7nWBLStqSHox2AKPs5pWC7ex6k2
+  173554830       Ghfh52pL9m3Q6KsiS7nWBLStqSHox2AKPs5pWC7ex6k2
+  173554831       Ghfh52pL9m3Q6KsiS7nWBLStqSHox2AKPs5pWC7ex6k2
+  173571464       Ghfh52pL9m3Q6KsiS7nWBLStqSHox2AKPs5pWC7ex6k2
+  173571465       Ghfh52pL9m3Q6KsiS7nWBLStqSHox2AKPs5pWC7ex6k2
+  173571466       Ghfh52pL9m3Q6KsiS7nWBLStqSHox2AKPs5pWC7ex6k2
+  173571467       Ghfh52pL9m3Q6KsiS7nWBLStqSHox2AKPs5pWC7ex6k2
+  173576580       Ghfh52pL9m3Q6KsiS7nWBLStqSHox2AKPs5pWC7ex6k2
+  173576581       Ghfh52pL9m3Q6KsiS7nWBLStqSHox2AKPs5pWC7ex6k2
+  173576582       Ghfh52pL9m3Q6KsiS7nWBLStqSHox2AKPs5pWC7ex6k2
+  173576583       Ghfh52pL9m3Q6KsiS7nWBLStqSHox2AKPs5pWC7ex6k2
+
+
+$ curl -X POST -H "Content-Type: application/json" -d '{"jsonrpc": "2.0","id":1,"method":"getBlock","params":[174612129,{"transactionDetails":"none"}]}' api.mainnet-beta.solana.com | jq | grep Ghfh52pL9m3Q6KsiS7nWBLStqSHox2AKPs5pWC7ex6k2 -B 4 -A 2
+      {
+        "commission": null,
+        "lamports": 1,
+        "postBalance": 1,
+        "pubkey": "Ghfh52pL9m3Q6KsiS7nWBLStqSHox2AKPs5pWC7ex6k2",
+        "rewardType": "Rent"
+      },
 
