@@ -1,0 +1,30 @@
+# Rents 
+
+Rents are collected from accounts which didn't meet minimal rent exempt
+balance. Collected rents are distributed to staked validators. 
+
+Account has a field called rent_epoch to decide when rent is due. Since this
+field need to be updated per epoch, it is a performance bottleneck. 
+
+Spread rent collection throughout the epoch. Each block is scanning a range of
+the pubkeys. When a block freeze, it collect rents for its partition.
+
+block freeze also collect_fees, distribute rents, update slot_history sysvar,
+and run incinerator to burn extra lamport.
+
+rent_Rewrite??
+
+historically, even for rent_exempted accounts we still rewrite it -- i.e.
+updating its rent_epoch. 
+
+However, if the balance of the account doesn't change, we don't need to udpate
+the account? setting rent_epoch to max for rent_exempted accounts. Then no
+changes. -- skip_rewrite
+
+enforce that no new rent exempted accounts can be created. rent paying concept
+will die.
+
+For each changed account, we need to compute its hash.
+
+In summary, a historical design. Not very useful. 
+
