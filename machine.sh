@@ -31,3 +31,9 @@ export mydev=216.202.208.198   # dev-lumen-Atlanta-2-3
 
 export hy1=147.28.146.231      # dev-equinix-washington-5 
 export hy2=86.109.7.117        # dev-equinix-washington-23
+
+#devnet
+export dv1=145.40.71.85  # devnet-validator-asia-sg1 / dv1ZAGvdsz5hHLwWXsVnM94hWf1pjbKVau1QVkaMJ92
+export dv2=136.144.49.15 # devnet-validator-europe-fr2 / dv2eQHeP4RFrJZ6UeiZWoc3XTtmtZCUKxxCApCDcRNV
+export dv3=147.75.55.147 # devnet-validator-us-da11 / dv3qDFk1DTF36Z62bNvrCXe9sKATA6xvVy6A798xxAS
+export dv4=147.75.105.51 # devnet-validator-us-ny5 / dv4ACNkpYPcE3aKmYDqZm9G5EB3J4MRoeE7WNDRBVJB
