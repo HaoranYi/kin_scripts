@@ -27,7 +27,7 @@ fn tick(prev_hash: Hash) -> Entry {
     Entry {
         num_hashes,
         hash,
-        transaction_buf.drian(),
+        transaction_buf.drain(),
 }
 
 
@@ -49,7 +49,7 @@ boundary.
 ## Shred generation
 
 The array of [Entry] for a particular block are serialized and chunked into
-data shreds. Data shreds feed into Reed-solmon coder to generate parity shred.
+data shreds. Data shreds feed into Reed-solomon coder to generate parity shred.
 Data and coding shreds are stored into blockstore (i.e. rocksdb) and
 broadcasted through turbine. The particular Reed-solomon coding is 32:32
 redundancy. Data and code have the same number of shreds.
@@ -152,7 +152,7 @@ shreds no longer decrease.
 
 Mathematically, x - source, y - received. Try to recover X. Missing entries
 cause M'. With clever design of the matrix M, after deleting any missing sub
-matrix, the resulting M' is still full rank then we will be able to backout x.
+matrix, the resulting M' is still full rank then we will be able to back-out x.
 
 M is the vandermonde matrix.
 
@@ -164,7 +164,7 @@ inv is done by gauss-elimination.
 
 
 encoding is matrix multiply, decoding is also a matrix multiply. 
-M - vandermonde matrix; special matrix - every sub-metrix is invertible. 
+M - vandermonde matrix; special matrix - every sub-matrix is invertible. 
 
 Lookup table for erasure batches given the number of data shreds
     
