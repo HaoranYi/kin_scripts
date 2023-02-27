@@ -188,6 +188,8 @@ Shreds are broadcasted in the network with turbine network layers.
 leader --> layer 1 ---> layer 2 ---> layer 3
 ```
 
+![Alt text](./turbine.svg)
+
 High stake nodes are in layer1.
 
 Also to prevent shreds from lost, retransmit through gossip is also supported.
