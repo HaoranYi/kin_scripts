@@ -54,6 +54,34 @@ Data and coding shreds are stored into blockstore (i.e. rocksdb) and
 broadcasted through turbine. The particular Reed-solomon coding is 32:32
 redundancy. Data and code have the same number of shreds.
 
+```
+// data structure for data shred
+struct ShredData {
+    common_header: CommonHeader,
+    header: DataHeader,
+    payload: Vec<u8>, 
+}
+
+// data structure for code shred
+struct ShredCode {
+    common_header: CommonHeader,
+    header: CodeHeader,
+    payload: Vec<u8>, 
+}
+
+// Shred enum (i.e. Union)
+enum Shred {
+    ShredCode(ShredCode),
+    ShredData(ShredData),
+}
+
+// Code snippet to dispatch data/code shreds
+match shred {
+    Shred::ShredCode(shred) => handle_code_shred(shred), 
+    Shred::ShredData(shred) => handle_data_shred(shred), 
+}
+```
+
 ### Erasure coding
 
 Reed-solomon coding is to solve the problem of data loss during transmission.
@@ -92,11 +120,27 @@ For example,
     9 --> 32 (23) +
     10 -> 33 (23) -
     11 -> 35 (24) +
-    ...
-    29 --> 60 (31)
-    30 --> 62 (32)
-    31 --> 63 (32)
-    32 --> 64 (32)
+    12 -> 36 (24) -
+    13 -> 38 (25) +
+    14 -> 39 (25) -
+    15 -> 41 (26) +
+    16 -> 42 (26) -
+    17 -> 43 (26) - 
+    18 -> 45 (27) +
+    19 -> 46 (27) -
+    20 -> 48 (28) +
+    21 -> 49 (28) -
+    22 -> 51 (29) +
+    23 -> 52 (29) -
+    24 -> 53 (29) -
+    25 -> 55 (30) +
+    26 -> 56 (30) -
+    27 -> 58 (31) +
+    28 -> 59 (31) -
+    29 -> 60 (31) -
+    30 -> 62 (32) +
+    31 -> 63 (32) -
+    32 -> 64 (32) -
 ```
     
 Worst case number of coding shreds are 17 times bigger than the number of data
