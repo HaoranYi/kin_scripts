@@ -167,7 +167,15 @@ encoding is matrix multiply, decoding is also a matrix multiply.
 M - vandermonde matrix; special matrix - every sub-matrix is invertible. 
 
 Lookup table for erasure batches given the number of data shreds
-    
+
+This is for merkle tree. 
+
+Malicious leader can create a partition of the network by sending two different
+last data-shreds. So merkle tree of the shred is introduced, each shred must be
+long to the merkle tree. must be verifiable. But this leads to the fact that we
+must have at least K shreds in the erasure batch to compute the merkle tree,
+that leads to the following matrix.
+
 ```
 // Maps number of data shreds to the optimal erasure batch size which has the
 // same recovery probabilities as a 32:32 erasure batch.
