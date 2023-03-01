@@ -58,10 +58,43 @@ When a block is rooted, the entry (slot, cache_entry) in the cache becomes
 candidate to flush.
 
 Account caches are managed by `Accounts-db background service`, which periodically
-flush clean and store accounts cache entries into disk AppendVec.
+flush clean and store accounts cache entries into disk AppendVec. It also
+perform other maintenance task such as AppendVec cleaning, shrinking and
+generate snapshot.
 
 - Cache data structure
 ```
     slot-->CachedAccounts
              --> (pubkey, account), statistics, flags (is_frozen)
 ```
+
+## Shrink/Clean in ABS
+
+Cleaning: remove the ref to account on AppendVec from account_index
+Shrink: remove/relocate AppendVec storage
+
+As we root banks and slot, slot-list in index will be removed (i.e. clean). More accurately, this is happening on snapshotting. 
+pubkey->slot_list: holding the last state and active state for the accounts in the network. 
+Let's say Account A is last access at slot S. If no more on going bank access A, only one copy of A at S is needed.
+If there are on-going bank access to A, then those slot will be in slot list.
+When a bank root, all accounts in the bank will be added to slot-list and all previous slots that are ancestors of the root can be safely cleaned.
+
+Scan append-vec against account-index ref.
+Any accounts not refed in account-index can be removed -- old state. Clean will result append-vec shrink (by threshold for live/dead ratio). When all 
+dead, the whole slots can be removed.
+
+Shrink will relocate accounts in appendvec, so it need to update account-index to point to the new location.
+
+## Snapshot
+
+State for a particular slots. It include accounts-db: AppendVec storage for accounts. And banks. 
+When creating snapshot hardlink to AppendVec storage in snapshot folder to prevent account storage file from being deleted.
+
+update? Shrinking will modify the AppendVec?
+If shrinking happens at root 100 + x, snap 100. Then 100 can be modified. then
+we can't start at 100 again because accounts will be lost. And too frequent of
+root, too frequent scan not good.
+
+So, shrinking only happens at the snap, and it will be fine. Appendvec 100 won't
+change until next snap 200. If we crash at 150, then 100 is still good.
+

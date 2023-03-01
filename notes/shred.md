@@ -176,6 +176,35 @@ long to the merkle tree. must be verifiable. But this leads to the fact that we
 must have at least K shreds in the erasure batch to compute the merkle tree,
 that leads to the following matrix.
 
+The merkle tree need to be deep enough to prevent the leader from sending two
+versions of blocks in the network. Single eraser batch is easy to send two
+versions of blocks in the network. By 18 = 64 - (32-1) - (16-1). we will have
+a tree of 6 levels that make it harder to create two versions of blocks in the
+network.
+
+Fundamentally, merkle tree is to check if an item is in the set. 
+Same task you can do with the HashSet but it will require the checker to store
+the set. merkle tree offload the set storage to peers, the checker only need to
+hold the root hash.
+
+
+How to calculate recover probability for Reed-Solomon code?
+
+total: n
+source: k
+parity: n-k
+correction: t
+
+t = (n-k)/2  when error not known.
+
+Hamming distance for correction. Find the nearest point in the K subspace.
+
+Erasure: means error location is known. Then RS can correct twice as many as error code (n-k)
+
+32:32 has 16 correction.
+1:17 has 8.5 correction, erasure error tolerate 16
+
+
 ```
 // Maps number of data shreds to the optimal erasure batch size which has the
 // same recovery probabilities as a 32:32 erasure batch.
@@ -186,7 +215,59 @@ pub(crate) const ERASURE_BATCH_SIZE: [usize; 33] = [
     55, 56, 58, 59, 60, 62, 63, 64, // 32
 ];
 
+performance concern:
+    how fast to compute and decode steam? rate?
+    error correction capability?
+
 ```
+
+A blog that gives a working example of RS code
+https://levelup.gitconnected.com/reed-solomon-codes-data-recovery-over-unreliable-networks-cbdcf3f029b1
+
+This gives a matrix view of the encoding and decoding.
+
+### generator polynomial view of encoding and decoding
+data -> bit string -> polynomial whose coefficient are bits
+
+For example, an 8 – bit word 11001101 is represented by the following polynomial of order 7:
+
+1𝑥7+ 1𝑥6+ 0𝑥5+ 0𝑥4+1𝑥3+ 1𝑥2+ 0𝑥1+1𝑥0 = 𝑥7+𝑥6+ 𝑥3+ 𝑥2+1
+
+- error detection CRC: 
+xk * I(x) = Q(x)*g(x) + r(x)  # r(x) is parity bits, transmit I(x) + r(x)
+[xk*I(x), r(x)]  transmit polynomial can be divided by g(x), error detection (CRC).
+
+if E(x) is divisible by g(x) then error detection can fail.
+    
+case: odd number of bit flips  
+    E(1) = 1
+    G(1) = 0
+    G(x) = xk+1 
+    
+sum(Ck*Xk)*xk /(x+1) remainder sum(Ck) can detect odd bit flips
+
+case: burst k errors
+    difference must be by sum(Xk)
+    if difference is less than Xk then detect
+    circular code: sum up every k symbols --> k parity bits
+        
+https://www.cs.jhu.edu/~scheideler/courses/600.344_S02/CRC.html
+
+-  polynomial code (use polynomial to compute parity bits)
+k-bit source: k-1 polynomials 
+code: I(x)*g(x)  divisible  by g(x)
+
+polynomial multiple can be represented as matrix multiply
+    - coeff for x^k corresponds to the k-th parity row
+factor of xn-1 ==> CRC codes
+    - G matrix: column shift according to coefficient of generation polynomial
+    - orthogonalize top to identity matrix, then bottom will be parity matrix
+    
+decoding correction capability 
+    - rank of the generation matrix
+    - also determinant of the matrix
+detailed math
+https://math.libretexts.org/Bookshelves/Abstract_and_Geometric_Algebra/Abstract_Algebra%3A_Theory_and_Applications_(Judson)/22%3A_Finite_Fields/22.02%3A_Polynomial_Codes
 
 ## Broadcast shreds
 
