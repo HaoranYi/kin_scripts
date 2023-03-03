@@ -95,6 +95,19 @@ If shrinking happens at root 100 + x, snap 100. Then 100 can be modified. then
 we can't start at 100 again because accounts will be lost. And too frequent of
 root, too frequent scan not good.
 
+```
+pub fn shink_all_slots(&self, is_startup: bool, last_full_snapshot_slot: Option<Slot>) {
+    ...
+}
+```
+
 So, shrinking only happens at the snap, and it will be fine. Appendvec 100 won't
 change until next snap 200. If we crash at 150, then 100 is still good.
 
+incremental snapshot didn't do clean/shrink accountsdb appendvec beyond last full.
+In incremental snapshot, only include AppendVec of last_full_snapshot_shot ... current_slot. So it need full snapshots to work.
+When working on snapshot gen, the archive process share the appendvec with the
+app though file hard-links. Therefore, during archiving, those hard-linked
+appendvec won't be allowed to change.
+
+incremental and full snapshots have their own separate packaging directory.

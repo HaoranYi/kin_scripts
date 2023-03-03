@@ -197,13 +197,19 @@ correction: t
 
 t = (n-k)/2  when error not known.
 
-Hamming distance for correction. Find the nearest point in the K subspace.
+Hamming distance for correction. Given a point, find the nearest K subspace, which is the best recovery for the input.
 
-Erasure: means error location is known. Then RS can correct twice as many as error code (n-k)
+Erasure: means error location is known. Then RS can correct twice as many as error code, i.e. (n-k)
 
-32:32 has 16 correction.
+32:32 has 16 correction. 
 1:17 has 8.5 correction, erasure error tolerate 16
 
+However, mean(drop_64) = 64*p, mean(drop_18)= 18*p. 
+More packets will be missing from the 64 erasure coding batch, than from 18 coding batch.
+Given a drop rate of p,
+recover(64) = drop(0, 64) + drop(1, 64) + ... + drop(32, 64)
+recover(18) = drop(1, 18) + drop(2, 18) + ... + drop(8, 18)
+sum of binomial prob to match.
 
 ```
 // Maps number of data shreds to the optimal erasure batch size which has the
@@ -227,7 +233,7 @@ https://levelup.gitconnected.com/reed-solomon-codes-data-recovery-over-unreliabl
 This gives a matrix view of the encoding and decoding.
 
 ### generator polynomial view of encoding and decoding
-data -> bit string -> polynomial whose coefficient are bits
+data -> bit string -> polynomial in which coefficient are bits
 
 For example, an 8 – bit word 11001101 is represented by the following polynomial of order 7:
 
@@ -236,6 +242,10 @@ For example, an 8 – bit word 11001101 is represented by the following polynomi
 - error detection CRC: 
 xk * I(x) = Q(x)*g(x) + r(x)  # r(x) is parity bits, transmit I(x) + r(x)
 [xk*I(x), r(x)]  transmit polynomial can be divided by g(x), error detection (CRC).
+polynomial remainder == parity bits; received polynomial must be divisible by g(x)
+
+g(x) = x+1  -- checksum ! the remainder (scalar) is the check sum of all coefficient
+3 checksum 1+x+x^2
 
 if E(x) is divisible by g(x) then error detection can fail.
     
@@ -259,6 +269,7 @@ code: I(x)*g(x)  divisible  by g(x)
 
 polynomial multiple can be represented as matrix multiply
     - coeff for x^k corresponds to the k-th parity row
+    - a circular matrix (diagram band matrix)
 factor of xn-1 ==> CRC codes
     - G matrix: column shift according to coefficient of generation polynomial
     - orthogonalize top to identity matrix, then bottom will be parity matrix
@@ -266,6 +277,12 @@ factor of xn-1 ==> CRC codes
 decoding correction capability 
     - rank of the generation matrix
     - also determinant of the matrix
+
+vandermonde matrix is used to to determine determinant
+    - G can be factor into V-matrix multiply, same as polynomial can be factorized into smaller polynomial
+    - x_i^j  polynomial interpolation, i.e. FFT
+
+
 detailed math
 https://math.libretexts.org/Bookshelves/Abstract_and_Geometric_Algebra/Abstract_Algebra%3A_Theory_and_Applications_(Judson)/22%3A_Finite_Fields/22.02%3A_Polynomial_Codes
 
@@ -288,7 +305,6 @@ This is done through are request and response mode.
 
 Shreds are stored in blockstore - rocksdb in the ledger. The reply and
 retransmit look up shreds from the ledger.
-
 
 ## Misc coding tips
 
