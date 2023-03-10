@@ -1,0 +1,208 @@
+    1  ls
+    2  pwd
+    3  ls
+    4  ls
+    5  exit
+    6  ls
+    7  cd git/
+    8  ls
+    9  ls
+   10  git clone git@github.com:HaoranYi/kin_scripts.git
+   11  ls
+   12  cd kin_scripts/
+   13  ls
+   14  tig
+   15  sudo apt-get install tig
+   16  tig
+   17  ls
+   18  pwd
+   19  mkdir git
+   20  which git
+   21  cd git/
+   22  ls
+   23  git clone git@github.com:HaoranYi/solana.git
+   24  ls ~/.ssh/
+   25  cat ~/.ssh/id_rsa.pub
+   26  git clone git@github.com:HaoranYi/solana.git
+   27  chmod 600 ~/.ssh/id_rsa
+   28  git clone git@github.com:HaoranYi/solana.git
+   29  git remote add upstream git@github.com:solana-labs/solana.git
+   30  ls
+   31  mv solana hy_solana
+   32  cd hy_solana/
+   33  ls
+   34  git remote add upstream git@github.com:solana-labs/solana.git
+   35  git remote add jwash https://github.com/jeffwashington/solana.git
+   36  ls
+   37  cd ..
+   38  cd ..
+   39  ls
+   40  ls
+   41  ls
+   42  mkdir stage
+   43  cd git/
+   44  ls
+   45  cd hy_sl
+   46  cd hy_solana/
+   47  ls
+   48  vim
+   49  scripts/cargo-install-all.sh --validator-only ~/stage/
+   50  curl https://sh.rustup.rs -sSf | sh
+   51  source $HOME/.cargo/env
+   52  rustup component add rustfmt
+   53  rustup update
+   54  sudo apt-get update
+   55  $ sudo apt-get update
+   56  $ sudo apt-get install libssl-dev libudev-dev pkg-config zlib1g-dev llvm clang cmake make libprotobuf-dev protobuf-compiler
+   57  sudo apt-get update && sudo apt-get install libssl-dev libudev-dev pkg-config zlib1g-dev llvm clang cmake make libprotobuf-dev protobuf-compiler
+   58  rustup install nightly
+   59  scripts/cargo-install-all.sh --validator-only ~/stage/
+   60  type -p curl >/dev/null || sudo apt install curl -y
+   61  curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg && sudo chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null && sudo apt update && sudo apt install gh -y
+   62  gh pr
+   63  git branch
+   64  git st
+   65  ls
+   66  cd ..
+   67  ls
+   68  git clone git@github.com:HaoranYi/linux_home.git
+   69  ls
+   70  cd linux_home/
+   71  ls
+   72  mv .gitconfig ~
+   73  mv .bashrc ~
+   74  mv .tmux.conf ~
+   75  sudo apt-get install tmux
+   76  mv .vimrc ~
+   77  ls
+   78  vim
+   79  ls
+   80  cd ~
+   81  curl -fLo ~/.vim/autoload/plug.vim --create-dirs     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+   82  vim
+   83  vim
+   84  vim
+   85  ls
+   86  ls
+   87  cd ~/.vim/
+   88  ls
+   89  ls autoload/
+   90  git clone git clone https://github.com/vim-scripts/Zenburn
+   91   git clone https://github.com/vim-scripts/Zenburn
+   92  ls
+   93  mkdir colors
+   94  ls Zenburn/
+   95  rm -r colrs
+   96  rm -r colors
+   97  fzf
+   98  sudo apt-install fzf
+   99  sudo apt-get install fzf
+  100  mv Zenburn/colors .
+  101  ls
+  102  vim
+  103  ls
+  104  rm Zenburn
+  105  rm -r Zenburn
+  106  rm -rf Zenburn
+  107  ls
+  108  cd ..
+  109  ls
+  110  vim ~/.vimrc
+  111  vim
+  112  ls
+  113  mv .vimrc git/linux_home/
+  114  cd git/linux_home/
+  115  ls
+  116  git st
+  117  git add .vimrc
+  118  git ci -m "disable vbell"
+  119  git checkout .
+  120  git push
+  121  cd ..
+  122  cd ..
+  123  ls
+  124  mkdir downloads
+  125  cd downloads/
+  126  ls
+  127  curl https://go.microsoft.com/fwlink/?LinkID=760868 --output vscode.deb
+  128  ls
+  129  ls -l
+  130  curl -L https://go.microsoft.com/fwlink/?LinkID=760868 --output vscode.deb
+  131  ls
+  132  sudo apt install vscode.deb
+  133  sudo apt install ./vscode.deb
+  134  ls
+  135  code
+  136  which code
+  137  code --help
+  138  code --version
+  139  cd ..
+  140  ls
+  141  ps -aux | grep code
+  142  ls
+  143  cd git/
+  144  ls
+  145  cd hy_solana/
+  146  ls
+  147  vim
+  148  ls
+  149  vim ~/.vimrc
+  150  vim
+  151  cd ..
+  152  cd ..
+  153  ls
+  154  ls -alt
+  155  cp git/linux_home/.vimrc .
+  156  ls
+  157  cd git/
+  158  ls
+  159  cd hy_solana/
+  160  ls
+  161  vim
+  162  vim
+  163  git br
+  164  git fetch origin
+  165  git br
+  166  git co epoch_reward2
+  167  git st
+  168  git branch -v
+  169  git branch -vv
+  170  git st
+  171  ls
+  172  cd git/
+  173  ls
+  174  cd hy_solana/
+  175  ls
+  176  cd ..
+  177  cd ..
+  178  ls
+  179  mv git src
+  180  cd src
+  181  ls
+  182  mv hy_solana solana
+  183  cd solana/
+  184  ls
+  185  ls
+  186  vim ~/.bashrc
+  187  ll
+  188  source ~/.bashrc
+  189  ll
+  190  ls
+  191  ls --color
+  192  vim ~/.bashrc
+  193  tig
+  194  git co  a0f49c2e4f5de9a5b2bbc27992a336ceb77b2a28
+  195   a0f49c2e4f5de9a5b2bbc27992a336ceb77b2a28
+  196  ./cargo stable test --release --package solana-local-cluster --test local_cluster -- --nocapture --test-threads=1
+  197  git pull
+  198  git co -
+  199  git pull
+  200  ./cargo stable test --release --package solana-local-cluster --test local_cluster::test_two_unbalanced_stakes -- --nocapture --test-threads=1
+  201  ./cargo stable test --release --package solana-local-cluster -- --list
+  202  ./cargo stable test --release --package solana-local-cluster test_two_unbalanced_stakes -- --nocapture
+  203  RUST_LOG=info ./cargo stable test --release --package solana-local-cluster --test test_two_unbalanced_stakes -- --nocapture --test-threads=1
+  204  RUST_LOG=info ./cargo stable test --release --package solana-local-cluster test_two_unbalanced_stakes -- --nocapture --test-threads=1
+  205  ks
+  206  ls
+  207  history
+

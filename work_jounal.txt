@@ -446,3 +446,13 @@ $ solana-validator --ledger ~ledger/ monitor
 2023/1/26
 ----------
 /tmp folder filled up when running ledger-tool create-snapshot
+
+2023/2/25
+----------
+mainnet down
+    - turbine stopped working
+    - retransmit and repair lots of traffic
+    - block time --> concensus failure, no more progress of the network
+consensus rainbow from ryoqun
+https://codepen.io/ryoqun/full/JjNbeyE
+load a yaml file (which contains the query). code_pen.yaml
