@@ -2,8 +2,11 @@
 
 echo "starting leader kin nodes ..."
 plink -batch sol@%kin1% "~/restart"
-::plink -batch sol@%kin1% "tail -f logs/solana-validator.log | grep -m 1 \"Waiting for\""
 
+echo "waiting for leader starting"
+timeout 650
+:: plink -batch sol@%kin1% "tail -F logs/solana-validator.log | grep -m 1 \"Waiting for\""
+plink -batch sol@%kin1% "tail -F logs/solana-validator.log | grep -m 1 \"new root\""
 
 echo "starting other kin nodes ..."
 plink -batch sol@%kin2% "~/restart"
