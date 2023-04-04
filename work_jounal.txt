@@ -456,3 +456,8 @@ mainnet down
 consensus rainbow from ryoqun
 https://codepen.io/ryoqun/full/JjNbeyE
 load a yaml file (which contains the query). code_pen.yaml
+
+2023/3/24
+----------
+TODO: 
+hackup cap db size and restart kim to test incremental account hash

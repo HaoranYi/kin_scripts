@@ -1,6 +1,3 @@
 #!/bin/bash 
 
-jupyter nbconvert \
-    --clear-output \
-    --inplace \
-    $1 
+jupyter nbconvert --ClearOutputPreprocessor.enabled=True --clear-output $1 
