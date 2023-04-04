@@ -457,7 +457,11 @@ consensus rainbow from ryoqun
 https://codepen.io/ryoqun/full/JjNbeyE
 load a yaml file (which contains the query). code_pen.yaml
 
-2023/3/24
+2023/4/4
 ----------
-TODO: 
-hackup cap db size and restart kim to test incremental account hash
+Test influx DB datapoint submission
+    export INFLUX_DATABASE=testnet-dev-kin-bm
+    export INFLUX_USERNAME=scratch_writer
+    export INFLUX_PASSWORD=topsecret
+    ./metrics-write-datapoint.sh "testnet-deploy net-config-begin=1"
+
