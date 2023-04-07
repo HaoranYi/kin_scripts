@@ -465,3 +465,10 @@ Test influx DB datapoint submission
     export INFLUX_PASSWORD=topsecret
     ./metrics-write-datapoint.sh "testnet-deploy net-config-begin=1"
 
+
+2023/4/7
+----------
+rust-anlayzer vscode swith from stable to nightly 
+- it doesn't honor the toolchain settings on the environment
+- To make the change, edit the extension settings in vscode (i.e. setting.json)
+    { "rust-analyzer.server.extraEnv": { "RUSTUP_TOOLCHAIN": "stable" } }
