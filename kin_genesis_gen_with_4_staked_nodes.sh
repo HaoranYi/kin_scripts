@@ -31,8 +31,8 @@ solana-genesis
   --bpf-program MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr BPFLoader2111111111111111111111111111111111 spl_memo-3.0.0.so
   --bpf-program ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL BPFLoader2111111111111111111111111111111111 spl_associated-token-account-1.1.2.so
   --bpf-program Feat1YXHhH6t1juaWF74WLcfv4XoNocjXA6sPWHNgAse BPFLoader2111111111111111111111111111111111 spl_feature-proposal-1.0.0.so
-  --ledger /home/solana/solana/net/../config/bootstrap-validator
-  --faucet-pubkey /home/solana/solana/net/../config/faucet.json
+  --ledger /home/sol/ledger 
+  --faucet-pubkey /home/sol/identity/faucet.json
   --hashes-per-tick auto
   --cluster-type development
 

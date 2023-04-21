@@ -465,10 +465,41 @@ Test influx DB datapoint submission
     export INFLUX_PASSWORD=topsecret
     ./metrics-write-datapoint.sh "testnet-deploy net-config-begin=1"
 
-
 2023/4/7
 ----------
 rust-anlayzer vscode swith from stable to nightly 
 - it doesn't honor the toolchain settings on the environment
 - To make the change, edit the extension settings in vscode (i.e. setting.json)
     { "rust-analyzer.server.extraEnv": { "RUSTUP_TOOLCHAIN": "stable" } }
+
+2023/4/14
+----------
+redeem with store contend on accounts db --> slow
+therefore gather and store in one batch --> fast
+
+
+2023/4/19
+----------
+comamnd to create new genesis (4-way stake)
+>> solana-genesis --bootstrap-validator-stake-lamports 1000000000000 --faucet-lamports 500000000000000000 --slots-per-epoch 432000 --bootstrap-validator /home/sol/identity/validator-identity-am6-1.json /home/sol/identity/validator-vote-account-am6-1.json /home/sol/identity/validator-stake-account-am6-1.json --bootstrap-validator Edfkf9gpC7KpnkNdKRPmseCtkE1zY8fUVRJMbiLYKKdK PmXohrohcmtKdeeeYygU4q9wSxujSJLmdVBEbmHhyXa Hij7dbmLSK5fj4Qwo9zM4wqPti28ZYLJLG3oU5M181f7 --bootstrap-validator 2k31vk7hPiu2T9fJzuunc6tmaE57P7wt6tFoGK5A7k47 DJuHQCQrvPRYhNsqTFyvfEEpzypHdBibeidkL5VqSsCx AokbnmuQJ9uCNSen6rW5R9NHkRd43xURknKcy3JTD3mi --bootstrap-validator 3cVWsRiTXD99BXNhzXs7Gkm3YBhCDrMQWnLern8B7TrD Dou12zNcGLyDeLcxeRGzQ2xBx1orSWg9AKyuWBgfKREp 7jbYYZHc4wG4pf8E4r3VXEeJFHxAKSb7aJwrNa7mA2zK --max-genesis-archive-unpacked-size 1073741824 --enable-warmup-epochs --bpf-program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA BPFLoader2111111111111111111111111111111111 spl_token-3.5.0.so --bpf-program Memo1UhkJRfHyvLMcVucJwxXeuD728EqVDDwQDxFMNo BPFLoader1111111111111111111111111111111111 spl_memo-1.0.0.so --bpf-program MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr BPFLoader2111111111111111111111111111111111 spl_memo-3.0.0.so --bpf-program ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL BPFLoader2111111111111111111111111111111111 spl_associated-token-account-1.1.2.so --bpf-program Feat1YXHhH6t1juaWF74WLcfv4XoNocjXA6sPWHNgAse BPFLoader2111111111111111111111111111111111 spl_feature-proposal-1.0.0.so --ledger /home/sol/ledger --faucet-pubkey /home/sol/identiy/faucet.json --hashes-per-tick auto --cluster-type development
+
+>> ./stage/bin/solana-ledger-tool create-snapshot --ledger ~/ledger 1
+
+new genesis and snapshot
+Genesis hash: FUMidJRmNSY3bsBRE6eVnbcaTq2mV2XsD5DUrjQa7iHP
+
+snapshot-1-GdkQfTVrgf9Z8N5LoCBy3Mzbf5oxDvyJBwzdwX9fZBF2.tar.zst
+snapshot-hash: 2A3cHk5nmkJdX7QPDDhfdhYB1HYwHmdFPkeddfdMmJ6M
+
+>> rm -rf ledger
+>> mkdir ledger
+>> gsutil cp -r gs://kin-snapshots/kin-genesis-2023-04-19 .
+>> cp kin-genesis-2023-04-19/* ledger/
+>> echo 2A3cHk5nmkJdX7QPDDhfdhYB1HYwHmdFPkeddfdMmJ6M >>start_slot_info.txt
+
+1. rpc node stuck on slot 1 because no shreds are flowing. 
+    - to fix, wait for a snapshot and restart rpc with snapshot fetching.
+    - something is wrong with repair, empty shred, stuck?
+
+
+

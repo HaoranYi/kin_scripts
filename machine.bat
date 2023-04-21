@@ -25,6 +25,14 @@ set dev9=139.178.84.77      & ::dev-server-us-da11-5
 set dev10=145.40.125.95     & ::dev-server-asia-hk2	
 set dev11=145.40.73.123     & ::dev-server-asia-sg1-2	
 set dev12=147.75.92.181     & ::dev-server-asia-ty11	
+set dev13=147.75.101.141    & ::dev-server-eu-am6-2	
+set dev14=145.40.117.159    & :: dev-server-asia-sg1-2	
+set dev15=139.178.70.87     & ::dev-server-us-sv15-2	
+set dev16=139.178.83.77     & ::dev-server-us-da11-6	
+set dev17=139.178.83.237    & ::dev-server-us-da11-7	
+set dev18=145.40.113.179    & ::dev-server-eu-ld7-1	
+set dev19=139.178.83.107    & ::dev-server-us-da11-8	
+set dev20=145.40.113.181    & :: dev-server-eu-ld7-2	
 
 set mydev=216.202.208.198  &  ::dev-lumen-Atlanta-2-3
 
