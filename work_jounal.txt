@@ -502,4 +502,8 @@ snapshot-hash: 2A3cHk5nmkJdX7QPDDhfdhYB1HYwHmdFPkeddfdMmJ6M
     - something is wrong with repair, empty shred, stuck?
 
 
+2023/4/21
+----------
+download snapshot for mainet-beta
+>> gsutil ls -l  gs://mainnet-beta-ledger-us-ny5/189212973/hourly
 
