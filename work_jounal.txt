@@ -507,3 +507,7 @@ snapshot-hash: 2A3cHk5nmkJdX7QPDDhfdhYB1HYwHmdFPkeddfdMmJ6M
 download snapshot for mainet-beta
 >> gsutil ls -l  gs://mainnet-beta-ledger-us-ny5/189212973/hourly
 
+2023/5/5
+----------
+rust abi test require nightly on cargo because of RUSTC_WITH_SPECIALIZATION
+feature.
