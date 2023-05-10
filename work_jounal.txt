@@ -511,3 +511,13 @@ download snapshot for mainet-beta
 ----------
 rust abi test require nightly on cargo because of RUSTC_WITH_SPECIALIZATION
 feature.
+
+2023/5/5
+----------
+docker setup on solana devbox
+2012  docker
+2014  groups sol
+2015  grep docker /etc/group
+2018  sudo usermod -a -G docker sol
+2019  groups sol
+
