@@ -23,19 +23,19 @@ plink -batch sol@%kin4% "tail -F logs/solana-validator.log | grep -m 1 \"new roo
 
 echo "starting rpc nodes ..."
 timeout 10
-plink -batch sol@%rpc1% "~/boot-scripts.sh"
-plink -batch sol@%rpc2% "~/boot-scripts.sh"
+plink -batch sol@%bm_rpc1% "~/boot-scripts.sh"
+plink -batch sol@%bm_rpc2% "~/boot-scripts.sh"
 
 timeout 60
-plink -batch sol@%rpc1% "tail -F solana-validator-7JcmM6TFZMkcDkZe6RKVkGaWwN5dXciGC4fa3RxvqQc9.log | grep -m 1 \"new root\""
-plink -batch sol@%rpc2% "tail -F solana-validator-AYJDiE3wgw5eanU4qJ4qfkB8vrHVEiBMTqXLbA9hUTaW.log | grep -m 1 \"new root\""
+plink -batch sol@%bm_rpc1% "tail -F solana-validator-7JcmM6TFZMkcDkZe6RKVkGaWwN5dXciGC4fa3RxvqQc9.log | grep -m 1 \"new root\""
+plink -batch sol@%bm_rpc2% "tail -F solana-validator-AYJDiE3wgw5eanU4qJ4qfkB8vrHVEiBMTqXLbA9hUTaW.log | grep -m 1 \"new root\""
 
 
 echo "starting clients ..."
 timeout 60
 :: plink -batch sol@%client1% "~/run-client.sh"
 :: plink -batch sol@%client2% "~/run-client.sh"
-plink -batch sol@%client1% "~/restart"
-plink -batch sol@%client2% "~/restart"
+plink -batch sol@%bm_rpc1% "~/restart"
+plink -batch sol@%bm_rpc2% "~/restart"
 
 echo "done"
