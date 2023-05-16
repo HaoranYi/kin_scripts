@@ -521,3 +521,52 @@ docker setup on solana devbox
 2018  sudo usermod -a -G docker sol
 2019  groups sol
 
+2023/5/16
+----------
+RocksDB is an embeded key-value storage. lower-level storage used by MySQL,
+MongoDB, TiDB.
+- Column Family
+    - each key-value pair is associated with one column family
+    - logically partition of the database
+    - share write-ahead log, but don't share memtable and table files
+        - by sharing write-ahead logs --> automic write
+        - by separating memtable and table files --> independent cloumn faimly
+          configuration and fast deleting
+
+- Remarks (flush all column families regularly)
+
+Every time a single Column Family is flushed, we create a new WAL (write-ahead
+log). All new writes to all Column Families go to the new WAL. However, we
+still can't delete the old WAL since it contains live data from other Column
+Families. We can delete the old WAL only when all Column Families have been
+flushed and all data contained in that WAL persisted in table files. This
+created some interesting implementation details and will create interesting
+tuning requirements. Make sure to tune your RocksDB such that all column
+families are **regularly** flushed. Also, take a look at
+Options::max_total_wal_size, which can be configured such that stale column
+families are automatically flushed.         
+
+- APIs
+    rocksdb::DB::open()  // open database instance
+    db_instance.cf_handle()  // open column family
+    instance.put(key, value)  // save
+    let val : Vec<u8> = instance.get(key)  // read
+    instance.put_cf(cf, key, value)  // save
+    let val : Vec<u8> = instance.get_cf(cf, key)  // read
+
+- use serde to serialize/deserialize json to work with rocks
+
+- Rocks DB tuning guide
+    - Block size
+    - Write buffer
+    - Compression
+    - Cache
+    - Key Layout (frequent access keys are in the same blocks)
+    - Filter: bloom filter (reduce disk read at the cost of more memory)
+    - Checksums
+    - Compaction
+    - Approximate sizes
+    - Environment
+    - Purging WAL files
+https://github.com/facebook/rocksdb/wiki/Setup-Options-and-Basic-Tuning
+https://github.com/facebook/rocksdb/wiki/RocksDB-Tuning-Guide

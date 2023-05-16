@@ -20,7 +20,7 @@ for %%a in (%rpcs%) do (
 
 
 for %%a in (%allnodes%) do (
-    plink -batch sol@%%a "~/wipe_ledger.sh"
+    plink -batch sol@%%a "sudo ~/wipe_ledger.sh"
 )
 
 ::set SNAP=snapshot-1-GcxFVLGe3rkBz5zKWmNs7xbzRNdaY7jkrLVAwT51DNFK.tar.zst
