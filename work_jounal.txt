@@ -565,8 +565,29 @@ families are automatically flushed.
     - Filter: bloom filter (reduce disk read at the cost of more memory)
     - Checksums
     - Compaction
+        - sorted run/recent-old levels/block by key
+        - leveled (one run per level)
+        - tiered (multiple sort run --> one run in next level)
     - Approximate sizes
     - Environment
     - Purging WAL files
 https://github.com/facebook/rocksdb/wiki/Setup-Options-and-Basic-Tuning
 https://github.com/facebook/rocksdb/wiki/RocksDB-Tuning-Guide
+
+- design philosophy 
+    
+The design goal was for disks and insert/update/delete intensive tables that
+get more **writes** than **reads**. Transactional logging (history tables) is
+one example. The LSM was shown to use less IO capacity than a B-Tree for
+making changes durable and that was a big deal when the cost of IOPs was a
+significant fraction of the system cost.  The LSM uses less disk IO capacity
+than a B-Tree for two reasons: It does multi-page writes rather than single
+page writes so the seek latency is amortized over N pages (maybe N=64). Assume
+a disk can do either 32 1MB transfers/s or 128 4kb transfers/s. Then
+multi-page block IO throughput is 64x faster.  When sized appropriately, it
+does a page write per M modified rows while a B-Tree in the worst case (for
+their example) does a page write per modified row.
+    - buffering (in-memory) and then flushing (block writes 64x faster)
+leveled vs tiered
+    - one run vs multiple run
+    - one run + range partition == multiple runs in one level.
