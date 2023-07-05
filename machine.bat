@@ -48,3 +48,16 @@ set dv2=136.144.49.15 & :: devnet-validator-europe-fr2 / dv2eQHeP4RFrJZ6UeiZWoc3
 set dv3=147.75.55.147 & :: devnet-validator-us-da11 / dv3qDFk1DTF36Z62bNvrCXe9sKATA6xvVy6A798xxAS
 set dv4=147.75.105.51 & :: devnet-validator-us-ny5 / dv4ACNkpYPcE3aKmYDqZm9G5EB3J4MRoeE7WNDRBVJB
 
+:: popnet
+set pn1=145.40.77.121         & ::accounts-sim-da11-1
+set pn2=86.109.11.95          & ::accounts-sim-sv15-1
+set pn3=139.178.91.63         & ::accounts-sim-sv15-2
+set pn4=139.178.91.67         & ::accounts-sim-sv15-3
+set pn_rpc1=139.178.91.219    & ::accounts-sim-sv15-4
+set pn_rpc2=147.75.71.91      & ::accounts-sim-sv15-5
+
+set pn_client1=139.178.91.219 & ::accounts-sim-sv15-4
+set pn_client2=147.75.71.91   & :: accounts-sim-sv15-5
+
+
+
