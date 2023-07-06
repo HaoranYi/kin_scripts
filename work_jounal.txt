@@ -591,3 +591,16 @@ their example) does a page write per modified row.
 leveled vs tiered
     - one run vs multiple run
     - one run + range partition == multiple runs in one level.
+
+2023/7/6
+----------
+solana rpc default port is 8899.
+setup reverse proxy for 80, which will route 80 to 8899.
+    /etc/haproxy/*.config
+check for port
+    sudo ss -lptn 'sport = :80'
+    sudo lsof -n -i :80 | grep LISTEN
+    sudo netstat -nlp | grep :80
+
+to run solana-validator as a process, you will need to follow this:   
+https://docs.solana.com/running-validator/validator-start
