@@ -604,3 +604,12 @@ check for port
 
 to run solana-validator as a process, you will need to follow this:   
 https://docs.solana.com/running-validator/validator-start
+
+2023/7/6
+----------
+reverse proxy vs forward proxy
+    - forward proxy is like vpn, hide client ip
+    - reverse proxy is to hide the backend server
+        - ngnx
+        - haproxy
+        - typical example: forward 80 to internal serve port i.e. 8899
