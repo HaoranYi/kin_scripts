@@ -26,8 +26,6 @@ timeout 10
 plink -batch sol@%pn_rpc1% "~/boot-scripts.sh"
 plink -batch sol@%pn_rpc2% "~/boot-scripts.sh"
 
-goto end
-
 timeout 60
 plink -batch sol@%pn_rpc1% "tail -F solana-validator-*.log | grep -m 1 \"new root\""
 plink -batch sol@%pn_rpc2% "tail -F solana-validator-*.log | grep -m 1 \"new root\""

@@ -49,15 +49,15 @@ set dv3=147.75.55.147 & :: devnet-validator-us-da11 / dv3qDFk1DTF36Z62bNvrCXe9sK
 set dv4=147.75.105.51 & :: devnet-validator-us-ny5 / dv4ACNkpYPcE3aKmYDqZm9G5EB3J4MRoeE7WNDRBVJB
 
 :: popnet
-set pn1=145.40.77.121         & ::accounts-sim-da11-1
-set pn2=86.109.11.95          & ::accounts-sim-sv15-1
-set pn3=139.178.91.63         & ::accounts-sim-sv15-2
-set pn4=139.178.91.67         & ::accounts-sim-sv15-3
-set pn_rpc1=139.178.91.219    & ::accounts-sim-sv15-4
-set pn_rpc2=147.75.71.91      & ::accounts-sim-sv15-5
+set pn1=145.40.77.121         & ::pop-net-da11-1 / 31fxZovs3gBKVVTtC2VJUuKeVoq6mQkLjWnicWhErQ4f
+set pn2=86.109.11.95          & ::pop-net-sv15-1 / Edfkf9gpC7KpnkNdKRPmseCtkE1zY8fUVRJMbiLYKKdK
+set pn3=139.178.91.63         & ::pop-net-sv15-2 / 2k31vk7hPiu2T9fJzuunc6tmaE57P7wt6tFoGK5A7k47
+set pn4=139.178.91.67         & ::pop-net-sv15-3 / 3cVWsRiTXD99BXNhzXs7Gkm3YBhCDrMQWnLern8B7TrD
+set pn_rpc1=139.178.91.219    & ::pop-net-sv15-4 / 7JcmM6TFZMkcDkZe6RKVkGaWwN5dXciGC4fa3RxvqQc9
+set pn_rpc2=147.75.71.91      & ::pop-net-sv15-5 / AYJDiE3wgw5eanU4qJ4qfkB8vrHVEiBMTqXLbA9hUTaW
 
-set pn_client1=139.178.91.219 & ::accounts-sim-sv15-4
-set pn_client2=147.75.71.91   & :: accounts-sim-sv15-5
+set pn_client1=139.178.91.219 & ::pop-net-sv15-4
+set pn_client2=147.75.71.91   & :: pop-net-sv15-5
 
 
 

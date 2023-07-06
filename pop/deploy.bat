@@ -1,6 +1,6 @@
 @echo on
 
-::plink -batch sol@%pn1% "gsutil cp /home/sol/stage/bin/solana-validator gs://kin-snapshots/bin/solana-validator"
+plink -batch sol@%kin1% "gsutil cp /home/sol/stage512/bin/solana-validator gs://kin-snapshots/bin/solana-validator512"
 
 set nodes=%pn1% %pn2% %pn3% %pn4%
 
@@ -8,11 +8,11 @@ set allnodes=%pn1% %pn2% %pn3% %pn4% %pn_rpc1% %pn_rpc2%
 set rpcs=%pn_rpc1% %pn_rpc2%
 
 for %%a in (%nodes%) do (
-    plink -batch sol@%%a "cd /home/sol/.local/share/solana/install/active_release/bin/ && gsutil cp gs://kin-snapshots/bin/solana-validator solana-validator && chmod u+x solana-validator"
+    plink -batch sol@%%a "cd /home/sol/.local/share/solana/install/active_release/bin/ && gsutil cp gs://kin-snapshots/bin/solana-validator512 solana-validator && chmod u+x solana-validator"
 )
 
 for %%a in (%rpcs%) do (
-    plink -batch sol@%%a "cd /home/sol/ && gsutil cp gs://kin-snapshots/bin/solana-validator solana-validator && chmod u+x solana-validator"
+    plink -batch sol@%%a "cd /home/sol/ && gsutil cp gs://kin-snapshots/bin/solana-validator512 solana-validator && chmod u+x solana-validator"
 )
 
 
