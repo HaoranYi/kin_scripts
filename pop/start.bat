@@ -1,7 +1,5 @@
 @echo on
 
-GOTO repeat_wait_for_rpc_nodes 
-
 echo "====starting leader pn nodes ..."
 plink -batch sol@%pn1% "~/restart"
 
@@ -12,7 +10,7 @@ timeout 60
 plink -batch sol@%pn1% "tail -n500 logs/solana-validator.log | grep \"Waiting for\""
 if %ERRORLEVEL% NEQ 0 (
     echo "retry wait for leader"
-    timeout 10
+    timeout 30
     GOTO repeat_wait_for_leader
 )
 echo "leader started"
@@ -35,7 +33,7 @@ plink -batch sol@%pn1% "tail -n500 logs/solana-validator.log | grep -m 1 \"new r
 && plink -batch sol@%pn4% "tail -n500 logs/solana-validator.log | grep -m 1 \"new root\""
 if %ERRORLEVEL% NEQ 0 (
     echo "retry wait for new roots"
-    timeout 10
+    timeout 30
     GOTO repeat_wait_for_new_roots
 )
 echo "cluster new rooted"
@@ -54,7 +52,7 @@ plink -batch sol@%pn_rpc1% "tail -n500 solana-validator-*.log | grep -m 1 \"new 
 
 if %ERRORLEVEL% NEQ 0 (
     echo "retry wait for rpc nodes"
-    timeout 10
+    timeout 30
     GOTO repeat_wait_for_rpc_nodes
 )
 echo "rpc nodes started"
