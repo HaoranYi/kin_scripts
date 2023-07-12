@@ -27,7 +27,8 @@ for %%a in (%allnodes%) do (
 set SNAP=snapshot-249022-CE7huwxE3hU3FyC8g8drr8rxEeqTqYJ1kJazPtcFzfA2.tar.zst
 
 for %%a in (%allnodes%) do (
-     plink -batch sol@%%a "cp ~/%SNAP% ~/ledger"
+     ::plink -batch sol@%%a "cp ~/%SNAP% ~/ledger"
+     plink -batch sol@%%a "ln -s ~/%SNAP% ~/ledger/%SNAP%"
 )
 
 ::set START_SLOT_INFO=start_1.txt
