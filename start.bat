@@ -1,41 +1,62 @@
+:: kin 256
+
 @echo on
 
-echo "starting leader kin nodes ..."
+echo "====starting leader kin node ..."
 plink -batch sol@%kin1% "~/restart"
 
 echo "waiting for leader starting"
 timeout 60
-plink -batch sol@%kin1% "tail -F logs/solana-validator.log | grep -m 1 \"Waiting for\""
-:: plink -batch sol@%kin1% "tail -F logs/solana-validator.log | grep -m 1 \"new root\""
+:repeat_wait_for_leader
+plink -batch sol@%kin1% "tail -n500 logs/solana-validator.log | grep \"Waiting for\""
+if %ERRORLEVEL% NEQ 0 (
+    echo "retry wait for leader"
+    timeout 30
+    GOTO repeat_wait_for_leader
+)
+echo "leader started"
 
-echo "starting other kin nodes ..."
+echo "====starting other validator nodes ..."
 plink -batch sol@%kin2% "~/restart"
 plink -batch sol@%kin3% "~/restart"
 plink -batch sol@%kin4% "~/restart"
 
-echo "waiting for starting"
+echo "waiting for new roots"
 timeout 60
+:repeat_wait_for_new_roots
+plink -batch sol@%kin1% "tail -n500 logs/solana-validator.log | grep -m 1 \"new root\"" ^
+&& plink -batch sol@%kin2% "tail -n500 logs/solana-validator.log | grep -m 1 \"new root\"" ^
+&& plink -batch sol@%kin3% "tail -n500 logs/solana-validator.log | grep -m 1 \"new root\"" ^
+&& plink -batch sol@%kin4% "tail -n500 logs/solana-validator.log | grep -m 1 \"new root\""
+if %ERRORLEVEL% NEQ 0 (
+    echo "retry wait for new roots"
+    timeout 30
+    GOTO repeat_wait_for_new_roots
+)
+echo "cluster new rooted"
 
-plink -batch sol@%kin1% "tail -F logs/solana-validator.log | grep -m 1 \"new root\""
-plink -batch sol@%kin2% "tail -F logs/solana-validator.log | grep -m 1 \"new root\""
-plink -batch sol@%kin3% "tail -F logs/solana-validator.log | grep -m 1 \"new root\""
-plink -batch sol@%kin4% "tail -F logs/solana-validator.log | grep -m 1 \"new root\""
-
-echo "starting rpc nodes ..."
+echo "====starting rpc nodes ..."
 timeout 10
 plink -batch sol@%bm_rpc1% "~/boot-scripts.sh"
 plink -batch sol@%bm_rpc2% "~/boot-scripts.sh"
 
 timeout 60
-plink -batch sol@%bm_rpc1% "tail -F solana-validator-7JcmM6TFZMkcDkZe6RKVkGaWwN5dXciGC4fa3RxvqQc9.log | grep -m 1 \"new root\""
-plink -batch sol@%bm_rpc2% "tail -F solana-validator-AYJDiE3wgw5eanU4qJ4qfkB8vrHVEiBMTqXLbA9hUTaW.log | grep -m 1 \"new root\""
+:repeat_wait_for_rpc_nodes
+plink -batch sol@%bm_rpc1% "tail -n500 solana-validator-*.log | grep -m 1 \"new root\"" ^
+&& plink -batch sol@%bm_rpc2% "tail -n500 solana-validator-*.log | grep -m 1 \"new root\""
 
+if %ERRORLEVEL% NEQ 0 (
+    echo "retry wait for rpc nodes"
+    timeout 30
+    GOTO repeat_wait_for_rpc_nodes
+)
+echo "rpc nodes started"
 
-echo "starting clients ..."
+echo "====starting clients ..."
 timeout 60
-:: plink -batch sol@%client1% "~/run-client.sh"
-:: plink -batch sol@%client2% "~/run-client.sh"
 plink -batch sol@%bm_rpc1% "~/restart"
 plink -batch sol@%bm_rpc2% "~/restart"
 
+:end
 echo "done"
+
