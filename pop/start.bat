@@ -5,7 +5,6 @@
 echo "====1 starting leader pn node ..."
 plink -batch sol@%pn1% "~/restart"
 
-echo "waiting for leader starting"
 timeout 60
 :repeat_wait_for_leader
 plink -batch sol@%pn1% "tail -n500 logs/solana-validator.log | grep \"Waiting for\""
@@ -21,7 +20,6 @@ plink -batch sol@%pn2% "~/restart"
 plink -batch sol@%pn3% "~/restart"
 plink -batch sol@%pn4% "~/restart"
 
-echo "waiting for new roots"
 timeout 60
 :repeat_wait_for_new_roots
 plink -batch sol@%pn1% "tail -n500 logs/solana-validator.log | grep -m 1 \"new root\"" ^
