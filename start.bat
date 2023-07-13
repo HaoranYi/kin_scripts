@@ -2,7 +2,7 @@
 
 @echo on
 
-echo "====starting leader kin node ..."
+echo "====1 starting leader kin node ..."
 plink -batch sol@%kin1% "~/restart"
 
 echo "waiting for leader starting"
@@ -16,7 +16,7 @@ if %ERRORLEVEL% NEQ 0 (
 )
 echo "leader started"
 
-echo "====starting other validator nodes ..."
+echo "====2 starting other validator nodes ..."
 plink -batch sol@%kin2% "~/restart"
 plink -batch sol@%kin3% "~/restart"
 plink -batch sol@%kin4% "~/restart"
@@ -35,7 +35,7 @@ if %ERRORLEVEL% NEQ 0 (
 )
 echo "cluster new rooted"
 
-echo "====starting rpc nodes ..."
+echo "====3 starting rpc nodes ..."
 timeout 10
 plink -batch sol@%bm_rpc1% "~/boot-scripts.sh"
 plink -batch sol@%bm_rpc2% "~/boot-scripts.sh"
@@ -52,7 +52,7 @@ if %ERRORLEVEL% NEQ 0 (
 )
 echo "rpc nodes started"
 
-echo "====starting clients ..."
+echo "====4 starting clients ..."
 timeout 60
 plink -batch sol@%bm_rpc1% "~/restart"
 plink -batch sol@%bm_rpc2% "~/restart"
