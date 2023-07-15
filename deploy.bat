@@ -1,6 +1,7 @@
 @echo on
 
 plink -batch sol@%kin1% "gsutil cp /home/sol/stage/bin/solana-validator gs://kin-snapshots/bin/solana-validator"
+plink -batch sol@%kin1% "gsutil cp /home/sol/stage/bin/solana-ledger-tool gs://kin-snapshots/bin/solana-ledger-tool"
 
 set nodes=%kin1% %kin2% %kin3% %kin4%
 
@@ -12,10 +13,12 @@ set rpcs=%bm_rpc1% %bm_rpc2%
 
 for %%a in (%nodes%) do (
     plink -batch sol@%%a "cd /home/sol/.local/share/solana/install/active_release/bin/ && gsutil cp gs://kin-snapshots/bin/solana-validator solana-validator && chmod u+x solana-validator"
+    plink -batch sol@%%a "cd /home/sol/.local/share/solana/install/active_release/bin/ && gsutil cp gs://kin-snapshots/bin/solana-ledger-tool solana-ledger-tool && chmod u+x solana-ledger-tool"
 )
 
 for %%a in (%rpcs%) do (
     plink -batch sol@%%a "cd /home/sol/ && gsutil cp gs://kin-snapshots/bin/solana-validator solana-validator && chmod u+x solana-validator"
+    plink -batch sol@%%a "cd /home/sol/ && gsutil cp gs://kin-snapshots/bin/solana-ledger-tool solana-ledger-tool && chmod u+x solana-ledger-tool"
 )
 
 
