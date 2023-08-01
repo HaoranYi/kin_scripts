@@ -31,8 +31,6 @@ echo "rpc nodes started"
 
 echo "====4 starting clients ..."
 sleep 30
-#ssh sol@$client1 "~/run-client.sh"
-#ssh sol@$client2 "~/run-client.sh"
 ssh sol@$bm_rpc1 "~/restart"
 ssh sol@$bm_rpc2 "~/restart"
 
