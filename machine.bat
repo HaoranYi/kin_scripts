@@ -28,7 +28,7 @@ set dev10=145.40.125.95     & ::dev-server-asia-hk2
 set dev11=145.40.73.123     & ::dev-server-asia-sg1-2	
 set dev12=147.75.92.181     & ::dev-server-asia-ty11	
 set dev13=147.75.101.141    & ::dev-server-eu-am6-2	
-set dev14=145.40.117.159    & :: dev-server-asia-sg1-2	
+set dev14=145.40.117.159    & ::dev-server-asia-sg1-2	
 set dev15=139.178.70.87     & ::dev-server-us-sv15-2	
 set dev16=139.178.83.77     & ::dev-server-us-da11-6	
 set dev17=139.178.83.237    & ::dev-server-us-da11-7	
@@ -57,7 +57,4 @@ set pn_rpc1=139.178.91.219    & ::pop-net-sv15-4 / 7JcmM6TFZMkcDkZe6RKVkGaWwN5dX
 set pn_rpc2=147.75.71.91      & ::pop-net-sv15-5 / AYJDiE3wgw5eanU4qJ4qfkB8vrHVEiBMTqXLbA9hUTaW
 
 set pn_client1=139.178.91.219 & ::pop-net-sv15-4
-set pn_client2=147.75.71.91   & :: pop-net-sv15-5
-
-
-
+set pn_client2=147.75.71.91   & ::pop-net-sv15-5

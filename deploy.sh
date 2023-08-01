@@ -1,26 +1,36 @@
 #!/bin/bash
+set -ex
 
 ssh sol@$kin1 "gsutil cp /home/sol/stage/bin/solana-validator gs://kin-snapshots/bin/solana-validator"
+ssh sol@$kin1 "gsutil cp /home/sol/stage/bin/solana-ledger-tool gs://kin-snapshots/bin/solana-ledger-tool"
 
-allnodes=($kin1 $kin2 $kin3 $kin4 $rpc1 $rpc2)
+allnodes=($kin1 $kin2 $kin3 $kin4 $bm_rpc1 $bm_rpc2)
 nodes=($kin1 $kin2 $kin3 $kin4)
-rpcs=($rpc1 $rpc2)
+rpcs=($bm_rpc1 $bm_rpc2)
 
 
 for t in ${nodes[@]}; do
     ssh sol@$t "cd /home/sol/.local/share/solana/install/active_release/bin/ && gsutil cp gs://kin-snapshots/bin/solana-validator solana-validator && chmod u+x solana-validator"
+    ssh sol@$t "cd /home/sol/.local/share/solana/install/active_release/bin/ && gsutil cp gs://kin-snapshots/bin/solana-ledger-tool solana-ledger-tool && chmod u+x solana-ledger-tool"
 done
 
 for t in ${rpcs[@]}; do
-    ssh sol@$t"cd /home/sol/ && gsutil cp gs://kin-snapshots/bin/solana-validator solana-validator && chmod u+x solana-validator"
+    ssh sol@$t "cd /home/sol/ && gsutil cp gs://kin-snapshots/bin/solana-validator solana-validator && chmod u+x solana-validator"
+    ssh sol@$t "cd /home/sol/ && gsutil cp gs://kin-snapshots/bin/solana-ledger-tool solana-ledger-tool && chmod u+x solana-ledger-tool"
 done
 
 for t in ${allnodes[@]}; do
-    ssh sol@$t "~/wipe_ledger.sh"
+    ssh sol@$t "sudo ~/wipe_ledger.sh"
 done
 
-SNAP=snapshot-99273-9XQgP53GH2bqHLvKGfAePHPAN9a1tNwYRo4s9EzoMfRw.tar.zst
-#SNAP=snapshot-249289-FxH3fQKYTRdoxoCvxMsMvjyr7GQRveaNftPTKmyTdMhf.tar.zst
+SNAP=snapshot-249022-CE7huwxE3hU3FyC8g8drr8rxEeqTqYJ1kJazPtcFzfA2.tar.zst
+
 for t in ${allnodes[@]}; do
-    ssh sol@$t "cp ~/$SNAP ~/ledger"
+    ssh sol@$t "ln -s ~/$SNAP ~/ledger/$SNAP"
 done
+
+START_SLOT_INFO=start_249022.txt
+for t in ${allnodes[@]}; do
+    scp $START_SLOT_INFO sol@$t:/home/sol/start_slot_info.txt 
+done
+
