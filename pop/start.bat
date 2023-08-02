@@ -40,8 +40,8 @@ plink -batch sol@%pn_rpc2% "~/boot-scripts.sh"
 
 timeout /nobreak 60
 :repeat_wait_for_rpc_nodes
-plink -batch sol@%pn_rpc1% "tail -n500 solana-validator-*.log | grep -m 1 \"new root\"" ^
-&& plink -batch sol@%pn_rpc2% "tail -n500 solana-validator-*.log | grep -m 1 \"new root\""
+plink -batch sol@%pn_rpc1% "tail -n500 logs/solana-validator.log | grep -m 1 \"new root\"" ^
+&& plink -batch sol@%pn_rpc2% "tail -n500 logs/solana-validator.log | grep -m 1 \"new root\""
 if %ERRORLEVEL% NEQ 0 (
     echo "retry wait for rpc nodes"
     timeout /nobreak 30

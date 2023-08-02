@@ -24,8 +24,8 @@ ssh sol@$bm_rpc1 "~/boot-scripts.sh"
 ssh sol@$bm_rpc2 "~/boot-scripts.sh"
 
 
-ssh sol@$bm_rpc1 "tail -F solana-validator-7JcmM6TFZMkcDkZe6RKVkGaWwN5dXciGC4fa3RxvqQc9.log | grep -m 1 \"new root\""
-ssh sol@$bm_rpc2 "tail -F solana-validator-AYJDiE3wgw5eanU4qJ4qfkB8vrHVEiBMTqXLbA9hUTaW.log | grep -m 1 \"new root\""
+ssh sol@$bm_rpc1 "tail -F logs/solana-validator.log | grep -m 1 \"new root\""
+ssh sol@$bm_rpc2 "tail -F logs/solana-validator.log | grep -m 1 \"new root\""
 
 echo "rpc nodes started"
 
