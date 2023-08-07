@@ -613,3 +613,13 @@ reverse proxy vs forward proxy
         - ngnx
         - haproxy
         - typical example: forward 80 to internal serve port i.e. 8899
+
+
+TODO
+2023/8/30 -- to compare
+    - dev2 deployed scan-opt code  26EqJ47BBf6r4fXSfPdmop4yJLuK2YZ5pbGCkM4bvMgE (very limited diskspace)
+    - dev1 deployed scan-base      4CTAFwtdoKd8b3W3HrjV9rhm2eZz4ES2NNfrapaRBZyj
+    - hy1                          9ffnCrMEtWQPggdAoMLB15JUVN144m19s6NChwKpoitu 
+    - hy2                          4WPtkxR3ThXX86vMP9TEZyVN52Bk3jZBKM5dxyqYv8Pe
+    "host_id"='26EqJ47BBf6r4fXSfPdmop4yJLuK2YZ5pbGCkM4bvMgE' or "host_id"='4CTAFwtdoKd8b3W3HrjV9rhm2eZz4ES2NNfrapaRBZyj'
+
