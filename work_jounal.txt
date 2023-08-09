@@ -622,4 +622,6 @@ TODO
     - hy1                          9ffnCrMEtWQPggdAoMLB15JUVN144m19s6NChwKpoitu 
     - hy2                          4WPtkxR3ThXX86vMP9TEZyVN52Bk3jZBKM5dxyqYv8Pe
     "host_id"='26EqJ47BBf6r4fXSfPdmop4yJLuK2YZ5pbGCkM4bvMgE' or "host_id"='4CTAFwtdoKd8b3W3HrjV9rhm2eZz4ES2NNfrapaRBZyj'
+    ("host_id"='26EqJ47BBf6r4fXSfPdmop4yJLuK2YZ5pbGCkM4bvMgE' or "host_id"='4CTAFwtdoKd8b3W3HrjV9rhm2eZz4ES2NNfrapaRBZyj')
+compare shrink timing with new unqiue by btreemap    
 
