@@ -1,9 +1,10 @@
 @echo on
-set nodes=%kin1% %kin2% %kin3% %kin4% %bm_rpc1% %bm_rpc2%
-::set nodes=%pn1% %pn2% %pn3% %pn4% %pn_rpc1% %pn_rpc2%
+::set nodes=%kin1% %kin2% %kin3% %kin4% %bm_rpc1% %bm_rpc2%
+set nodes=%pn1% %pn2% %pn3% %pn4% %pn_rpc1% %pn_rpc2%
 ::set nodes=%pn2% %pn3% %pn4% 
 
 ::set cmd="cp /etc/hostname ~/.hostname"
+::set cmd = sudo sysctl -p /etc/sysctl.d/21-solana-validator.conf
 ::set cmd="ls -l /home/sol/ledger/*.zst"
 
 ::perf tools
