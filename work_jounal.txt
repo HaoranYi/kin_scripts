@@ -614,6 +614,28 @@ reverse proxy vs forward proxy
         - haproxy
         - typical example: forward 80 to internal serve port i.e. 8899
 
+2023/8/22
+----------
+commands to adjust nofiles limits on the box
+    sudo vim /etc/sysctl.d/21-solana-validator.conf
+    cat /proc/sys/fs/file-max
+    sudo vim /etc/security/limits.conf
+    sudo vim /etc/hostname
+    sudo vim /etc/hosts
+    sudo reboot
+    cd /etc/systemd/system
+    sudo vim sol.service
+    ls
+    sudo rm -rf solana-warehouse-upload.service
+    cat sol.service
+    vim kin.client.service
+    sudo vim kin.client.service
+    sudo systemctl daemon-reload
+    cd ~
+    ls
+    sudo vim /etc/hosts
+    sudo vim /etc/hostname
+    sudo reboot
 
 TODO
 2023/8/30 -- to compare
@@ -624,4 +646,5 @@ TODO
     "host_id"='26EqJ47BBf6r4fXSfPdmop4yJLuK2YZ5pbGCkM4bvMgE' or "host_id"='4CTAFwtdoKd8b3W3HrjV9rhm2eZz4ES2NNfrapaRBZyj'
     ("host_id"='26EqJ47BBf6r4fXSfPdmop4yJLuK2YZ5pbGCkM4bvMgE' or "host_id"='4CTAFwtdoKd8b3W3HrjV9rhm2eZz4ES2NNfrapaRBZyj')
 compare shrink timing with new unqiue by btreemap    
+
 
