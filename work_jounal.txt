@@ -636,6 +636,18 @@ commands to adjust nofiles limits on the box
     sudo vim /etc/hosts
     sudo vim /etc/hostname
     sudo reboot
+https://www.tecmint.com/increase-set-open-file-limits-in-linux/    
+
+2023/8/25
+----------
+On sort:
+    - quicksort is unstable, no extra memory 
+    - merge sort is stable, need about n/2 extra memory
+glidesort    
+    - create_runs
+    - partition left eq, right eq
+    - interleave loops (superscalar)
+
 
 TODO
 2023/8/30 -- to compare
@@ -646,5 +658,9 @@ TODO
     "host_id"='26EqJ47BBf6r4fXSfPdmop4yJLuK2YZ5pbGCkM4bvMgE' or "host_id"='4CTAFwtdoKd8b3W3HrjV9rhm2eZz4ES2NNfrapaRBZyj'
     ("host_id"='26EqJ47BBf6r4fXSfPdmop4yJLuK2YZ5pbGCkM4bvMgE' or "host_id"='4CTAFwtdoKd8b3W3HrjV9rhm2eZz4ES2NNfrapaRBZyj')
 compare shrink timing with new unqiue by btreemap    
+
+hash dedup
+    ~/stage/bin/solana-ledger-tool verify -l ~/ledger --halt-at-slot 212990773 --run-final-accounts-hash-calculation >c 2>&1
+    grep calculate_accounts_hash_from_storages b | awk '{for(i=1; i<=NF; i++) if (0 != index($i, "=")) {print($i)}}' | column -ts "="
 
 

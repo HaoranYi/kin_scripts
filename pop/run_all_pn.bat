@@ -1,6 +1,7 @@
 @echo on
 ::set nodes=%kin1% %kin2% %kin3% %kin4% %bm_rpc1% %bm_rpc2%
-set nodes=%pn1% %pn2% %pn3% %pn4% %pn_rpc1% %pn_rpc2%
+::set nodes=%pn1% %pn2% %pn3% %pn4% %pn_rpc1% %pn_rpc2%
+set nodes=%pn1% %pn2% %pn3% %pn4% 
 ::set nodes=%pn2% %pn3% %pn4% 
 
 ::set cmd="cp /etc/hostname ~/.hostname"
@@ -17,9 +18,9 @@ set nodes=%pn1% %pn2% %pn3% %pn4% %pn_rpc1% %pn_rpc2%
 ::   kernel.perf_event_paranoid=1
 :: choose a filename that won't override existing file in `/run/sysctrl.d` and `/usr/lib/sysctrl.d/`
 :: see man sysctrl.d for details
-::
+:: set cmd="sudo perf stat -e page-faults --timeout 5000"
 
-set cmd="sudo perf stat -e page-faults --timeout 5000"
+set cmd="grep 'voting: 5564[45]' ~/logs/solana-validator.log"
 
 for %%a in (%nodes%) do (
      plink -batch sol@%%a %cmd% 
