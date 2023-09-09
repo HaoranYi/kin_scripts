@@ -662,5 +662,7 @@ compare shrink timing with new unqiue by btreemap
 hash dedup
     ~/stage/bin/solana-ledger-tool verify -l ~/ledger --halt-at-slot 212990773 --run-final-accounts-hash-calculation >c 2>&1
     grep calculate_accounts_hash_from_storages b | awk '{for(i=1; i<=NF; i++) if (0 != index($i, "=")) {print($i)}}' | column -ts "="
+generate_index
 
 
+storage_size_min=233,472i storage_size_quartile_1=294,912i storage_size_quartile_2=311,296i storage_size_quartile_3=339,968i storage_size_max=201,850,880i storage_size_avg=358,451i
