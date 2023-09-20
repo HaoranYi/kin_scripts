@@ -648,6 +648,20 @@ glidesort
     - partition left eq, right eq
     - interleave loops (superscalar)
 
+2023/9/20
+----------
+current tests:
+cherry pick hash dedup vec for pop: 
+    hyi/pop_2023_9_20 @pop4
+
+sol@147.28.146.229
+    hash_dedup_vec@mnb https://github.com/solana-labs/solana/pull/33246
+
+sol@145.40.69.17
+    hash_dedup_linkedlist@mnb https://github.com/solana-labs/solana/pull/33215
+
+cd ~/src/solana/validator && git reset --hard HEAD && git fetch jwash && git checkout jwash/sp15_linked_list_remove_debugging && ../cargo build --release && ~/stop && cp ~/src/solana/target/release/solana-validator /home/sol/.local/share/solana/install/active_release/bin/solana-validator && ~/restart
+
 
 TODO
 2023/8/30 -- to compare
@@ -666,3 +680,4 @@ generate_index
 
 
 storage_size_min=233,472i storage_size_quartile_1=294,912i storage_size_quartile_2=311,296i storage_size_quartile_3=339,968i storage_size_max=201,850,880i storage_size_avg=358,451i
+
