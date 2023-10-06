@@ -11,6 +11,10 @@ set nodes=%kin1% %kin2% %kin3% %kin4%
 set allnodes=%kin1% %kin2% %kin3% %kin4% %bm_rpc1% %bm_rpc2%
 set rpcs=%bm_rpc1% %bm_rpc2%
 
+for %%a in (%allnodes%) do (
+    plink -batch sol@%%a "sudo ~/wipe_ledger.sh"
+)
+
 for %%a in (%nodes%) do (
     plink -batch sol@%%a "cd /home/sol/.local/share/solana/install/active_release/bin/ && gsutil cp gs://kin-snapshots/bin/solana-validator solana-validator && chmod u+x solana-validator"
     plink -batch sol@%%a "cd /home/sol/.local/share/solana/install/active_release/bin/ && gsutil cp gs://kin-snapshots/bin/solana-ledger-tool solana-ledger-tool && chmod u+x solana-ledger-tool"
@@ -21,10 +25,6 @@ for %%a in (%rpcs%) do (
     plink -batch sol@%%a "cd /home/sol/ && gsutil cp gs://kin-snapshots/bin/solana-ledger-tool solana-ledger-tool && chmod u+x solana-ledger-tool"
 )
 
-
-for %%a in (%allnodes%) do (
-    plink -batch sol@%%a "sudo ~/wipe_ledger.sh"
-)
 
 ::set SNAP=snapshot-1-GcxFVLGe3rkBz5zKWmNs7xbzRNdaY7jkrLVAwT51DNFK.tar.zst
 set SNAP=snapshot-249022-CE7huwxE3hU3FyC8g8drr8rxEeqTqYJ1kJazPtcFzfA2.tar.zst

@@ -662,6 +662,12 @@ sol@145.40.69.17
 
 cd ~/src/solana/validator && git reset --hard HEAD && git fetch jwash && git checkout jwash/sp15_linked_list_remove_debugging && ../cargo build --release && ~/stop && cp ~/src/solana/target/release/solana-validator /home/sol/.local/share/solana/install/active_release/bin/solana-validator && ~/restart
 
+2023/10/6
+---------
+syslog for debugging
+    $ dmesg -T
+    $ sudo less /var/log/syslog
+    $ journalctl -u sol
 
 TODO
 2023/8/30 -- to compare

@@ -6,8 +6,9 @@ set kin3=147.75.74.211       & :: kin-validator-ny5-1 / 2k31vk7hPiu2T9fJzuunc6tm
 set kin4=145.40.117.153      & :: kin-validator-sg1-1 / 3cVWsRiTXD99BXNhzXs7Gkm3YBhCDrMQWnLern8B7TrD
 set kin5=145.40.117.157      & :: kin-spare-sg1-1 / kin52jAhScxJHbs3j9YdBFupe24MMbZJeHFDrTh49Pg
 
-set rpc1=34.148.201.98       & :: testnet-kin-rpc-bm-1 / 7JcmM6TFZMkcDkZe6RKVkGaWwN5dXciGC4fa3RxvqQc9
-set rpc2=34.139.158.147      & :: testnet-kin-rpc-bm-2 / AYJDiE3wgw5eanU4qJ4qfkB8vrHVEiBMTqXLbA9hUTaW
+:: gcp box (dead)
+::set rpc1=34.148.201.98       & :: testnet-kin-rpc-bm-1 / 7JcmM6TFZMkcDkZe6RKVkGaWwN5dXciGC4fa3RxvqQc9
+::set rpc2=34.139.158.147      & :: testnet-kin-rpc-bm-2 / AYJDiE3wgw5eanU4qJ4qfkB8vrHVEiBMTqXLbA9hUTaW
 
 set bm_rpc1=147.75.100.131     & :: kin-rpc-am6-1 / 7JcmM6TFZMkcDkZe6RKVkGaWwN5dXciGC4fa3RxvqQc9
 set bm_rpc2=139.178.85.7       & :: kin-rpc-da11-1 / AYJDiE3wgw5eanU4qJ4qfkB8vrHVEiBMTqXLbA9hUTaW
