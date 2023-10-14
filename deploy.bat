@@ -5,9 +5,6 @@ plink -batch sol@%kin1% "gsutil cp /home/sol/stage/bin/solana-ledger-tool gs://k
 
 set nodes=%kin1% %kin2% %kin3% %kin4%
 
-::set allnodes=%kin1% %kin2% %kin3% %kin4% %rpc1% %rpc2%
-::set rpcs=%rpc1% %rpc2%
-
 set allnodes=%kin1% %kin2% %kin3% %kin4% %bm_rpc1% %bm_rpc2%
 set rpcs=%bm_rpc1% %bm_rpc2%
 

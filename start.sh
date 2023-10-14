@@ -1,6 +1,8 @@
 #!/bin/bash
 set -ex
 
+# kin 256
+
 echo "====1 starting leader kin node ..."
 ssh sol@$kin1 "~/restart"
 ssh sol@$kin1 "tail -f logs/solana-validator.log | grep -m 1 \"Waiting for\""

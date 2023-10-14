@@ -8,6 +8,9 @@ allnodes=($kin1 $kin2 $kin3 $kin4 $bm_rpc1 $bm_rpc2)
 nodes=($kin1 $kin2 $kin3 $kin4)
 rpcs=($bm_rpc1 $bm_rpc2)
 
+for t in ${allnodes[@]}; do
+    ssh sol@$t "sudo ~/wipe_ledger.sh"
+done
 
 for t in ${nodes[@]}; do
     ssh sol@$t "cd /home/sol/.local/share/solana/install/active_release/bin/ && gsutil cp gs://kin-snapshots/bin/solana-validator solana-validator && chmod u+x solana-validator"
@@ -17,10 +20,6 @@ done
 for t in ${rpcs[@]}; do
     ssh sol@$t "cd /home/sol/ && gsutil cp gs://kin-snapshots/bin/solana-validator solana-validator && chmod u+x solana-validator"
     ssh sol@$t "cd /home/sol/ && gsutil cp gs://kin-snapshots/bin/solana-ledger-tool solana-ledger-tool && chmod u+x solana-ledger-tool"
-done
-
-for t in ${allnodes[@]}; do
-    ssh sol@$t "sudo ~/wipe_ledger.sh"
 done
 
 SNAP=snapshot-249022-CE7huwxE3hU3FyC8g8drr8rxEeqTqYJ1kJazPtcFzfA2.tar.zst

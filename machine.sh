@@ -6,8 +6,9 @@ export kin3=147.75.74.211       # :: kin-validator-ny5-1 / 2k31vk7hPiu2T9fJzuunc
 export kin4=145.40.117.153      # :: kin-validator-sg1-1 / 3cVWsRiTXD99BXNhzXs7Gkm3YBhCDrMQWnLern8B7TrD
 export kin5=145.40.117.157      # :: kin-spare-sg1-1 / kin52jAhScxJHbs3j9YdBFupe24MMbZJeHFDrTh49Pg
 
-export rpc1=34.148.201.98       # :: testnet-kin-rpc-bm-1 / 7JcmM6TFZMkcDkZe6RKVkGaWwN5dXciGC4fa3RxvqQc9
-export rpc2=34.139.158.147      # :: testnet-kin-rpc-bm-2 / AYJDiE3wgw5eanU4qJ4qfkB8vrHVEiBMTqXLbA9hUTaW
+# gcp box (dead)
+#export rpc1=34.148.201.98       # :: testnet-kin-rpc-bm-1 / 7JcmM6TFZMkcDkZe6RKVkGaWwN5dXciGC4fa3RxvqQc9
+#export rpc2=34.139.158.147      # :: testnet-kin-rpc-bm-2 / AYJDiE3wgw5eanU4qJ4qfkB8vrHVEiBMTqXLbA9hUTaW
 
 export bm_rpc1=147.75.100.131     # :: kin-rpc-am6-1 / 7JcmM6TFZMkcDkZe6RKVkGaWwN5dXciGC4fa3RxvqQc9
 export bm_rpc2=139.178.85.7       # :: kin-rpc-da11-1 / AYJDiE3wgw5eanU4qJ4qfkB8vrHVEiBMTqXLbA9hUTaW
@@ -58,3 +59,8 @@ export pn_rpc2=147.75.71.91      # ::pop-net-sv15-5 / AYJDiE3wgw5eanU4qJ4qfkB8vr
 
 export pn_client1=139.178.91.219 # ::pop-net-sv15-4
 export pn_client2=147.75.71.91   # ::pop-net-sv15-5
+
+# jwash
+export jw12=147.28.146.229
+export jw13=145.40.69.17
+export jw14=147.28.151.75
