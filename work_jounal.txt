@@ -669,6 +669,32 @@ syslog for debugging
     $ sudo less /var/log/syslog
     $ journalctl -u sol
 
+2023/11/10
+---------
+Select log in range
+- grep log by data range (simple but not robust)
+    > sed -n "/2023-11-10T12:25/,/2023-11-10T12:35/p" solana-validator.log > a.log
+    - print lines from patten1 match till pattern2 match
+
+- use regex
+    > sed -E '/2021-02-10 (08:[0-5][0-9]:[0-5][0-9]|09:00:00)/!d' /log/infile
+    > grep -E '2021-02-10 (08:[0-5][0-9]:[0-5][0-9]|09:00:00)' /log/infile
+    > awk '/2021-02-10 (08:[0-5][0-9]:[0-5][0-9]|09:00:00)/' /log/infile
+
+- use awk scripts (w. datatime calculation)
+> awk -v start='2021-02-10 08:00:00' -v end='2021-02-10 08:24:36' -v q="'" '
+BEGIN{
+    st="date -d" q start q " +%s"; st |getline start; close(st);
+    ed="date -d" q end   q " +%s"; ed |getline end;   close(ed)
+}
+{ dt=$1" "$2; epoch="date -d" q dt q " +%s"; epoch |getline dt; close(epoch) };
+(dt>=start && dt<=end)' infile
+
+> awk -v start='2021-02-10 08:00:00' -v end='2021-02-10 08:24:36' '
+ BEGIN{ gsub(/[:-]/," ", start); gsub(/[:-]/," ", end) }
+      { dt=$1" "$2; gsub(/[:-]/," ", dt) }
+ mktime(dt)>=mktime(start) && mktime(dt)<=mktime(end)' infile
+
 TODO
 2023/8/30 -- to compare
     - dev2 deployed scan-opt code  26EqJ47BBf6r4fXSfPdmop4yJLuK2YZ5pbGCkM4bvMgE (very limited diskspace)

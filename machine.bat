@@ -39,8 +39,8 @@ set dev20=145.40.113.181    & :: dev-server-eu-ld7-2
 
 set mydev=216.202.208.198  &  ::dev-lumen-Atlanta-2-3
 
-set hy1=147.28.146.231      & ::dev-equinix-washington-5 
-set hy2=86.109.7.117        & ::dev-equinix-washington-23
+set hy1=147.28.146.231      & ::dev-equinix-washington-5 / 9ffnCrMEtWQPggdAoMLB15JUVN144m19s6NChwKpoitu
+set hy2=86.109.7.117        & ::dev-equinix-washington-23 / 4WPtkxR3ThXX86vMP9TEZyVN52Bk3jZBKM5dxyqYv8Pe
 
 
 :: devnet
