@@ -695,6 +695,21 @@ BEGIN{
       { dt=$1" "$2; gsub(/[:-]/," ", dt) }
  mktime(dt)>=mktime(start) && mktime(dt)<=mktime(end)' infile
 
+2024/1/3
+---------
+Consensus Fork Choice
+  - 43 - 44 (x) - 45 (x) - 47
+      \
+       44' - 45' - 50
+
+last vote is on 47. 44/45 are ancestor but marked invalid due to duplicates. 
+when switching to 43, it will give an error DuplicatedAncestor. 
+This is because there is no point to rollback and vote on 43. In replay, it
+will have special handling to continue buiding on the alternative fork 44'...
+This is in contrast to switch failure where reply continue to build blocks on
+the last vote slot.
+
+
 TODO
 2023/8/30 -- to compare
     - dev2 deployed scan-opt code  26EqJ47BBf6r4fXSfPdmop4yJLuK2YZ5pbGCkM4bvMgE (very limited diskspace)
