@@ -756,3 +756,23 @@ elf.rs --> load_with_parser()
     conditional
     define directive
     functions: $foreach, $eval, $patsub ...
+
+2024/1/17
+---------
+Rpc log disappear? 
+The issue is due to logroate misconfig. 
+Two parts:
+- logrotate configure is specific to the file, send USR1 to sol.service
+    sol@pop-net-sv15-4:~$ cat /etc/logrotate.d/sol
+    /home/sol/logs/solana-validator.log {
+      daily
+      rotate 7
+      missingok
+      postrotate
+        systemctl kill -s USR1 sol.service
+      endscript
+    }
+- inside validator we handle USR1 by recreating the log
+
+- jw14: running master
+- hy2: running pr with fix to exclude partition reward account

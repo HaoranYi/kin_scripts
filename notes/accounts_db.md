@@ -73,21 +73,21 @@ generate snapshot.
 Cleaning: remove the ref to account on AppendVec from account_index
 Shrink: remove/relocate AppendVec storage
 
-As we root banks and slot, slot-list in index will be removed (i.e. clean). More accurately, this is happening on snapshotting. 
-pubkey->slot_list: holding the last state and active state for the accounts in the network. 
+As we root banks and slot, slot-list in index will be removed (i.e. clean). More accurately, this is happening on snapshotting.
+pubkey->slot_list: holding the last state and active state for the accounts in the network.
 Let's say Account A is last access at slot S. If no more on going bank access A, only one copy of A at S is needed.
 If there are on-going bank access to A, then those slot will be in slot list.
 When a bank root, all accounts in the bank will be added to slot-list and all previous slots that are ancestors of the root can be safely cleaned.
 
 Scan append-vec against account-index ref.
-Any accounts not refed in account-index can be removed -- old state. Clean will result append-vec shrink (by threshold for live/dead ratio). When all 
+Any accounts not refed in account-index can be removed -- old state. Clean will result append-vec shrink (by threshold for live/dead ratio). When all
 dead, the whole slots can be removed.
 
 Shrink will relocate accounts in appendvec, so it need to update account-index to point to the new location.
 
 ## Snapshot
 
-State for a particular slots. It include accounts-db: AppendVec storage for accounts. And banks. 
+State for a particular slots. It include accounts-db: AppendVec storage for accounts. And banks.
 When creating snapshot hardlink to AppendVec storage in snapshot folder to prevent account storage file from being deleted.
 
 update? Shrinking will modify the AppendVec?
@@ -111,3 +111,25 @@ app though file hard-links. Therefore, during archiving, those hard-linked
 appendvec won't be allowed to change.
 
 incremental and full snapshots have their own separate packaging directory.
+
+## Account Hash
+
+### Full Account Hash
+When we take a snapshot, we can the account storage (i.e. appendvec) and hash all the accounts hash together.
+
+### Incremental Account Hash
+Only hash accounts in the storage after last full snapshot till current slot.
+
+### Epoch Account Hash
+Async compute in the background, hash of all accounts at ath 25% of the epoch.
+And save the result at 75% of the epoch. This is the way to protect the
+integrity of the network.
+
+### Account Hash Cache
+Files on disk to store the accounts loaded from appendvec, partitioned by both
+pubkey-bin range and slot-chunk range. slot chunk range is 2500 slots. The cache
+is key with the slot-range.pubkey-bin-range.hash. hash is the fs-meta of all the
+appendvecs. If any of the appendvec get changed, i.e. shrink or dropped. Then we
+need to recompute the cache.
+
+Cache speed up comes from avoiding scanning the accounts storage.
