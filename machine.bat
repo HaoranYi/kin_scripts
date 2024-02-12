@@ -61,6 +61,8 @@ set pn_client1=139.178.91.219 & ::pop-net-sv15-4
 set pn_client2=147.75.71.91   & ::pop-net-sv15-5
 
 :: jwash
+set jw11=147.28.146.5
 set jw12=147.28.146.229
 set jw13=145.40.69.17
 set jw14=147.28.151.75
+set jw15=147.28.146.217

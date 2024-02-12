@@ -61,6 +61,8 @@ export pn_client1=139.178.91.219 # ::pop-net-sv15-4
 export pn_client2=147.75.71.91   # ::pop-net-sv15-5
 
 # jwash
+export jw11=147.28.146.5
 export jw12=147.28.146.229
 export jw13=145.40.69.17
 export jw14=147.28.151.75
+export jw15=147.28.146.217
