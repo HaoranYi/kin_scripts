@@ -774,5 +774,4 @@ Two parts:
     }
 - inside validator we handle USR1 by recreating the log
 
-- jw14: running master
-- hy2: running pr with fix to exclude partition reward account
+
