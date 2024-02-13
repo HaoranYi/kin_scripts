@@ -774,4 +774,30 @@ Two parts:
     }
 - inside validator we handle USR1 by recreating the log
 
+2024/2/12
+---------
+Duplicate block problem - multiple block for the same slot
+  - due to the limitation we only store one block per slot 
+  - solution: dump correct block and ask for another version of the block by
+    repair (sampling of the network)
+  - to determine which blocks are voted, need to add a new info - hash of the
+    block into the vote.
+
+GraphQL
+  - auto aggregate the simple queries into a batch to return the set of data
+    together to provide the data for UI apps
+  - libary for parsing input -> syntax tree then write your own aggregator.
+
+2024/2/13
+---------
+jito-lab (60% of the stake is running jito client, mostly like the big exchange
+nodes are running jito client)
+  - special banking stage
+      - relayer: send tranaction to block packer to simulate transaction and
+        pick transaction that give better MEV (tips) and send to block packer
+      - block packer: simulate tranaction and generate blocks, atomic
+        transaction batch execution (A/B/C...) 
+          - pack mulitple transactions into one transactions ([A,B,C])
+      - shred-streamer: pull shred stream directly from other jito staked nodes
+  - nodes that run jito will get MEV on top of rewards
 
