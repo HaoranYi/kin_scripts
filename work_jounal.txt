@@ -800,4 +800,10 @@ nodes are running jito client)
           - pack mulitple transactions into one transactions ([A,B,C])
       - shred-streamer: pull shred stream directly from other jito staked nodes
   - nodes that run jito will get MEV on top of rewards
+work flow
+- tx (validator/TPU disabled) -> relayer (filter, dedup) -> block engine (TX
+pool) -> searcher (bundle) -> block engine -> valdiator (TX)
+  - relayer hold the tx for 200ms before forwarding
+  - validator pays 5% of the tips recived from the transaction forward by block engine
+
 
