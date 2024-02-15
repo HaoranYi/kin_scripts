@@ -867,8 +867,18 @@ work flow
 pool) -> searcher (bundle) -> block engine -> valdiator (TX)
   - relayer hold the tx for 200ms before forwarding
   - validator pays 5% of the tips recived from the transaction forward by block engine
+Presentation
+  https://drive.google.com/file/d/1mLQMGnKUh7RhOSOtLoXIpHhmAjwwO30Q/view
+  - modify TPU stage (reolay service), now running on block_engine, searcher service auction, 
+  - tips collection and distribution
+- banking stage
+    - fetch: allocate buffer for incoming transaction packets
+    - banking: select the packet from the buffer to execute and pack them into entry (poh clock record, multi-thread banking execution)
+    - broadcast entries via turbine to validators
+    - the banking/select/pack and broadcast are where jito variant comes in 
 
 
-
+TODO
 port vote/stake program changes
 https://github.com/solana-labs/solana/pull/27715/files#diff-ab7997cf6770a6fae7b258e433b5dd8c33afa30431eab212552bc7f2b7b38db1
+
