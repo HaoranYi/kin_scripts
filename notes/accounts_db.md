@@ -38,6 +38,29 @@ AppendVec for the accounts data.
 
 The index is also stored on the disk by memory mapped files.
 
+```
+pub(crate) type AccountMapEntry<T> = Arc<AccountMapEntryInner<T>>;
+#[self_referencing]
+pub struct ReadAccountMapEntry<T: IndexValue> {
+    owned_entry: AccountMapEntry<T>,
+    #[borrows(owned_entry)]
+    #[covariant]
+    slot_list_guard: RwLockReadGuard<'this, SlotList<T>>,
+}
+```
+
+see docs
+https://docs.rs/ouroboros/latest/ouroboros/attr.self_referencing.html
+
+covariant
+- argument type 'A
+- function parameter type 'B
+'A > 'B --> covariant
+
+is used to resolve the compiler issue.
+
+
+
 ## Accounts-DB read cache
 
 A read-only cache, which get populated when reading. When writing, updated entries are removed from the cache.
@@ -133,3 +156,12 @@ appendvecs. If any of the appendvec get changed, i.e. shrink or dropped. Then we
 need to recompute the cache.
 
 Cache speed up comes from avoiding scanning the accounts storage.
+
+```
+---------bin1 | bin2 | bin3 ----------------------------- (pubkey)
+| sr1    c1   | c2   | c2
+| sr2    ...
+|  ...
+| srn    ...
+--------------------------------------------------------- (pubkey)
+```
