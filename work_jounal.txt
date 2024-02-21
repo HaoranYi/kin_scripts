@@ -878,7 +878,23 @@ Presentation
     - the banking/select/pack and broadcast are where jito variant comes in 
 
 
+2024/2/13
+---------
+Example how to run test-validator: 
+https://github.com/solana-labs/solana/security/advisories/GHSA-r6hw-7rch-5fx9
+
+# 100 is chosen to have faster epochs to quickly observe the issue at epoch boundaries
+$ cargo run --bin solana-test-validator -- --slots-per-epoch 100
+
+# wait until the test validator is running and then run the following commands sequentially
+$ cargo run --bin solana  -- create-stake-account ./test-ledger/validator-keypair.json 10 -k ./test-ledger/faucet-keypair.json -ul
+$ cargo run --bin solana  -- delegate-stake ./test-ledger/validator-keypair.json ./test-ledger/vote-account-keypair.json -k ./test-ledger/faucet-keypair.json -ul
+
+# Then watch the log until the validator panics
+# Repeat the process with `VERIFY_REWARD_LAMPORT = false` to see the capitalization mismatch panic
+
 TODO
 port vote/stake program changes
 https://github.com/solana-labs/solana/pull/27715/files#diff-ab7997cf6770a6fae7b258e433b5dd8c33afa30431eab212552bc7f2b7b38db1
+
 
