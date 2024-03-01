@@ -1,0 +1,35 @@
+# Typing Exercise with Emacs
+
+This document is for my typing experiment with emacs.
+
+## How can I do spell check in emacs?
+Enable fly-spell minor mode (require install ispell, i.e. 'brew
+install ispell'.  There are also flyspell commands associated, such as
+move to next error, correct misspell word.
+
+
+## How to get help in emacs?
+Use emacs built in help commands to find out what's going on.
+'C-h C-h' to learn.
+
+
+## How to fix the color of emacs on Mac terminal?
+The white background highlight make the text, which is also white very hard to see.
+
+
+## How to increase font size?
+It doesn't work in terminal.
+
+
+## Move by sentence, paragraph is very useful in emacs.
+
+
+In the end, using emacs in Mac terminal is not very good. 
+
+=======================================================================
+Vim is a much better choice to use inside terminal. 
+
+## How to get help of vim? 
+:help help
+
+
