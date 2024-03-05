@@ -893,6 +893,35 @@ $ cargo run --bin solana  -- delegate-stake ./test-ledger/validator-keypair.json
 # Then watch the log until the validator panics
 # Repeat the process with `VERIFY_REWARD_LAMPORT = false` to see the capitalization mismatch panic
 
+2024/3/5
+---------
+How run rust-gdb to debug a test?
+1. First find the test executable from 'cargo test'. 
+2. The run rust-gdb.
+    'rust-gdb --args /home/sol/src/solana/target/debug/deps/solana_core-6d9536717513b64c  consensus::test::test_check_vote_threshold_without_votes --exact --nocapture'
+
+- solana vote tower
+    - A stack of vote, each element in the stack (slot, confirmation_count). 
+    - When a new element is pushed into the stack, the confirmation_count++,
+      which means lockout is doubled.
+    - Check vote threshold for 'slot_x': Go to the history offset to the vote
+      stack, ie 8, tower[8], 8 vote pased. Look for percentage of stake at
+      that slot, compare it with total stake, threshold ie 0.66. Then vote
+      'slot_x'.
+    - Current scheme is to wait on stack offset 8, stop until it receives
+      0.66. If it never reaches 0.66 before stack[8] expires then switch forks
+    - lockout: simulate a vote on this 'slot', if the vote stack contains any
+      slot that's not in the ancestor of 'slot', then 'slot' is considered
+      lockout.
+- consensus params: 
+    - vote threshold depth 8
+    - vote threshold: 0.67
+    - switch fork: 0.38
+    - duplicate confirm: 1-0.38-0.1=0.52     
+
+How to search text in putty command window?
+1. Copy all the text to a file then search in the file with grep etc.
+
 TODO
 port vote/stake program changes
 https://github.com/solana-labs/solana/pull/27715/files#diff-ab7997cf6770a6fae7b258e433b5dd8c33afa30431eab212552bc7f2b7b38db1
