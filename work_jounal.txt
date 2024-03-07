@@ -920,7 +920,106 @@ How run rust-gdb to debug a test?
     - duplicate confirm: 1-0.38-0.1=0.52     
 
 How to search text in putty command window?
-1. Copy all the text to a file then search in the file with grep etc.
+Copy all the text to a file then search in the file with grep etc.
+
+2024/3/5
+---------
+On rust clap cli for `solana`
+
+1. clap.value_name() is a placeholder only used for display help message. Not
+used actually in ArgMatches. In ArgMatches, what get use is what put in
+`with_name(xxx)`.
+
+2. How does feature activate subcommand fee_payer get populated and how does it
+get default to client keypair?
+
+If the fee_payer argument is missing, then insert wallet_id as the first
+account (fee paying account) in the signers. 
+[code](https://github.com/solana-labs/solana/blob/9b1243ee4cd13b2bd0f3b5d18bb38ebd39b024b2/clap-utils/src/keypair.rs#L252)
+
+3. Rust clap help ordering?
+See fn display_order()
+https://docs.rs/clap/latest/clap/struct.Arg.html#method.help
+
+Args with a lower value will be displayed first in the help message. Those
+with the same display order will be sorted.
+
+Args are automatically assigned a display order based on the order they are
+added to the Command. Overriding this is helpful when the order arguments are
+added in isn't the same as the display order, whether in one-off cases or to
+automatically sort arguments.
+
+NOTE: This setting is ignored for positional arguments which are always
+displayed in index order.
+
+To change, see Command::next_display_order.
+
+Note: Add Arg in reverse order, ie Command.arg(C).arg(B).arg(A) ...  
+    so that help will be displayed in A|B|C order.
+
+2024/3/7
+---------
+How to turn off beep sound of vim/nvim?
+Turn off bell sound in putty terminal settings. vim config to turn off bell
+sound didn't work with nvim.
+
+AstroNvim Setup 
+  1. install from neovim release 
+    https://github.com/neovim/neovim/blob/master/INSTALL.md)
+  2. create a config file
+    ~/.config/nvim/init.lua (or init.vim old vim scripts)
+  3. config is organized in Lua modules
+    - in lua code, 
+        call vim command and functions (vim.cmd(xxx))
+        set vim variables (vim.g.xxx, vim.b.xxx)
+        set vim options (vim.opt.xxx)
+        create mappings (vim.keymap.set(xxx))
+        create autocommands (vim.api.nvim_create_autocmd(xxx))
+        group autocommands (vim.api.nvim_create_augroup(xxx))
+  4. Astro Nvim
+        git clone https://github.com/AstroNvim/AstroNvim ~/.config/nvim
+  5. Astro Nvim
+        :LspInstall rust 
+        :TSInstall rust
+        :Lazy check|update|clean|sync
+    - install nerd font
+        - doesn't work with putty terminal!
+        - need to configure nerd front for putty terminal
+  6. Code completion and hover to see document (Shift+k) is very useful
+    - default key mapping is very useful
+    - in code complete preview window, use C-d/C-u to scroll.
+  7 key mappings
+    - leaderkey = space
+    - leader f - fuzzy file finder, C-j, C-k to scroll up file
+        - C-u/C-d to scroll preview of file
+        - in escape mode, h,l to navigate text, j,k to navigate result (telescope)
+        - <leader> fw live grep mode 
+    - leader gg git action
+    - coding
+        - Tab/C-space to auto complete, C-e to close, K to show type of symbol
+        - gT go to typedef, C-o go back, gI to to implementation, 
+          gd jump to symbol def, 
+          gr jump to references, 
+          gl bring up to error popup, gl again to jump into the popup
+            ]d [d  nevigate buffers
+        - leader l to bring up code action
+            <leader> l r rename
+            <leader> l f foramt
+            <leader> l a action
+        - F7 bring up the floating window
+        - <leader> S s save session
+        - <leader> S . load session
+        - mouse supports too!
+            - Ctrl-click to jump
+
+On windows, use `nvim-qt`. Need to install NerdFront.            
+
+
+2024/3/7
+---------
+Solana network statistics and dashboard. 
+    https://analytics.topledger.xyz/solana/public/dashboards/kynZmbwYHB6mqf3DOXGQVFO1Xsff0x154iJpoXeK
+    https://dune.com/browse/dashboards?q=solana
 
 TODO
 port vote/stake program changes
