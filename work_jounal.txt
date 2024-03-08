@@ -978,13 +978,19 @@ AstroNvim Setup
         group autocommands (vim.api.nvim_create_augroup(xxx))
   4. Astro Nvim
         git clone https://github.com/AstroNvim/AstroNvim ~/.config/nvim
+        - user_example
+        git clone https://github.com/<your_user>/<your_repository> ~/.config/nvim/lua/user
+        - lua/xxx on 'runtimepath' is like vim's 'autoload' mechanism
+            - put user lua config if folder lua and init.lua load them with
+              'require(xxx)'
   5. Astro Nvim
         :LspInstall rust 
         :TSInstall rust
         :Lazy check|update|clean|sync
     - install nerd font
         - doesn't work with putty terminal!
-        - need to configure nerd front for putty terminal
+        - instead disable 'icon' in nvim 
+            - /user/init.lua options.g.icon_enabled=false
   6. Code completion and hover to see document (Shift+k) is very useful
     - default key mapping is very useful
     - in code complete preview window, use C-d/C-u to scroll.
@@ -1011,8 +1017,8 @@ AstroNvim Setup
         - <leader> S . load session
         - mouse supports too!
             - Ctrl-click to jump
-
 On windows, use `nvim-qt`. Need to install NerdFront.            
+lsp with rust anayzer works in AstroNvim on linux!
 
 
 2024/3/7
