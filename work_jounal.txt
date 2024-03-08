@@ -1012,20 +1012,40 @@ AstroNvim Setup
             <leader> l r rename
             <leader> l f foramt
             <leader> l a action
+            <leader> l L codelens run (however, not supported in rust lsp!)
         - F7 bring up the floating window
         - <leader> S s save session
         - <leader> S . load session
         - mouse supports too!
             - Ctrl-click to jump
-On windows, use `nvim-qt`. Need to install NerdFront.            
-lsp with rust anayzer works in AstroNvim on linux!
 
+Today, I gave a second try for 'nvim' and find out that AstroVim is very good.
+So, finally nvim is usable on both windows and linux. It could be a
+replacement for VScode and vim. Yah!
+On windows, use `nvim-qt`. Need to install NerdFront.            
+
+neovim lua module
+    - `init.vim` or init.lua
+    - `plugin/xxx`  autorun at startup
+    - `lua/xxx` for file loaded on demand
+        - `lua/foo/init.lua`  require(xxx) to load the folder
+        - use `pcall()` to load module and catch error
+    - lua concept
+        - tables: python like objects
+        - closures: EVERY scope is a closure, function, module, do block etc.
+        - coroutines: generator, cooperative multithreading
 
 2024/3/7
 ---------
 Solana network statistics and dashboard. 
     https://analytics.topledger.xyz/solana/public/dashboards/kynZmbwYHB6mqf3DOXGQVFO1Xsff0x154iJpoXeK
     https://dune.com/browse/dashboards?q=solana
+
+2024/3/8
+---------
+PartialEq vs. Eq. in Rust
+Eq is more strict than PartialEq in that A == A. example float.NaN != float.NaN. 
+To implemnt Eq, implement PartialEq and add empty trait Eq.
 
 TODO
 port vote/stake program changes
