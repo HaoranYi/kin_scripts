@@ -1055,7 +1055,9 @@ To implemnt Eq, implement PartialEq and add empty trait Eq.
     `iostat` - monitor I/O performance of disk and file system
     `iotop` - display a view of dis I/O by each process or thread
     `vmstat` - overview resource usage of a process, ie memory, cpu and disk I/O
-- monitor network traffic per port
+
+How to monitor network traffic per port? 
+1. use iptable plugin with telgraf
     $ iptables -nvL INPUT
     telegraf iptables plugin 
         - use `iptables -A ... -m comment --comment "...."` to add rules with
@@ -1070,7 +1072,9 @@ To implemnt Eq, implement PartialEq and add empty trait Eq.
         - explore metricx in influxdb
             influx -database telegraf
     https://docs.influxdata.com/telegraf/v1/get-started/
+iptables tutorial doc: https://www.frozentux.net/iptables-tutorial/chunkyhtml/x540.html
 
+2. configure telgraf as a service
 -- /etc/systemd/system/telegraf.service
 [Unit]
 Description=The plugin-driven server agent for reporting metrics into InfluxDB
@@ -1090,6 +1094,22 @@ KillMode=control-group
 
 [Install]
 WantedBy=multi-user.target
+
+3. use capture tool such as tcpdump or tshark to capture the packet from
+device and write scripts to analyze the capture to extract the statistics.
+tshark is the command of wireshark, it is a better alternatvie to tcpdump.
+They both use pcaplib.
+    > tshark -i wlan0 -w capture-output.pcap // capture
+    > tshark -r example.pcap -Y http.request -T fields -e http.host -e ip.dst -e http.request.full_uri  // analyze
+
+4. use `iftop` and filter with filter code (one hot debugging)
+    iftop -f 'port 80 and host google.com'
+    iftop -f 'port 22'  // filter code
+
+[Rust] Q: What's the memory layout of enum in rust?
+It is a tag + union of all variants.
+For Opiton<&T>, it is the same as pointer (no extra overhead for the tag)
+because nullptr is used for None.
 
 
 TODO
