@@ -24,7 +24,15 @@ It doesn't work in terminal.
 ## Move by sentence, paragraph is very useful in emacs.
 
 
-In the end, using emacs in Mac terminal is not very good. 
+In the end, using emacs in Mac terminal is not very good.  I have tried to love
+and work in emacs serval times.  But each time, it turns out that I can't love
+it.  There are always something that make emacs not as good to use as vim or
+other editors.  In terms of efficient key binding, it is not as good as vim.
+In terms of function of full IDE, it is not as good as vscode or clion.  If
+I just want to use a lightweigh edtior, I will go to vim.  If I want a full
+IDE, I will go to vscode or clion.  Emacs is sort of in the middle.  To get it
+working, you need to spend a lot of time to configure it.  Not worth it if you
+can do it almost free and better with the other editor. 
 
 =======================================================================
 Vim is a much better choice to use inside terminal. 
