@@ -37,6 +37,9 @@ can do it almost free and better with the other editor.
 =======================================================================
 Vim is a much better choice to use inside terminal. 
 
+Now with the advent of neo-vim and astroVim plugin, nvim becomes a full IDE
+with LSP code completion and more. Stick to nvim as an alternative to vscode.
+
 ## How to get help of vim? 
 :help help
 
