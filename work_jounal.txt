@@ -1034,6 +1034,7 @@ neovim lua module
         - tables: python like objects
         - closures: EVERY scope is a closure, function, module, do block etc.
         - coroutines: generator, cooperative multithreading
+        - loop/if-else: control flow
 
 2024/3/7
 ---------
@@ -1046,6 +1047,50 @@ Solana network statistics and dashboard.
 PartialEq vs. Eq. in Rust
 Eq is more strict than PartialEq in that A == A. example float.NaN != float.NaN. 
 To implemnt Eq, implement PartialEq and add empty trait Eq.
+
+
+2024/3/12
+---------
+`dsstat` more versatile, a replacement for vmstat, iostat and ifstat 
+    `iostat` - monitor I/O performance of disk and file system
+    `iotop` - display a view of dis I/O by each process or thread
+    `vmstat` - overview resource usage of a process, ie memory, cpu and disk I/O
+- monitor network traffic per port
+    $ iptables -nvL INPUT
+    telegraf iptables plugin 
+        - use `iptables -A ... -m comment --comment "...."` to add rules with
+          comments
+        - config telegraf input.iptables input
+    - telegraf is an angent to collect metrics and wrting them into influxDB
+        - config: /etc/telgraf/telegraf.conf
+        - run a single collection
+            `telegrah --test`
+        - run as a service
+            sudo service telgraf start
+        - explore metricx in influxdb
+            influx -database telegraf
+    https://docs.influxdata.com/telegraf/v1/get-started/
+
+-- /etc/systemd/system/telegraf.service
+[Unit]
+Description=The plugin-driven server agent for reporting metrics into InfluxDB
+Documentation=https://github.com/influxdata/telegraf
+After=network.target
+
+My EnvironmentFile and user was incorrect in the original telegraf.service unit file. Edited telegraf.service unit file below.
+
+[Service]
+EnvironmentFile=-/home/user/telegraf/usr/bin/telegraf
+User=user
+ExecStart=/home/user/telegraf/usr/bin/telegraf -config /home/user/telegraf/etc/telegraf/telegraf.conf -config-directory /home/user/telegraf/etc/telegraf/telegraf.d & $TELEGRAF_OPTS
+ExecReload=/bin/kill -HUP $MAINPID
+Restart=on-failure
+RestartForceExitStatus=SIGPIPE
+KillMode=control-group
+
+[Install]
+WantedBy=multi-user.target
+
 
 TODO
 port vote/stake program changes
