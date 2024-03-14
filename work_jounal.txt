@@ -1056,7 +1056,7 @@ To implemnt Eq, implement PartialEq and add empty trait Eq.
     `iotop` - display a view of dis I/O by each process or thread
     `vmstat` - overview resource usage of a process, ie memory, cpu and disk I/O
 
-How to monitor network traffic per port? 
+# How to monitor network traffic per port? 
 1. use iptable plugin with telgraf
     $ iptables -nvL INPUT
     telegraf iptables plugin 
@@ -1110,6 +1110,67 @@ They both use pcaplib.
 It is a tag + union of all variants.
 For Opiton<&T>, it is the same as pointer (no extra overhead for the tag)
 because nullptr is used for None.
+That's one reason to hold pointers inside enum variant. Keep the enum size of
+a regular pointer, i.e. like void* in C but with type safty when casting the
+pointer to the desired type (i.e. tag).
+
+Q: How to read account from tired storage?
+Hot Storage File:
+    {B1, B2 ...} | {K1, K2, ...} | {i1, i2, ...} | {O1, O2 ...} | tails
+B: AccountBlock = {meta|blob}    
+K: Account Address Keys
+i: offset into {B} for account block starts
+O: owner keys
+tails: hash, version etc.
+Account-index holds the keys to offset i_k. From i_k, get (K, B_k). From B_k
+we can recover account data. Owner needs another level look up in {O_j}.
+
+Q: how to write accounts to tired storage?
+Writing tired storage: Take a set of accounts to write.
+for each account, write `B`, while keep building (K, I, O). 
+Then write [K], [I], [O] at the end of the file.
+
+The trick is to use the end of the file to recover the footer (backwalk x
+bytes). And use the start of the next Account block as the end of the previous
+account block to infer the size of account block.
+
+When buiding up the owner blocks, use IndexSet. 
+
+Q: How does IndexSet work?
+IndexSet = HashSet + Vec.
+HashSet<T> = HashMap<T, ()>. empty value
+It is like a Vec+HashMap to maintains the insertion order, while with O(1)
+look up. Internally the Vec stores (hash, K, v). The map stores h->index. 
+The reason to store hash is to avoid recompute the hash when we rehash the map
+to different size.
+
+Q: How is hashmap implemented?
+HashMap<K, V>
+ptr_to(K, V)] | {bitmask}
+Storage is a linear blob of memory. K->h, take subset of bits and use it as
+index in the Array and bitmask. bitmask indicates whether the cell is empty.
+Use simd to do parallel look up multiple element when probbing.
+In impl, we only need to remember one pointer, i.e. ctr tyes pointer. By
+subtractiong the T*num we can get the data start pointer.
+
+Q: What accounts does vote instruction write to? vote account and node
+account?
+https://github.com/anza-xyz/agave/blob/master/sdk/program/src/vote/instruction.rs#L416
+https://github.com/anza-xyz/agave/blob/51dc7e6fb7589344497ce030950663c800685408/programs/vote/src/vote_transaction.rs#L39
+Yes. node account == authorized_voter_pubkey, which is used to pay the fees
+for vote transactions.
+
+Fee are collected here from the fee_payer which is the first account.
+https://github.com/anza-xyz/agave/blob/51dc7e6fb7589344497ce030950663c800685408/runtime/src/bank.rs#L4862
+
+The first account is the fee payer account.
+https://github.com/anza-xyz/agave/blob/51dc7e6fb7589344497ce030950663c800685408/sdk/program/src/message/compiled_keys.rs#L78
+
+Q: solana sign vs partial_sign?
+For multiple signers, sign will take a vec of all signer and sign at once.
+While `partial_sign`, the signer can sign at different times.
+
+
 
 
 TODO
