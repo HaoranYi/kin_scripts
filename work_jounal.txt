@@ -1106,6 +1106,9 @@ They both use pcaplib.
     iftop -f 'port 80 and host google.com'
     iftop -f 'port 22'  // filter code
 
+========
+  FQA
+========
 [Rust] Q: What's the memory layout of enum in rust?
 It is a tag + union of all variants.
 For Opiton<&T>, it is the same as pointer (no extra overhead for the tag)
@@ -1140,18 +1143,30 @@ Q: How does IndexSet work?
 IndexSet = HashSet + Vec.
 HashSet<T> = HashMap<T, ()>. empty value
 It is like a Vec+HashMap to maintains the insertion order, while with O(1)
-look up. Internally the Vec stores (hash, K, v). The map stores h->index. 
+look up. Internally the Vec stores (hash, K, v). The map stores hash->index. 
 The reason to store hash is to avoid recompute the hash when we rehash the map
-to different size.
+to different size. Also, hash is smaller than duplicate K in the Vec and Map.
 
 Q: How is hashmap implemented?
 HashMap<K, V>
-ptr_to(K, V)] | {bitmask}
+[(K, V)] | {bitmask}
 Storage is a linear blob of memory. K->h, take subset of bits and use it as
 index in the Array and bitmask. bitmask indicates whether the cell is empty.
 Use simd to do parallel look up multiple element when probbing.
 In impl, we only need to remember one pointer, i.e. ctr tyes pointer. By
 subtractiong the T*num we can get the data start pointer.
+
+Q: How to resize hashmap?
+Default hashmap size 16. load factor 75%. Double the size when reaching the
+limit. Choose hashmap size of power of 2. This assumes that hash function
+produce evenly distributed bucket index. If the bucket index is clustered,
+i.e 2,4,6 only even number, this will result in collision and bad performance.
+One way to choose another hash on top of the hash H2(h). This is what java
+hashmap does. 
+Another choice to tolerate bucket index cluster because of bad hash function
+is to use prime number as the mod for hash index. When resize, choose next
+prime close to the 2 * current_prime. The prime mod will help to spread the
+bucket index and reduce collision.
 
 Q: What accounts does vote instruction write to? vote account and node
 account?
