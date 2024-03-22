@@ -1221,13 +1221,44 @@ return the variable.
 Use [https://github.com/tokio-rs/io-uring]
 Prepare op_code for the file I/O, read/write/delete. Then push into
 ring.submission() queue. Then wait on ring.complete() queue. You can also
-attach a tag to the sub_req and verify the tag from complete queue.
+attach a tag to the sub_req and verify the tag from complete queue. 
 
+To add bookkeeping for req/complete, create a ctx which book keeps the req
+submission and process request completing.
+Use enum variant for different Ops.
+- use traits on Ops to implement new()/entry()/complete()/result() api
+- template these classes
+    - https://github.com/anza-xyz/agave/pull/262/files
 Reading with io-uring O-DIRECT, avoid buffering. Compare with mmap, no page
 cache, smaller memory footprint.
 
+** Q: How does solana gossip work?
+Basically it is a stake prioritized gossip. Messages from higher stake nodes
+goes to higher stake nodes first. Lower stake nodes more like random. 
+Each nodes maintain a set of bucket for stake look up.
+Each buckect contains N neighbors, And a bloom filter to drop message based on
+source. Higher bucket prioritize higher stake nodes. Message carries staks to
+look up bucket, find neighbor to send.
+type of messages, Push and pull, ping and pong, prune
+track stats for (msg_source, msg_sender)
 
-
+** Q: How does solana banking work?
+Banking is the block producer. It takes transactions from the receive buf and
+execute them and record them with poh which broadcast in the cluster.  old
+design: 4 threads pack seperately then record entries.  new design: 1 schedule
+and 4 works. schedule the graph bottom up (topological sort). parallel send
+batches to workers. worker execute and send tx to poh_record to form entries.
+poh cutoff entries and blocks by time (loop of hashes)
+- TPU: process packets from buffer. bank.load_and_execute_transactions
+    - send to poh_transaction_recorder
+    - recoder then send to PohService (h1, [TX]) (h2, [TX]) ...
+    - each [TX] is a batch to run in parallel.
+    - build a graph and topoligially sort to find max parallel chunk and send
+      to worker threads. Each chunk, though running seq on worker threads,
+      they are prepared to run in parallel in TVU. 
+- TVU: batches into_par_iter() and run in parallel ([TX] coming from blockstore)
+In other words, TPU run batch in seq. But the batch is selected to run in
+parallel, which is what happens in TVU.
 
 
 TODO
