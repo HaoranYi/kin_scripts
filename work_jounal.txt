@@ -1242,7 +1242,7 @@ look up bucket, find neighbor to send.
 type of messages, Push and pull, ping and pong, prune
 track stats for (msg_source, msg_sender)
 
-** Q: How does solana banking work?
+** Q: How does solana banking work? [2024/3/22]
 Banking is the block producer. It takes transactions from the receive buf and
 execute them and record them with poh which broadcast in the cluster.  old
 design: 4 threads pack seperately then record entries.  new design: 1 schedule
@@ -1259,6 +1259,20 @@ poh cutoff entries and blocks by time (loop of hashes)
 - TVU: batches into_par_iter() and run in parallel ([TX] coming from blockstore)
 In other words, TPU run batch in seq. But the batch is selected to run in
 parallel, which is what happens in TVU.
+
+** Q: How to pass compile time const to rust, like `-DFOO, #ifdef FOO` in C? [2024/3/22]
+- Rust use `env!` to evaluate environment var at compile time. `opt_env!` allow
+  var to be none. By the way, `env_var` check env variable at runtime. 
+- Anoter way for compile-time code selection is to use `feature`. Add a
+  `[features]` section in crate toml. Use `#[cfg(feature="xxx")]` in the code.
+- Use compile-time sizes and computation, ie `const fn ...`
+- Use your own `build.rs` scripts, which is binary to run before build
+  (pre-compile scripts)
+    - provide build-time infor, i.e. git commit hash
+    - generate linker script at build time depending on the feature or other
+      logic
+    - change cargo build config
+    - add extra static lib to link
 
 
 TODO
