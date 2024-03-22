@@ -26,8 +26,8 @@ for %%a in (%nodes%) do (
 )
 
 for %%a in (%rpcs%) do (
-    plink -batch sol@%%a "cd /home/sol/ && gsutil cp gs://kin-snapshots/bin/solana-validator512 solana-validator && chmod u+x solana-validator"
-    plink -batch sol@%%a "cd /home/sol/ && gsutil cp gs://kin-snapshots/bin/solana-ledger-tool512 solana-ledger-tool && chmod u+x solana-ledger-tool"
+    plink -batch sol@%%a "cd /home/sol/.local/share/solana/install/active_release/bin/ && gsutil cp gs://kin-snapshots/bin/solana-validator512 solana-validator && chmod u+x solana-validator"
+    plink -batch sol@%%a "cd /home/sol/.local/share/solana/install/active_release/bin/ && gsutil cp gs://kin-snapshots/bin/solana-ledger-tool512 solana-ledger-tool && chmod u+x solana-ledger-tool"
     REM pscp .\solana-validator512 "sol@%%a:/home/sol/solana-validator"
     REM pscp .\solana-ledger-tool512 "sol@%%a:/home/sol/solana-ledger-tool"
     REM plink -batch sol@%%a "cd /home/sol/ && chmod u+x solana-validator"
