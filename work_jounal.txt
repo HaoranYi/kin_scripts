@@ -1276,23 +1276,27 @@ parallel, which is what happens in TVU.
 
 ** Q: what's the difference between UDP, TCP and Quic? 
 - UDP is one direction. The receiver don't need to know the sender. 
+
 - TCP is bi direction. The recv/send need to ack so that the packet is in
-sequence. Protocolwise, UDP only need dst_ip, dst_port. TCP is a 4 element
-tuple (src_ip, src_port, dest_ip, dest_port) for sending ack. TCP connection
-also need handshake, syn, ack to establish. TCP stack is done in the kernel.
-src_ip, src_port is to send ack to sender. 2-way communication enable re-trans
-and rate cotnrol. After TCP conn establish, another handshake to exchange
-security certificate, to enable TLS. Shortcomming too slow. 
+  sequence. Protocolwise, UDP only need dst_ip, dst_port. TCP is a 4 element
+  tuple (src_ip, src_port, dest_ip, dest_port) for sending ack. TCP connection
+  also need handshake, syn, ack to establish. TCP stack is done in the kernel.
+  src_ip, src_port is to send ack to sender. 2-way communication enable
+  re-trans and rate cotnrol. After TCP conn establish, another handshake to
+  exchange security certificate, to enable TLS. Shortcomming too slow. 
+
 - Quic doing TCP on UDP in "user" space. Combine TCP handshake with TLS
-handshake. Fast connection establish. Still need 4 tuple (src_ip, src_port,
-dest_ip, dest_port) for a connection. It also add a stream, i.e. (stream_id)
-to allow muliple stream to share same connection. This helps to avoid head of
-line block. Each stream can ack independently. Rather than all stream share
-the same ack in TCP. If one packe from stream is delayed, other stream can
-continue ack and move forward. Because the conn is two way, src identiy check,
-rate control, retrans are all possible with Quic.
+  handshake. Fast connection establish. Still need 4 tuple (src_ip, src_port,
+  dest_ip, dest_port) for a connection. It also add a stream, i.e. (stream_id)
+  to allow muliple stream to share same connection. This helps to avoid head
+  of line block. Each stream can ack independently. Rather than all stream
+  share the same ack in TCP. If one packet from a stream is delayed, other
+  streams can continue ack and move forward (seq_num is independent for each
+  stream). Because the conn is two way, src identiy check, rate control,
+  retrans are all possible with Quic.
+
 - Solana use quic for orders is mainly because of the identity check and rate
-control to deal with spamming.
+  control to deal with spamming.
 
 
 TODO
