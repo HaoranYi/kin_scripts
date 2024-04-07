@@ -93,16 +93,17 @@ generate snapshot.
 
 ## Shrink/Clean in ABS
 
-Cleaning: remove the ref to account on AppendVec from account_index
+Cleaning: remove the ref to account on AppendVec from account_index (i.e. slot_list) 
 Shrink: remove/relocate AppendVec storage
 
-As we root banks and slot, slot-list in index will be removed (i.e. clean). More accurately, this is happening on snapshotting.
+As we root banks and slot (or the account has zero lamport), slot-list in index will be removed (i.e. clean). More accurately, this is happening on snapshotting.
 pubkey->slot_list: holding the last state and active state for the accounts in the network.
 Let's say Account A is last access at slot S. If no more on going bank access A, only one copy of A at S is needed.
 If there are on-going bank access to A, then those slot will be in slot list.
 When a bank root, all accounts in the bank will be added to slot-list and all previous slots that are ancestors of the root can be safely cleaned.
 
-Scan append-vec against account-index ref.
+Scan append-vec against account-index ref. 
+A redudant 'ref_count' should equal to len(slot_list). This is (1) for verification and (2) lookup optimization.
 Any accounts not refed in account-index can be removed -- old state. Clean will result append-vec shrink (by threshold for live/dead ratio). When all
 dead, the whole slots can be removed.
 

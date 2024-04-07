@@ -1298,6 +1298,80 @@ parallel, which is what happens in TVU.
 - Solana use quic for orders is mainly because of the identity check and rate
   control to deal with spamming.
 
+** Q: how to detect lock race conditions?
+One method is to wrap around the lock with hashmap to record threads that
+takes the lock. And then check the lock to see if any other threads has
+already hold the lock. 
+    - HashMap<ThreadId, (counter, backtrace)>
+
+** Q: cache eviction problem?    
+Random-2 eviction - pick two random entries and then evict based on LRU.
+Vs LRU. And pseudo LRU.
+This is ball/bin problem. One random leads to log(n)/log(log(n)).
+two random leads to log(logn)/log(2) + 1. much shorter len of collision.
+256 ball/bins --- 8 vs 3
+- proof
+    - by induction, prob of d bins with at least j-1 len, then j ball comes it
+      will be at least j len
+    - by random process. n insertion then v_i delete and w_i insert
+    - by queuting theory, divide into half each with n/2 bins, ball arrival
+      look for queue lenth.
+- application: two hash functions
+    - load balancing (two random server then compare load)
+- pseudo LRU
+    - one bit per cache line, toogle bit to 1 when access
+    - if all bits are toggled, then clear other bits to 0.
+    - to evict, find leftmost cache line where the bit is 0.
+    - another one is tree-PLRU: bit tree to direct insert.
+
+** Q: how to profile rust code? [2024/3/26]   
+- use `perf` to collect data
+- firefox profiler for visualize prof data
+For example, 
+  # record
+  $ sudo perf record --call-graph=dwarf target/release/deps/accounts-98c06349842216b5 -- test_accounts_lt_hash --exact --nocapture
+  # use buildin ncursers-app `report` to view program performance  
+  $ perf report --hierarchy -M intel
+1. compile release with debug symbols (this change need to be at the top-level
+   toml file!)
+    [profile.release]
+    debug=true
+    $ cargo build --release
+2. run perf
+    $ sudo perf record -g target/release/xxx
+3. inspect 
+    $ sudo perf report
+3.1 convert to the format the firefox profile can load!
+    $ sudo perf script -F +pid >a.perf
+Alternatively, we can use `samply` instead of `perf`
+    https://github.com/mstange/samply
+    $ cargo install samply
+    $ samply record ./xxx xxx-args
+    - spawn a subprocess and profile its execution.
+    - auto open https://profiler.firefox.com/, loads the record profile and
+      starts a local webserver to serve symbol info and source code
+    - adjust priviledge
+        sudo setcap 'cap_perfmon+ep' `which samply`  # set CAP_PERFMON
+        sudo sysctl kernel.perf_event_paranoid=-1    # perf_event_paranoid
+        sudo sysctl kernel.perf_event_mlock_kb=2048  # mmap failed
+    - turn on debug info
+        ~/.cargo/config.toml
+            [profile.profiling]
+            inherits = "release"
+            debug = true
+        $ cargo build --profile profiling
+        $ samply record ./target/profiling/xxxx
+
+** Q: what are rust equivalent to asio? [2024/4/7]
+The answer is `tokio`. `tokio` can spawn async task, and await on async task.
+For io operation, such as network, we can use `future`. Put multiple future
+into `FutureUnorderSet`, and use `select!` to poll from the future. 
+An example is to bind multiple socket to the same server `endpoint` with
+`SO_REUSEPORT`. And push `Endpoint.connect()` future to future set and use
+`select!` to process those connect. The pattern for multiple server on same
+port.
+
+
 
 TODO
 port vote/stake program changes
