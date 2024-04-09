@@ -1371,6 +1371,15 @@ An example is to bind multiple socket to the same server `endpoint` with
 `select!` to process those connect. The pattern for multiple server on same
 port.
 
+** Q: How to do rate-limiting in rust?
+A good candidate is the governor package. The package provides,
+RateLimiter::direct and RateLimiter::Keys. The RateLimiter maintains an
+internal clock. You specify the desired "Quota", and the call "r.check()" when
+a item arrvies. If check() return ture then the item is accepcted otherwise,
+the item should be rejected. The underlying algorithm used by the package is
+the "leaky bucket algorithm" - one variant of the GCRA (Generic Cell Rate
+Algorithm". Useful to do rate-control.
+
 
 
 TODO
