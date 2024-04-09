@@ -1380,6 +1380,11 @@ the item should be rejected. The underlying algorithm used by the package is
 the "leaky bucket algorithm" - one variant of the GCRA (Generic Cell Rate
 Algorithm". Useful to do rate-control.
 
+** Q: What's fuzz and how to use it?
+libfuzz-sys a llvm libary to do fuzzy testing. The idea is randomize the data
+and call some function on the data. The main usage is to define a call to your
+function with 'fuzz_target!' and call 'cargo fuzz <target>' to let the tool to
+generate fuzzy data to test your function.
 
 
 TODO
