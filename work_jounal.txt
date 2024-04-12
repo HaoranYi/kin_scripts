@@ -1329,7 +1329,7 @@ two random leads to log(logn)/log(2) + 1. much shorter len of collision.
 - firefox profiler for visualize prof data
 For example, 
   # record
-  $ sudo perf record --call-graph=dwarf target/release/deps/accounts-98c06349842216b5 -- test_accounts_lt_hash --exact --nocapture
+  $ sudo perf record --call-graph=fp target/release/deps/accounts-98c06349842216b5 -- test_accounts_lt_hash --exact --nocapture
   # use buildin ncursers-app `report` to view program performance  
   $ perf report --hierarchy -M intel
 1. compile release with debug symbols (this change need to be at the top-level
@@ -1343,6 +1343,8 @@ For example,
     $ sudo perf report
 3.1 convert to the format the firefox profile can load!
     $ sudo perf script -F +pid >a.perf
+    - NOTE that firefox limit the perf data to 500M. For file >500M, may need
+      to try to load with 'samply load ...'.
 Alternatively, we can use `samply` instead of `perf`
     https://github.com/mstange/samply
     $ cargo install samply
@@ -1385,6 +1387,29 @@ libfuzz-sys a llvm libary to do fuzzy testing. The idea is randomize the data
 and call some function on the data. The main usage is to define a call to your
 function with 'fuzz_target!' and call 'cargo fuzz <target>' to let the tool to
 generate fuzzy data to test your function.
+
+** Q: What's LLM?
+LLM stands for large language model - a generative AI. Predict next word!
+Three compoents: embedding, attention, MLP-FF. 
+- Maxtrix Multiplication, low rank to reduce parameter search space.
+
+** Q: how to get callstack from rust code when running 'perf'?
+RUSTFLAGS="-C debuginfo=2 -C force-frame-pointers=yes"
+'perf' sample CPU and record data.  'ebpf' allows hooks to syscall and write
+data to buffer and read them from user space.
+https://www.jibbow.com/posts/criterion-flamegraphs/
+- work flow for `perf` application
+  - record
+    `perf record -F99 -p <pid> -g -- sleep 60; perf script >out.perf; gzip out.perf`
+  - analyze
+    `gunzip -c out.perf | ./stackcollapse-perf.pl --all | ./flamegraph.pl > a.svg`
+
+** Q: Rust macro_rules to expand function body?
+- The idea is that you can used as lambda like syntax foo!(|x| { body });
+- define 'scoped fn' that capture the identy 'x', and the body which use x.
+  Then write surrouding common code, and then call the 'scoped fn' as if they
+  are inlined.
+- use '$($x:expr),+' to repeat expansion with list.
 
 
 TODO
