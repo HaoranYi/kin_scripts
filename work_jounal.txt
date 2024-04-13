@@ -1411,6 +1411,18 @@ https://www.jibbow.com/posts/criterion-flamegraphs/
   are inlined.
 - use '$($x:expr),+' to repeat expansion with list.
 
+** Q: Quic key concept?
+Endpoing, connection, packet, frame, stream.
+Sender/Receiver, state macine, handshake
+Packet, payload=frame, process frame, then ack.
+Packet carries seq_number, sender_id, recv_id, stream_id and packet needs to
+be acked. The payload of packet is frame. 
+    - control frame
+        - Rate control, connection control and ack frame
+    - data frame --> Stream Frame --> (offset, len) data[...]
+[IP | UDP | PACKET | Frame] -- quic stack
+
+
 
 TODO
 port vote/stake program changes
