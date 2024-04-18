@@ -1427,12 +1427,13 @@ Borrow/AsRef - convertible types, i.e. String -> str. The main difference is
 that the T/Borrowed must satisfy the same Eq/Hash traits. While AsRef doesn't
 have such requirement.
 
-Cow is a smart pointer that can be a borrowed ref or owned ref. Since
-`Def<T>/AsRef<T>` is implemented on Cow, Cow can be used as &T. Once you
-implement `Def<T>` then `AsRef<T>` simply return self -> &T.
-When writing Cow, must call `cow.to_mut()`, which will do clone if it is not
-owned. This is useful when writing is conditional, so we only need to pay the
-cost if condition to write is true.
+Cow is a kind of smart pointer that can be either a borrowed ref or owned ref.
+Since `Def<T>/AsRef<T>` is implemented on Cow, Cow can be used as &T
+transparently for read. Once you implement `Def<T>` then `AsRef<T>` simply
+return self -> &T. However, When writing Cow, must call `cow.to_mut()` first,
+which will ensure that clone is called if it is not owned. This pattern is
+useful when writing is conditional, so we only need to pay the cost of clone
+when we actually write (i.e. lazy clone). 
 
 
 
