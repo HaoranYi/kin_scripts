@@ -1444,6 +1444,19 @@ but before reward) and it is used for next epoch stake-weighted leader
 schedule.  We don't store the full epoch stakes, instead we only need to store
 the delegation.
 
+** Q: how to serde in rust?
+Need an object of T to serialize, a serilaizer. Implement two functions
+`fn serilaize(o: T, s : Serializer) -> Result<S::Ok, S::Error>`
+`fn deserilaize(d : Deserializer) -> Result<T, D::Error>' 
+- serde_json::to_string(obj).unwrap(); // serialize obj
+- let d = deserialize::<T>::(bytes); // deserialize bytes to T
+Borsh - binary object repr serialized for hash
+    - BorshSchema, BorshSerialize, BorshDeserialize
+    - use `BorshSchema` when you need to serialze/deserialize without the
+      corresponding rust type. 
+
+
+
 TODO
 port vote/stake program changes
 https://github.com/solana-labs/solana/pull/27715/files#diff-ab7997cf6770a6fae7b258e433b5dd8c33afa30431eab212552bc7f2b7b38db1
