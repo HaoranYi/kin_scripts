@@ -1412,7 +1412,7 @@ https://www.jibbow.com/posts/criterion-flamegraphs/
 - use '$($x:expr),+' to repeat expansion with list.
 
 ** Q: Quic key concept?
-Endpoing, connection, packet, frame, stream.
+Endpoint, connection, packet, frame, stream.
 Sender/Receiver, state macine, handshake
 Packet, payload=frame, process frame, then ack.
 Packet carries seq_number, sender_id, recv_id, stream_id and packet needs to
@@ -1423,19 +1423,26 @@ be acked. The payload of packet is frame.
 [IP | UDP | PACKET | Frame] -- quic stack
 
 ** Q: How does rust Borrow, AsRef, Cow work?
-Borrow/AsRef - convertible types, i.e. String -> str. The main difference is
+Borrow/AsRef - convertible types, i.e. String -> &str. The main difference is
 that the T/Borrowed must satisfy the same Eq/Hash traits. While AsRef doesn't
-have such requirement.
+have such requirement. String->24 byte (pointer, capacity, len), &str->16byte
+(pointer, len)
 
 Cow is a kind of smart pointer that can be either a borrowed ref or owned ref.
 Since `Def<T>/AsRef<T>` is implemented on Cow, Cow can be used as &T
-transparently for read. Once you implement `Def<T>` then `AsRef<T>` simply
+transparently for read. Once you implement `DeRef<T>` then `AsRef<T>` simply
 return self -> &T. However, When writing Cow, must call `cow.to_mut()` first,
 which will ensure that clone is called if it is not owned. This pattern is
 useful when writing is conditional, so we only need to pay the cost of clone
 when we actually write (i.e. lazy clone). 
 
-
+** Q: solana stake reward, withdraw, epoch stake?
+Stake account withdraw checks for staking amount. Rewards goes to both lamport
+and auto-staking.
+A snapshot of stakes is taken at the beginning of the epoch (after activation,
+but before reward) and it is used for next epoch stake-weighted leader
+schedule.  We don't store the full epoch stakes, instead we only need to store
+the delegation.
 
 TODO
 port vote/stake program changes
