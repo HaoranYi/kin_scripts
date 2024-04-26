@@ -1428,13 +1428,19 @@ that the T/Borrowed must satisfy the same Eq/Hash traits. While AsRef doesn't
 have such requirement. String->24 byte (pointer, capacity, len), &str->16byte
 (pointer, len)
 
-Cow is a kind of smart pointer that can be either a borrowed ref or owned ref.
-Since `Def<T>/AsRef<T>` is implemented on Cow, Cow can be used as &T
+Cow is a kind of smart pointer that can be either a borrowed ref or owned
+object.  Since `Def<T>/AsRef<T>` is implemented on Cow, Cow can be used as &T
 transparently for read. Once you implement `DeRef<T>` then `AsRef<T>` simply
 return self -> &T. However, When writing Cow, must call `cow.to_mut()` first,
-which will ensure that clone is called if it is not owned. This pattern is
-useful when writing is conditional, so we only need to pay the cost of clone
-when we actually write (i.e. lazy clone). 
+which will ensure that clone is called if it is not owned. 
+
+This pattern is useful when writing is conditional, so we only need to pay the
+cost of clone when we actually write (i.e. lazy clone). 
+
+The `key` of Cow is that it can hold *either* the object *or* the ref to the
+object when it is possible. The conditional copy-on-write is actually a side
+benefit.
+
 
 ** Q: solana stake reward, withdraw, epoch stake?
 Stake account withdraw checks for staking amount. Rewards goes to both lamport
