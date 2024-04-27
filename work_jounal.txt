@@ -1461,6 +1461,25 @@ Borsh - binary object repr serialized for hash
     - use `BorshSchema` when you need to serialze/deserialize without the
       corresponding rust type. 
 
+** Q: how to use iptables to do rate control?
+`iptables` is a command-line firewall program that uses several policy chains
+to allow or block network traffic.
+  $ iptable -A INPUT -p imcp -s 192.16.22.41 -j REJECT
+The idea is to define a set of ip addresses, and for each set define a rule to
+do rate control.
+  $ ipset create my_ip_set iphash
+  $ ipset add my_ip_set 192.16.22.41
+  $ ipset add my_ip_set 192.16.22.43
+  $ iptables –D INPUT –s 192.16.22.41,192.16.22.43 –p icmp –j REJECT
+  $ iptables –A INPUT –p icmp –m set –-match-set my_ip_set src –j REJECT
+
+Note: use `iprange` for contiguous block of ips
+  $ iptables –A INPUT –p icmp –m iprange –-src-range 192.16.22.41-192.16.22.43 –j REJECT
+Note: Netfilter & iproute - marking packets
+ - use netfilter to mark a packet with a number ('--set-mark')
+ - define 'ip rule' to route fwmark #number to a routing policy
+
+Use iptables to do rate control based on ip -- stake nodes (gossip)
 
 
 TODO
