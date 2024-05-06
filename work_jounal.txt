@@ -1517,10 +1517,13 @@ fn pull_lever(
 
 ```
 
-** Q: what the difference between rust Option and_then() and map()?
+** Q: what the difference between rust Option/Result `and_then()` and `map()`?
 and_then() and map() both do match some and none processing. The difference is
 in that and_then lambda return option, while map lambda return no option. In
 other words, and_then() can fail. But map can't fail.
+- ok()/ok_or()/ok_or_else() - Option --- Result conversion
+- map()/map_err()/map_or()/map_or_else() --- Result fn, basically does what
+  `match` Ok(T)/Err(E) does.
 
 
 TODO
