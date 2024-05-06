@@ -1481,6 +1481,47 @@ Note: Netfilter & iproute - marking packets
 
 Use iptables to do rate control based on ip -- stake nodes (gossip)
 
+** Q: how does solana CPI work?
+CPI allows a program to call another program. To use CPI
+    - an assembled `instruction` for the program that you want to call, which
+      includes
+        - program ID that you are calling
+        - accounts required by the instruction
+        - data by the instruction
+    - account info for the all the accounts required by the instruction
+    - seed to derive pda
+Calling a CPI use `invoke`/`invoke_signed` method. Exmaple (pull_level
+top-level instruction, calling set_power_status inner-level instruction)
+```
+entrypoint!(pull_lever);
+
+fn pull_lever(
+    _program_id: &Pubkey,
+    accounts: &[AccountInfo],
+    instruction_data: &[u8],
+) -> ProgramResult {
+    let accounts_iter = &mut accounts.iter();
+    let power = next_account_info(accounts_iter)?;
+    let lever_program = next_account_info(accounts_iter)?;
+
+    let set_power_status_instruction = SetPowerStatus::try_from_slice(instruction_data)?;
+
+    let ix = Instruction::new_with_borsh(
+        *lever_program.key,                        // Our lever program's ID
+        &set_power_status_instruction,             // Passing instructions through
+        vec![AccountMeta::new(*power.key, false)], // Just the required account for the other program
+    );
+
+    invoke(&ix, &[power.clone()])
+}
+
+```
+
+** Q: what the difference between rust Option and_then() and map()?
+and_then() and map() both do match some and none processing. The difference is
+in that and_then lambda return option, while map lambda return no option. In
+other words, and_then() can fail. But map can't fail.
+
 
 TODO
 port vote/stake program changes
