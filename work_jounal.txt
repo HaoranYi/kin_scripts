@@ -1526,6 +1526,82 @@ other words, and_then() can fail. But map can't fail.
   `match` Ok(T)/Err(E) does.
 
 
+** Q: what's program cache?
+Program cache is a cache for compiled program. simple design is copy-on-write
+map, holding Arc(...). When write use Arc::make_mut(...) to insert a new copy. 
+A more advanced desgin is to have a global cache and a local cache for each
+execution batch. local cache extract a subset of entry i.e. Arc(...) from
+global cache. Each update of the program will insert the new entry into the
+global cache. The shared global cache will have better sharing. Let's say we
+have fork A and B both load program p1, which is shared between A/B, then
+global cache will share p1. While COW will results in two copies. Both A/B
+will insert new entries for p1. 
+
+This is especially important when there are lots of forks, i.e. epoch
+boundary. Also, at epoch boundaries all program need to recompile/lots of
+forks. Share a global cache greatly reduce the number of duplicated program
+entries! Otherwise, each fork COW map will be refreshed and essentially
+duplicated! Furthermore, the recompilation happens 100x pre the boundary!
+
+** Q: how to run a ebpf program?
+Prepare `executable` from elf bytes. 
+Prepare memor_mapping with `regions`.
+Create the VM.
+Execute the program.
+
+/// A virtual machine to run eBPF programs.
+///
+/// # Examples
+///
+/// ```
+/// use solana_rbpf::{
+///     aligned_memory::AlignedMemory,
+///     ebpf,
+///     elf::Executable,
+///     memory_region::{MemoryMapping, MemoryRegion},
+///     program::{BuiltinProgram, FunctionRegistry, SBPFVersion},
+///     verifier::RequisiteVerifier,
+///     vm::{Config, EbpfVm, TestContextObject},
+/// };
+///
+/// let prog = &[
+///     0x95, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00  // exit
+/// ];
+/// let mem = &mut [
+///     0xaa, 0xbb, 0x11, 0x22, 0xcc, 0xdd
+/// ];
+///
+/// let loader = std::sync::Arc::new(BuiltinProgram::new_mock());
+/// let function_registry = FunctionRegistry::default(); // syscall functions!
+/// let mut executable = Executable::<TestContextObject>::from_text_bytes(prog, loader.clone(), SBPFVersion::V2, function_registry).unwrap();
+/// executable.verify::<RequisiteVerifier>().unwrap();
+/// let mut context_object = TestContextObject::new(1);
+/// let sbpf_version = executable.get_sbpf_version();
+///
+/// let mut stack = AlignedMemory::<{ebpf::HOST_ALIGN}>::zero_filled(executable.get_config().stack_size());
+/// let stack_len = stack.len();
+/// let mut heap = AlignedMemory::<{ebpf::HOST_ALIGN}>::with_capacity(0);
+///
+/// let regions: Vec<MemoryRegion> = vec![
+///     executable.get_ro_region(),
+///     MemoryRegion::new_writable(
+///         stack.as_slice_mut(),
+///         ebpf::MM_STACK_START,
+///     ),
+///     MemoryRegion::new_writable(heap.as_slice_mut(), ebpf::MM_HEAP_START),
+///     MemoryRegion::new_writable(mem, ebpf::MM_INPUT_START),
+/// ];
+///
+/// let memory_mapping = MemoryMapping::new(regions, executable.get_config(), sbpf_version).unwrap();
+///
+/// let mut vm = EbpfVm::new(loader, sbpf_version, &mut context_object, memory_mapping, stack_len);
+///
+/// let (instruction_count, result) = vm.execute_program(&executable, true);
+/// assert_eq!(instruction_count, 1);
+/// assert_eq!(result.unwrap(), 0);
+
+
+
 TODO
 port vote/stake program changes
 https://github.com/solana-labs/solana/pull/27715/files#diff-ab7997cf6770a6fae7b258e433b5dd8c33afa30431eab212552bc7f2b7b38db1
