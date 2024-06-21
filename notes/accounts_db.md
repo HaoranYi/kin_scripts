@@ -59,7 +59,24 @@ covariant
 
 is used to resolve the compiler issue.
 
+- bucketmap design
+In Accounts_index for each pubkey, we hold a refcount -- how many versions of
+the pubkey are in accounts storages. -- shrink will delete refcount if the
+pubkey in the storage is not present in the index. Eventually the account will
+have slot-list=1 and refcount=1
 
+bucket -- on disk hash map (sharded by pubkey-bin)
+    - write to bucket (key, slot_list, refcount)
+        - if slot_list=[], refcount=1, write to index_bucket[k]=ZeroSlots
+        - if slot_list=[T], refcount=1, write to index_bucket[k]=OneSlot((slot, offset))
+        - if slot_list=[...], refcount>1, 
+            write to index_bucket[k]=MultiSlot((data_bucket_ix,
+            data_bucket_offset)); data_bucket_ix[offset] =
+            TAG_refcount|(slot, offset)|(slot, offset)|...
+bucket grow by double the size (happens when we have 32 collision after linear
+probing of the hash offset)
+    - offset in the old bucket will be doubled in the new bucket
+        3/8 becomes 6/16
 
 ## Accounts-DB read cache
 

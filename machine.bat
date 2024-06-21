@@ -16,8 +16,6 @@ set bm_rpc2=139.178.85.7       & :: kin-rpc-da11-1 / AYJDiE3wgw5eanU4qJ4qfkB8vrH
 set client1=34.139.150.67    & :: testnet-kin-accounts-client-bm-1
 set client2=34.148.56.23     & :: testnet-kin-accounts-client-bm-2                                    
 
-set dev1=147.75.87.173       & :: shared-dev-am-11/Gr7rxUVoEcmvwRU8bbsdvz3acWk7kpj2yadmtc4yzce1
-set dev2=147.75.87.195       & :: shared-dev-am-9/8qC7UC9GQGsRdzGx4JrGpZQbUuADsGigzr1vH6Y5XzLR
 
 set hy1=147.28.146.231      & ::dev-equinix-washington-5 / 9ffnCrMEtWQPggdAoMLB15JUVN144m19s6NChwKpoitu
 set hy2=86.109.7.117        & ::dev-equinix-washington-23 / 4WPtkxR3ThXX86vMP9TEZyVN52Bk3jZBKM5dxyqYv8Pe
@@ -46,3 +44,10 @@ set jw11=147.28.146.5         & :: ??
 set jw12=147.28.146.229       & :: jw12zWEKBVrKxHCfbkbFVk3veipsmzYxUnsTg5juwkB
 set jw13=145.40.69.17         & :: jw13R1n5bVkqYSPHkWEmFEHp7PTiQYTaHb8yHaga4Wh
 set jw14=147.28.151.75        & :: jw14KneJptEvYMLtJ1qy1k7fEgCcnVVyXn7AWbxQHzQ
+
+:: dev
+set dev1=147.75.87.173       & :: shared-dev-am-11/Gr7rxUVoEcmvwRU8bbsdvz3acWk7kpj2yadmtc4yzce1
+set dev2=147.75.87.195       & :: shared-dev-am-9/8qC7UC9GQGsRdzGx4JrGpZQbUuADsGigzr1vH6Y5XzLR
+set dev8=147.75.87.223	     & :: shared-dev-am-7/FW3wKzRL8RHK37iGZ7jHTBy2CDTVGqKRYQpCQQDEHtFU
+set dev12=86.109.5.45        & :: shared-dev-fra-5/3gB7ELE9QhrQ4yKAsEegfNPXJsegUAmYuvbx1tKficih
+set td2=147.28.146.219       & :: dev-equinix-washington-35/td2GGWDsCJ6LvjN89oLJvmrDwE14neNrbqQ9s3tVkPy

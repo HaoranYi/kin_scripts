@@ -1600,6 +1600,11 @@ Execute the program.
 /// assert_eq!(instruction_count, 1);
 /// assert_eq!(result.unwrap(), 0);
 
+** Q: how to use bpftrace to profile solana apps? 
+> sudo bpftrace -e 'software:faults:1 { @[comm] = count(); } interval:s:10 { exit(); }'
+> sudo bpftrace -e 'k:tcp_sendmsg { @size = hist(arg2); } interval:s:10 { exit(); }'
+
+
 
 
 TODO
