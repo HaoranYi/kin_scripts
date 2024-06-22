@@ -67,16 +67,17 @@ have slot-list=1 and refcount=1
 
 bucket -- on disk hash map (sharded by pubkey-bin)
     - write to bucket (key, slot_list, refcount)
-        - if slot_list=[], refcount=1, write to index_bucket[k]=ZeroSlots
-        - if slot_list=[T], refcount=1, write to index_bucket[k]=OneSlot((slot, offset))
+        - if slot_list=[], refcount=1, write to index_bucket[k]=(key, ZeroSlots)
+        - if slot_list=[T], refcount=1, write to index_bucket[k]=(key, OneSlot((slot, offset)))
         - if slot_list=[...], refcount>1, 
-            write to index_bucket[k]=MultiSlot((data_bucket_ix,
-            data_bucket_offset)); data_bucket_ix[offset] =
-            TAG_refcount|(slot, offset)|(slot, offset)|...
-bucket grow by double the size (happens when we have 32 collision after linear
-probing of the hash offset)
-    - offset in the old bucket will be doubled in the new bucket
-        3/8 becomes 6/16
+            write to index_bucket[k]=(key, MultiSlot((data_bucket_ix, data_bucket_offset)); 
+                data_bucket_ix[offset] = TAG_refcount|(slot, offset)|(slot, offset)|...
+                - data_bucket_offset: [rand, +max_search*10]
+bucket grow (happens when we have 32 collision after linear probing of the hash offset)
+    - index bucket grow by 10% -- copy old cell to new cell
+    - data_bucket grow by double
+        - offset in the old bucket will be doubled in the new bucket
+            3/8 becomes 6/16
 
 ## Accounts-DB read cache
 
