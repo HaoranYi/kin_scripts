@@ -1604,6 +1604,55 @@ Execute the program.
 > sudo bpftrace -e 'software:faults:1 { @[comm] = count(); } interval:s:10 { exit(); }'
 > sudo bpftrace -e 'k:tcp_sendmsg { @size = hist(arg2); } interval:s:10 { exit(); }'
 
+** Q: how does accounts-db garbage collection work?
+ABS/AHV/SPS ---- accounts-db threads (clean, shrink, package snapshot)
+
+ABS for each snapshot request
+        let mut clean_time = Measure::start("clean_time");
+        snapshot_root_bank.clean_accounts(*last_full_snapshot_slot);
+        clean_time.stop();
+
+        let (_, shrink_ancient_time_us) = measure_us!(snapshot_root_bank.shrink_ancient_slots());
+
+        let mut shrink_time = Measure::start("shrink_time");
+        snapshot_root_bank.shrink_candidate_slots();
+        shrink_time.stop();
+
+        // Snapshot the bank and send over an accounts package
+        let mut snapshot_time = Measure::start("snapshot_time");
+        let snapshot_storages = snapshot_bank_utils::get_snapshot_storages(&snapshot_root_bank);
+        let accounts_package = ...; 
+        let send_result = self.accounts_package_sender.send(accounts_package);
+
+AHV for accounts_package
+    let (accounts_hash, capitalization) = self.calculate_accounts_hash_from_storages(
+                config,
+                storages,
+                stats,
+                CalcAccountsHashKind::Full,
+            );
+        
+
+What is preventing the ABS, in the next iteration, from shrinking of the
+storages, used in AHV for accounts_hash calculation?  
+
+100 --> slot 50, x --> AHV calculate hash
+200 --> slot 50, x dead (slot 200, x) --> clean/shrink running for 50? 
+
+AHV hold a Arc of slot 50?
+ABS will create a new Arc for slot 50' and copy only partially of 50.
+
+## shrinking (update storage and update index)
+
+When shrinking, create a new storage. When storing the account in the new
+storage, calls the regular store function update the index to point to the
+offset in the new storage.
+
+store_map (slot->storage) is update later to new storage, when we drop
+shrink_in_progress. shrink_in_progress is moved into 'mark_dirty_dead_stores'
+function, which is dropped at the end of the function, hence the store map is
+updated.
+
 
 TODO
 port vote/stake program changes

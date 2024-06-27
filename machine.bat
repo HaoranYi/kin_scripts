@@ -17,9 +17,11 @@ set client1=34.139.150.67    & :: testnet-kin-accounts-client-bm-1
 set client2=34.148.56.23     & :: testnet-kin-accounts-client-bm-2                                    
 
 
-set hy1=147.28.146.231      & ::dev-equinix-washington-5 / 9ffnCrMEtWQPggdAoMLB15JUVN144m19s6NChwKpoitu
-set hy2=86.109.7.117        & ::dev-equinix-washington-23 / 4WPtkxR3ThXX86vMP9TEZyVN52Bk3jZBKM5dxyqYv8Pe
+set old_hy1=147.28.146.231      & ::dev-equinix-washington-5 / 9ffnCrMEtWQPggdAoMLB15JUVN144m19s6NChwKpoitu
+set old_hy2=86.109.7.117        & ::dev-equinix-washington-23 / 4WPtkxR3ThXX86vMP9TEZyVN52Bk3jZBKM5dxyqYv8Pe
 
+set hy1=145.40.106.99           & ::haoran-toronto-1
+set hy2=145.40.105.83           & ::haoran-toronto-2
 
 :: devnet
 set dv1=145.40.71.85 & :: devnet-validator-asia-sg1 / dv1ZAGvdsz5hHLwWXsVnM94hWf1pjbKVau1QVkaMJ92
