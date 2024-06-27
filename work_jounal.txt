@@ -1653,6 +1653,16 @@ shrink_in_progress. shrink_in_progress is moved into 'mark_dirty_dead_stores'
 function, which is dropped at the end of the function, hence the store map is
 updated.
 
+## Compute hash from account's storages.
+- Extract hash from accounts storages
+    - chunk the slots
+        - then bining for each chunk
+            Sort by pubkey ascending, slot ascending, 
+In the cache file, (key, slot) ascending. So we will keep the last one for the
+same pubkey.
+
+- Sort hash sorted by pubkey ascending then merkel it.
+
 
 TODO
 port vote/stake program changes
