@@ -1663,6 +1663,13 @@ same pubkey.
 
 - Sort hash sorted by pubkey ascending then merkel it.
 
+** On Accounts-DB index
+At start-up, after creating accounts-db, we generate index from storages.
+Collect duplicated keys for cleaning.
+    InMemMap --> flush ---> DiskBucket (in the background threads)
+On statup we flush asap.
+Normal run, flush based on age.
+
 
 TODO
 port vote/stake program changes
