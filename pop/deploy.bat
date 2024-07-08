@@ -1,11 +1,7 @@
 @echo on
 
 :: build and copy agave_validator/agave_ledger-tool to ~/stage512/bin/
-:: cd /home/sol/src/solana/validator && ../cargo build --release && cd
-:: ../ledger-tool/ && ../cargo build --release && cd
-:: /home/sol/src/solana/target/release && ls -l agave-validator
-:: agage-ledger-tool && cp agave-validator ~/stage512/bin/solana-validator &&
-:: cp agave-ledger-tool ~/stage512/bin/solana-ledger-tool
+:: see `build.sh` 
 
 plink -batch sol@%pn1% "gsutil cp /home/sol/stage512/bin/solana-validator gs://kin-snapshots/bin/solana-validator512"
 plink -batch sol@%pn1% "gsutil cp /home/sol/stage512/bin/solana-ledger-tool gs://kin-snapshots/bin/solana-ledger-tool512"
