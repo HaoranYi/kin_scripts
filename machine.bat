@@ -52,4 +52,4 @@ set dev1=147.75.87.173       & :: shared-dev-am-11/Gr7rxUVoEcmvwRU8bbsdvz3acWk7k
 set dev2=147.75.87.195       & :: shared-dev-am-9/8qC7UC9GQGsRdzGx4JrGpZQbUuADsGigzr1vH6Y5XzLR
 set dev8=147.75.87.223	     & :: shared-dev-am-7/FW3wKzRL8RHK37iGZ7jHTBy2CDTVGqKRYQpCQQDEHtFU
 set dev12=86.109.5.45        & :: shared-dev-fra-5/3gB7ELE9QhrQ4yKAsEegfNPXJsegUAmYuvbx1tKficih
-set td2=147.28.146.219       & :: dev-equinix-washington-35/td2GGWDsCJ6LvjN89oLJvmrDwE14neNrbqQ9s3tVkPy
+set td2=147.28.171.69        & :: testnet-development-stockholm/td2GGWDsCJ6LvjN89oLJvmrDwE14neNrbqQ9s3tVkPy
