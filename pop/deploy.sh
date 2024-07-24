@@ -28,7 +28,7 @@ for t in ${allnodes[@]}; do
     ssh sol@$t "ln -s ~/$SNAP ~/ledger/$SNAP"
 done
 
-START_SLOT_INFO=start_249022.txt
+START_SLOT_INFO=../start_249022.txt
 for t in ${allnodes[@]}; do
     scp $START_SLOT_INFO sol@$t:/home/sol/start_slot_info.txt 
 done
