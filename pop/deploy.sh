@@ -22,13 +22,15 @@ for t in ${rpcs[@]}; do
     ssh sol@$t "cd /home/sol/ && gsutil cp gs://kin-snapshots/bin/solana-ledger-tool512 solana-ledger-tool && chmod u+x solana-ledger-tool"
 done
 
-SNAP=snapshot-249022-CE7huwxE3hU3FyC8g8drr8rxEeqTqYJ1kJazPtcFzfA2.tar.zst
+#SNAP=snapshot-249022-CE7huwxE3hU3FyC8g8drr8rxEeqTqYJ1kJazPtcFzfA2.tar.zst
+SNAP=snapshot-900908-D7NoYegRo2vcgMXQNFwtKGkHq86dbH7w4kMfAhjv8myb.tar.zst
 
 for t in ${allnodes[@]}; do
     ssh sol@$t "ln -s ~/$SNAP ~/ledger/$SNAP"
 done
 
-START_SLOT_INFO=../start_249022.txt
+#START_SLOT_INFO=../start_249022.txt
+START_SLOT_INFO=../start_900908.txt
 for t in ${allnodes[@]}; do
     scp $START_SLOT_INFO sol@$t:/home/sol/start_slot_info.txt 
 done
