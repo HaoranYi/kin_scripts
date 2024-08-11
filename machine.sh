@@ -7,18 +7,17 @@ export kin4=145.40.117.153      # :: kin-validator-sg1-1 / 3cVWsRiTXD99BXNhzXs7G
 export kin5=145.40.117.157      # :: kin-spare-sg1-1 / kin52jAhScxJHbs3j9YdBFupe24MMbZJeHFDrTh49Pg
 
 # gcp box (dead)
-#export rpc1=34.148.201.98       # :: testnet-kin-rpc-bm-1 / 7JcmM6TFZMkcDkZe6RKVkGaWwN5dXciGC4fa3RxvqQc9
-#export rpc2=34.139.158.147      # :: testnet-kin-rpc-bm-2 / AYJDiE3wgw5eanU4qJ4qfkB8vrHVEiBMTqXLbA9hUTaW
+#export rpc1=34.148.201.98      # :: testnet-kin-rpc-bm-1 / 7JcmM6TFZMkcDkZe6RKVkGaWwN5dXciGC4fa3RxvqQc9
+#export rpc2=34.139.158.147     # :: testnet-kin-rpc-bm-2 / AYJDiE3wgw5eanU4qJ4qfkB8vrHVEiBMTqXLbA9hUTaW
 
-export bm_rpc1=147.75.100.131     # :: kin-rpc-am6-1 / 7JcmM6TFZMkcDkZe6RKVkGaWwN5dXciGC4fa3RxvqQc9
-export bm_rpc2=139.178.85.7       # :: kin-rpc-da11-1 / AYJDiE3wgw5eanU4qJ4qfkB8vrHVEiBMTqXLbA9hUTaW
+export bm_rpc1=147.75.100.131   # :: kin-rpc-am6-1 / 7JcmM6TFZMkcDkZe6RKVkGaWwN5dXciGC4fa3RxvqQc9
+export bm_rpc2=139.178.85.7     # :: kin-rpc-da11-1 / AYJDiE3wgw5eanU4qJ4qfkB8vrHVEiBMTqXLbA9hUTaW
 
 export client1=34.139.150.67    # :: testnet-kin-accounts-client-bm-1
 export client2=34.148.56.23     # :: testnet-kin-accounts-client-bm-2                                    
 
-export hy1=145.40.106.99       # ::haoran-toronto-1
-export hy2=145.40.105.83       # ::haoran-toronto-2
-
+export hy1=145.40.126.135       # ::haoran-dev-hk-1
+export hy2=147.28.133.107       # ::haoran-dev-paris-1
 
 # devnet
 export dv1=145.40.71.85  # :: devnet-validator-asia-sg1 / dv1ZAGvdsz5hHLwWXsVnM94hWf1pjbKVau1QVkaMJ92

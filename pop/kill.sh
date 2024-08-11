@@ -1,6 +1,6 @@
 #!/bin/bash
 
-ssh sol@$pn1'~/stop'
+ssh sol@$pn1 '~/stop'
 ssh sol@$pn2 '~/stop'
 ssh sol@$pn3 '~/stop'
 ssh sol@$pn4 '~/stop'
