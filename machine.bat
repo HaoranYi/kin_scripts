@@ -18,6 +18,7 @@ set client2=34.148.56.23     & :: testnet-kin-accounts-client-bm-2
 
 set hy1=145.40.126.135       & ::haoran-dev-hk-1
 set hy2=147.28.133.107       & ::haoran-dev-paris-1
+set hy3=147.28.156.191       & ::haron-dev-sg
 
 :: devnet
 set dv1=145.40.71.85 & :: devnet-validator-asia-sg1 / dv1ZAGvdsz5hHLwWXsVnM94hWf1pjbKVau1QVkaMJ92
@@ -44,8 +45,6 @@ set jw13=145.40.69.17         & :: jw13R1n5bVkqYSPHkWEmFEHp7PTiQYTaHb8yHaga4Wh
 set jw14=147.28.151.75        & :: jw14KneJptEvYMLtJ1qy1k7fEgCcnVVyXn7AWbxQHzQ
 
 :: dev
-set dev1=147.75.87.173       & :: shared-dev-am-11/Gr7rxUVoEcmvwRU8bbsdvz3acWk7kpj2yadmtc4yzce1
-set dev2=147.75.87.195       & :: shared-dev-am-9/8qC7UC9GQGsRdzGx4JrGpZQbUuADsGigzr1vH6Y5XzLR
-set dev8=147.75.87.223	     & :: shared-dev-am-7/FW3wKzRL8RHK37iGZ7jHTBy2CDTVGqKRYQpCQQDEHtFU
-set dev12=86.109.5.45        & :: shared-dev-fra-5/3gB7ELE9QhrQ4yKAsEegfNPXJsegUAmYuvbx1tKficih
-set td2=147.28.171.69        & :: testnet-development-stockholm/td2GGWDsCJ6LvjN89oLJvmrDwE14neNrbqQ9s3tVkPy
+set dev7=147.28.198.63       & :: shared-dev-osa-3/6o3TZZodHRKzuRs1tAKvMVKqw5ZTmnGoynukN2bsfbLS  (jeff stat verify all accounts in index)
+set dev8=147.75.87.223	     & :: shared-dev-am-7/FW3wKzRL8RHK37iGZ7jHTBy2CDTVGqKRYQpCQQDEHtFU   (file-io)
+set dev9=147.75.87.221       & :: shared-dev-am-15/8bAgyWFMxMkZcLV2K2Nt5nn2DXmQQ9TRhER3xXsem6RM  (mmap)

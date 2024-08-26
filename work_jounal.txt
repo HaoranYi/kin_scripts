@@ -1671,8 +1671,4 @@ On statup we flush asap.
 Normal run, flush based on age.
 
 
-TODO
-port vote/stake program changes
-https://github.com/solana-labs/solana/pull/27715/files#diff-ab7997cf6770a6fae7b258e433b5dd8c33afa30431eab212552bc7f2b7b38db1
-
 
