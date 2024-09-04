@@ -6,6 +6,14 @@ set kin3=147.75.74.211       & :: kin-validator-ny5-1 / 2k31vk7hPiu2T9fJzuunc6tm
 set kin4=145.40.117.153      & :: kin-validator-sg1-1 / 3cVWsRiTXD99BXNhzXs7Gkm3YBhCDrMQWnLern8B7TrD
 set kin5=145.40.117.157      & :: kin-spare-sg1-1 / kin52jAhScxJHbs3j9YdBFupe24MMbZJeHFDrTh49Pg
 
+set new_kin1=147.28.156.19
+set new_kin2=147.28.156.37
+set new_kin3=147.28.156.187
+set new_kin4=147.28.156.83
+set new_kin5=147.28.156.113
+set new_kin6=145.40.126.165
+
+
 :: gcp box (dead)
 ::set rpc1=34.148.201.98       & :: testnet-kin-rpc-bm-1 / 7JcmM6TFZMkcDkZe6RKVkGaWwN5dXciGC4fa3RxvqQc9
 ::set rpc2=34.139.158.147      & :: testnet-kin-rpc-bm-2 / AYJDiE3wgw5eanU4qJ4qfkB8vrHVEiBMTqXLbA9hUTaW
@@ -16,9 +24,10 @@ set bm_rpc2=139.178.85.7       & :: kin-rpc-da11-1 / AYJDiE3wgw5eanU4qJ4qfkB8vrH
 set client1=34.139.150.67    & :: testnet-kin-accounts-client-bm-1
 set client2=34.148.56.23     & :: testnet-kin-accounts-client-bm-2                                    
 
-set hy1=145.40.126.135       & ::haoran-dev-hk-1
+set hy1=139.178.67.25        & ::haoran-dev-ny
 set hy2=147.28.133.107       & ::haoran-dev-paris-1
 set hy3=147.28.156.191       & ::haron-dev-sg
+set hy4=145.40.126.135       & ::haoran-dev-hk-1
 
 :: devnet
 set dv1=145.40.71.85 & :: devnet-validator-asia-sg1 / dv1ZAGvdsz5hHLwWXsVnM94hWf1pjbKVau1QVkaMJ92
@@ -45,6 +54,7 @@ set jw13=145.40.69.17         & :: jw13R1n5bVkqYSPHkWEmFEHp7PTiQYTaHb8yHaga4Wh
 set jw14=147.28.151.75        & :: jw14KneJptEvYMLtJ1qy1k7fEgCcnVVyXn7AWbxQHzQ
 
 :: dev
+set dev4=147.28.178.9        & :: debug hash mismatch
 set dev7=147.28.198.63       & :: shared-dev-osa-3/6o3TZZodHRKzuRs1tAKvMVKqw5ZTmnGoynukN2bsfbLS  (jeff stat verify all accounts in index)
 set dev8=147.75.87.223	     & :: shared-dev-am-7/FW3wKzRL8RHK37iGZ7jHTBy2CDTVGqKRYQpCQQDEHtFU   (file-io)
 set dev9=147.75.87.221       & :: shared-dev-am-15/8bAgyWFMxMkZcLV2K2Nt5nn2DXmQQ9TRhER3xXsem6RM  (mmap)

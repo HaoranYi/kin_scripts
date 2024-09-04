@@ -16,9 +16,10 @@ export bm_rpc2=139.178.85.7     # :: kin-rpc-da11-1 / AYJDiE3wgw5eanU4qJ4qfkB8vr
 export client1=34.139.150.67    # :: testnet-kin-accounts-client-bm-1
 export client2=34.148.56.23     # :: testnet-kin-accounts-client-bm-2                                    
 
-export hy1=145.40.126.135       # ::haoran-dev-hk-1
+export hy1=139.178.67.25        # ::haoran-dev-ny
 export hy2=147.28.133.107       # ::haoran-dev-paris-1
 export hy3=147.28.156.191       # ::haron-dev-sg
+export hy4=145.40.126.135       # ::haoran-dev-hk-1
 
 # devnet
 export dv1=145.40.71.85  # :: devnet-validator-asia-sg1 / dv1ZAGvdsz5hHLwWXsVnM94hWf1pjbKVau1QVkaMJ92
