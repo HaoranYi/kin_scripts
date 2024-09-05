@@ -433,6 +433,12 @@ sol@testnet-kin-rpc-bm-1:~$ spl-token balance Dx2KVx97kD95Av66EUuuiaTSrXG78zwk8z
 sol@testnet-kin-rpc-bm-1:~$ spl-token supply Dx2KVx97kD95Av66EUuuiaTSrXG78zwk8zXNanzEpkPt -u l
 100
 
+7. consider to use prefix keys for the test cluster for better naming
+    $ for i in `seq 1 6`; do echo solana-keygen grind --starts-with kin$i:1; done
+    $ for i in `seq 1 6`; do echo solana-keygen grind --starts-with vot$i:1; done
+    $ for i in `seq 1 6`; do echo solana-keygen grind --starts-with stk$i:1; done
+    $ for i in `seq 1 6`; do echo solana-keygen grind --starts-with fac$i:1; done
+
 2023/1/25
 ----------
 It many take a while for the rpc node to catch up, i.e. to pass healthy check.
