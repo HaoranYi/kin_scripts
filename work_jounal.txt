@@ -906,6 +906,16 @@ How run rust-gdb to debug a test?
 2. The run rust-gdb.
     'rust-gdb --args /home/sol/src/solana/target/debug/deps/solana_core-6d9536717513b64c  consensus::test::test_check_vote_threshold_without_votes --exact --nocapture'
 
+NOTE: To use gdb to debug multiple threads, "set scheduler-locking step"
+println! maybe also be useful for simple debugging.
+
+How to step in a single thread!
+    1. use per thread breakpoint to stop all threads and step on one of them.
+    (gdb) break frik.c:13 thread 28 if bartab > lim
+    2. "set scheduler-locking step", use next on current thread while keep all
+    other thread paused. There are 4 different modes "off|on|step|replay"
+
+
 - solana vote tower
     - A stack of vote, each element in the stack (slot, confirmation_count). 
     - When a new element is pushed into the stack, the confirmation_count++,
@@ -1675,6 +1685,19 @@ Collect duplicated keys for cleaning.
     InMemMap --> flush ---> DiskBucket (in the background threads)
 On statup we flush asap.
 Normal run, flush based on age.
+
+
+** On accounts-index at startup
+1. scan storages and collect all (pubkey, account, slot) ~ S
+2. flush S into disk (only last entry in disk) return duplicates (both put in
+   disk and not put in disk)
+3. for all dups (not those on disk) insert them again; -- collect the set of duplicate keys
+4. correct account size by visit duplicate keys and subtract it hash
+
+stats 
+total_items_including_duplicates = 665224689i 
+total_duplicate_slot_keys        = 52628546i
+accounts_duplicates_num          = 42558223i 
 
 
 

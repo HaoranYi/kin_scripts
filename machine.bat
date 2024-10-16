@@ -56,7 +56,7 @@ set jw14=147.28.151.75        & :: jw14KneJptEvYMLtJ1qy1k7fEgCcnVVyXn7AWbxQHzQ
 :: dev
 set dev4=147.28.178.9        & :: debug hash mismatch
 set dev5=145.40.114.115      & :: CTzTRqfUaNz6yZFUJVMwcccUaH8AtWYpbRZsPkxy3zUe 
-set dev7=147.28.198.63       & :: shared-dev-osa-3/6o3TZZodHRKzuRs1tAKvMVKqw5ZTmnGoynukN2bsfbLS  (jeff stat verify all accounts in index)
+set dev7=147.28.198.63       & :: shared-dev-osa-3/6o3TZZodHRKzuRs1tAKvMVKqw5ZTmnGoynukN2bsfbLS (evict multi disk index entry PR3184) 
 set dev8=147.75.87.223	     & :: shared-dev-am-7/FW3wKzRL8RHK37iGZ7jHTBy2CDTVGqKRYQpCQQDEHtFU   (file-io)
 set dev9=147.75.87.221       & :: shared-dev-am-15/8bAgyWFMxMkZcLV2K2Nt5nn2DXmQQ9TRhER3xXsem6RM  (master:mmap)
 set dev12=86.109.5.45        & :: shared-dev-fra-5/3gB7ELE9QhrQ4yKAsEegfNPXJsegUAmYuvbx1tKficih  (clean optimization - #2879)
