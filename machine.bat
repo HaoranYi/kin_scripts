@@ -47,11 +47,11 @@ set pn_client1=139.178.91.219 & ::pop-net-sv15-4
 set pn_client2=147.75.71.91   & ::pop-net-sv15-5
 
 :: jwash
-set jw10=147.28.146.119       & :: jw1ogdyq72xfsfXH6w2kQWVSEzpgbD7DKfYT4PrAtcy
-set jw11=147.28.146.5         & :: ??
-set jw12=147.28.146.229       & :: jw12zWEKBVrKxHCfbkbFVk3veipsmzYxUnsTg5juwkB
-set jw13=145.40.69.17         & :: jw13R1n5bVkqYSPHkWEmFEHp7PTiQYTaHb8yHaga4Wh
-set jw14=147.28.151.75        & :: jw14KneJptEvYMLtJ1qy1k7fEgCcnVVyXn7AWbxQHzQ
+set jw10=147.28.180.143       & :: jw1ogdyq72xfsfXH6w2kQWVSEzpgbD7DKfYT4PrAtcy
+set jw11=147.75.198.191       & :: ??
+set jw12=145.40.82.115        & :: jw12zWEKBVrKxHCfbkbFVk3veipsmzYxUnsTg5juwkB
+set jw13=147.75.90.239        & :: jw13R1n5bVkqYSPHkWEmFEHp7PTiQYTaHb8yHaga4Wh
+set jw14=145.40.82.7          & :: jw14KneJptEvYMLtJ1qy1k7fEgCcnVVyXn7AWbxQHzQ
 
 :: dev
 set dev4=147.28.178.9        & :: debug hash mismatch

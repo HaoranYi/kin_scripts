@@ -1699,5 +1699,49 @@ total_items_including_duplicates = 665224689i
 total_duplicate_slot_keys        = 52628546i
 accounts_duplicates_num          = 42558223i 
 
+** On async select! from tokio
 
+Syntax : 
+    <pattern> = <async expression> => <handler>
 
+When select macro is evaluated, all <async expression>s are aggregated and
+executed concurrently. When an expression completes, the result is matched
+against <pattern>. If the result matches the pattern, then all remaining async
+expressions are dropped and <handler> is executed. 
+
+- "name" bind in pattern can be used inside handler
+
+- return value if select! - all branches must return the same type
+
+- special borrowing rule - each select! branch may borrow data and operate on
+  them concurrently. Multiple async expression can immutably borrow the same
+  data. Single async expression can mut borrow the data.
+  This is different from "async::spawn(...)", where each expression must own
+  all its data.
+
+- loop with select!
+    select! nested inside a loop to continue processing the incoming data
+        - there is an else branch in "slelect!" to break the loop, which
+          indicates that the connection is dropped.
+
+- working with channel send/receive          
+
+- each branch can modify the "async" expression for next loop iteration
+
+Quote: Both `tokio::spawn` and `select!` enable running concurrent
+asynchronous operations. However, the strategy used to run concurrent
+operations differs. The `tokio::spawn` function takes an asynchronous
+operation and spawn a new task to run it. A task is the object that tokio
+runtime schedules. Two different task are scheduled independently by tokio.
+They many run simultaneously on different operating system threads. Because of
+this, a spawned task has the same restriction as a spawned thread: no
+borrowing.
+
+The `select!` macro runs all branches concurrently on the same task. Because
+all branches of the `select!` macro are executed on the same task, they will
+never run simultaneously. The `select!` macro multiplexes asynchronous
+operations on a single task.
+
+- It is better to emit cancellation token than polling on the future timeout.
+    See an example: 
+        https://github.com/anza-xyz/agave/pull/3151
